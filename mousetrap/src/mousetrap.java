@@ -1,12 +1,9 @@
 
 public class mousetrap {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		fenetre fenetrepp= new fenetre();//generation du menu principal
+		panelmenu1 menuprincipal =new  panelmenu1(fenetrepp);
 	}
 
 }
