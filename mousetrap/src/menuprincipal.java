@@ -12,6 +12,8 @@ import java.awt.Color;
 import javax.swing.JLabel;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.SwingConstants;
 
@@ -60,6 +62,7 @@ public class menuprincipal extends JFrame {
 		play.setBackground(Color.WHITE);
 		contentPane.add(play);
 		
+		
 		JButton optn = new JButton("Options");
 		optn.setBackground(Color.WHITE);
 		contentPane.add(optn);
@@ -71,7 +74,15 @@ public class menuprincipal extends JFrame {
 		JButton quitter = new JButton("Quitter");
 		quitter.setBackground(Color.WHITE);
 		contentPane.add(quitter);
+		quitter.addActionListener(new quit());
 		
+	}
+	
+	class quit implements ActionListener {
+		public void actionPerformed(ActionEvent e)
+		{
+			System.exit(0);
+		}
 	}
 
 }
