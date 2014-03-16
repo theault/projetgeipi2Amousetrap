@@ -3,11 +3,13 @@ public class displaymanager {
 	
 	fenetre fenetre1;
 	panelmenu1 menuprincipal;
+	panelcredits menucredits;
 	
-	public displaymanager (fenetre frame1, panelmenu1 menupp)
+	public displaymanager (fenetre frame1)
 	{
 		this.fenetre1=frame1;
-		this.menuprincipal=menupp;
+		this.menuprincipal= new panelmenu1(this);
+		this.menucredits=new panelcredits(this);
 		choixmenu(1);
 		fenetre1.setVisible(true);
 	}
@@ -20,6 +22,14 @@ public class displaymanager {
 			fenetre1.repaint();
 			fenetre1.revalidate();
 		}
+		
+		else if (i==2)
+		{
+			fenetre1.setContentPane(menucredits);
+			fenetre1.repaint();
+			fenetre1.revalidate();
+		}
+			
 	}
 
 }

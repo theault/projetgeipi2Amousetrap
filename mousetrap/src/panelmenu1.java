@@ -17,12 +17,12 @@ public class panelmenu1 extends JPanel{
 	JButton credits = new JButton("Crédits");
 	JButton quitter = new JButton("Quitter");
 	JLabel nomjeu = new JLabel ("Mouse trap");
+	displaymanager manager ;
 	
-	public panelmenu1 ()
+	public panelmenu1 (displaymanager managerbis)
 	
 	{
-		
-		JPanel centre = new JPanel();
+		this.manager=managerbis;
 		GridLayout grille = new GridLayout (6,1,0,40);
 		
 		this.setLayout(grille);
@@ -37,6 +37,7 @@ public class panelmenu1 extends JPanel{
 		quitter.setBackground(Color.WHITE);
 		
 		this.quitter.addActionListener(new quit ());
+		this.credits.addActionListener(new credit ());
 		
 		
 		
@@ -54,6 +55,13 @@ public class panelmenu1 extends JPanel{
 		public void actionPerformed(ActionEvent e)
 		{
 			System.exit(0);
+		}
+	}
+	
+	class credit implements ActionListener {
+		public void actionPerformed(ActionEvent e)
+		{
+			manager.choixmenu(2); 
 		}
 	}
 	
