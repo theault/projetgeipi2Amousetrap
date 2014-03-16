@@ -11,23 +11,22 @@ import javax.swing.SwingConstants;
 
 
 public class panelmenu1 extends JPanel{
-	
-	fenetre fenetrep;
+
 	JButton play = new JButton("Play!!!");
 	JButton optn = new JButton("Options");
 	JButton credits = new JButton("Crédits");
 	JButton quitter = new JButton("Quitter");
 	JLabel nomjeu = new JLabel ("Mouse trap");
 	
-	public panelmenu1 ( fenetre fenetre1)
+	public panelmenu1 ()
 	
 	{
-		this.fenetrep= fenetre1;
+		
 		JPanel centre = new JPanel();
 		GridLayout grille = new GridLayout (6,1,0,40);
-		this.setLayout(null);
-		centre.setLayout(grille);
-		centre.setBackground(Color.BLACK);
+		
+		this.setLayout(grille);
+		this.setBackground(Color.BLACK);
 		
 		nomjeu.setFont(new Font("Comic Sans MS", Font.BOLD, 46));
 		nomjeu.setForeground(Color.YELLOW);
@@ -36,22 +35,21 @@ public class panelmenu1 extends JPanel{
 		optn.setBackground(Color.WHITE);
 		credits.setBackground(Color.WHITE);
 		quitter.setBackground(Color.WHITE);
-		this.add(centre);
+		
 		this.quitter.addActionListener(new quit ());
 		
 		
 		
 		
-		centre.add(nomjeu);
-		centre.add(play);
-		centre.add(optn);
-		centre.add(credits);
-		centre.add(quitter);
-		
-		this.fenetrep.setContentPane(centre);
+	this.add(nomjeu);
+		this.add(play);
+		this.add(optn);
+	this.add(credits);
+	this.add(quitter);
 		
 		}
 	
+	 
 	class quit implements ActionListener {
 		public void actionPerformed(ActionEvent e)
 		{
