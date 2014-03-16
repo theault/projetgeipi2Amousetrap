@@ -39,6 +39,7 @@ public class panelmenu1 extends JPanel{
 		this.quitter.addActionListener(new quit ());
 		this.credits.addActionListener(new credit ());
 		this.play.addActionListener(new play ());
+		this.optn.addActionListener(new options ());
 		
 		
 		
@@ -70,6 +71,14 @@ public class panelmenu1 extends JPanel{
 		public void actionPerformed(ActionEvent e)
 		{
 			manager.choixmenu(3); 
+		}
+	}
+	
+
+	class options implements ActionListener {
+		public void actionPerformed(ActionEvent e)
+		{
+			manager.choixmenu(4); 
 		}
 	}
 	

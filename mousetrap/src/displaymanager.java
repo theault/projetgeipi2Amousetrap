@@ -5,6 +5,7 @@ public class displaymanager {
 	panelmenu1 menuprincipal;
 	panelcredits menucredits;
 	panelplay menuplay ;
+	paneloptions menuoptions;
 	
 	public displaymanager (fenetre frame1)
 	{
@@ -12,6 +13,7 @@ public class displaymanager {
 		this.menuprincipal= new panelmenu1(this);
 		this.menucredits=new panelcredits(this);
 		this.menuplay = new panelplay (this);
+		this.menuoptions = new paneloptions (this);
 		choixmenu(1);
 		fenetre1.setVisible(true);
 	}
@@ -37,6 +39,13 @@ public class displaymanager {
 			fenetre1.setContentPane(menuplay);
 			fenetre1.repaint();
 			fenetre1.revalidate();
+		}
+		
+		else if (i==4)
+		{
+			fenetre1.setContentPane(menuoptions);
+			fenetre1.repaint();
+			fenetre1.revalidate();	
 		}
 			
 	}

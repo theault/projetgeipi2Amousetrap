@@ -15,7 +15,7 @@ public class panelplay extends JPanel{
 	displaymanager manager;
 	JPanel choix;
 	JPanel image;
-
+	
 	JButton retour = new JButton ("Retour");
 	JButton Single = new JButton ("Single Player");
 	JButton multi = new JButton ("Multiplayer");

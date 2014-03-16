@@ -20,7 +20,7 @@ public class panelcredits  extends JPanel{
 	JButton retour= new JButton ("retour") ;
 	JLabel auteur1= new JLabel ("Titouan VERDU");
 	JLabel auteur2 = new JLabel ("Théault GARRIDO");
-	CardLayout c1 = new CardLayout ();
+	
 	
 	
 	public panelcredits ( displaymanager managerbis)
@@ -36,8 +36,8 @@ public class panelcredits  extends JPanel{
 	    generique.setBackground (Color.BLACK);
 	    GridLayout grille2= new GridLayout(2,1);
 	    generique.setLayout(grille2);
-	    bouton.setLayout(c1);
 	    
+	    bouton.setBackground (Color.BLACK);
 	    generique.add(auteur1);
 	    auteur1.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
 		auteur1.setForeground(Color.YELLOW);
