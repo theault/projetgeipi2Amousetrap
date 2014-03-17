@@ -19,10 +19,13 @@ public class panelplay extends JPanel{
 	JButton retour = new JButton ("Retour");
 	JButton Single = new JButton ("Single Player");
 	JButton multi = new JButton ("Multiplayer");
+	displaymanagergame managerjeu; 
+	fenetre fenetrebis;
 	
 	
-	public panelplay (displaymanager managerbis)
+	public panelplay (displaymanager managerbis, fenetre fenetre1)
 	{
+		this.fenetrebis=fenetre1;
 		this.manager = managerbis;
 		choix = new JPanel ();
 		image = new JPanel();
@@ -43,7 +46,7 @@ public class panelplay extends JPanel{
 		 multi.setBackground(Color.WHITE);
 		 
 		 this.retour.addActionListener(new retour());
-			
+	     this.Single.addActionListener(new Single());
 			
 			
 		}
@@ -52,6 +55,14 @@ public class panelplay extends JPanel{
 			public void actionPerformed(ActionEvent e)
 			{
 				manager.choixmenu(1);
+			}
+		
+	}
+		
+		class Single implements ActionListener {
+			public void actionPerformed(ActionEvent e)
+			{
+			managerjeu = new displaymanagergame(fenetrebis);
 			}
 		
 	}

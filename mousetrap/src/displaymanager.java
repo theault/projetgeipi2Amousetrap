@@ -12,10 +12,11 @@ public class displaymanager {
 		this.fenetre1=frame1;
 		this.menuprincipal= new panelmenu1(this);
 		this.menucredits=new panelcredits(this);
-		this.menuplay = new panelplay (this);
+		this.menuplay = new panelplay (this, this.fenetre1);
 		this.menuoptions = new paneloptions (this);
 		choixmenu(1);
 		fenetre1.setVisible(true);
+		
 	}
 	
 	public void choixmenu (int i)
