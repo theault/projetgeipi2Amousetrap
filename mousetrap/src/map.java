@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
+
 
 public class map  {
 	
@@ -20,8 +22,9 @@ public class map  {
 	public map (String url, String fichetxt)
 	{
 		this.file=url;
-		this.toolkit = Toolkit.getDefaultToolkit();
-		this.image = toolkit.getImage(url);
+	     this.image = Toolkit.getDefaultToolkit().getImage(this.file);
+		                    
+		
 		this.Grille=new int [10][10];
 		this.fichetxt=fichetxt;//fichier contenant la grille de 0 et de 1
 		
