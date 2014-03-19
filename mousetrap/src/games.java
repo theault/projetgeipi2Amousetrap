@@ -21,7 +21,7 @@ public class games extends JPanel{
 	{
 	
 		try {
-			carte = new map("map-1.jpg", "1.txt");
+			carte = new map("map-1.jpg", "map1.txt");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -30,6 +30,7 @@ public class games extends JPanel{
 		this.setBackground(Color.BLACK);
 		this.cool = new upgrade (this.image, this);
 		this.setPreferredSize(new Dimension(600, 600));
+		this.add(cool);
      }
 
 	
@@ -37,6 +38,6 @@ public class games extends JPanel{
 	public void paintComponent(Graphics g) {
 	      super.paintComponent(g);
 	      g.drawImage(image, 0, 0,getWidth(), getHeight(), this);
-	      System.out.println ("je suis un sale encule " + getWidth()+ " "+getHeight());
+	      
 	  }
 }

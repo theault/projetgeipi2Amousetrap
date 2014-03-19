@@ -1,4 +1,5 @@
 import java.awt.Canvas;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -6,7 +7,7 @@ import java.awt.Image;
 import javax.swing.JPanel;
 
 
-public class upgrade {
+public class upgrade extends JPanel {
 
 	Image image;
 	games game;
@@ -16,13 +17,14 @@ public class upgrade {
 	{
 		this.image= image ;
 		this.game=game;
-		//this.paintComponent(g);
+	     this.setPreferredSize(new Dimension(20, 20));
      }
 	
 	
 	public void paintComponent (Graphics2D g)
 	{
+		super.paintComponent(g);
 		System.out.println ("prout");
-	      g.drawImage(image, 0, 0,100,100, game);
+	      g.drawImage(image, 0, 0,100,100, this);
 	}
 }
