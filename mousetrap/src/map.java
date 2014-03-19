@@ -29,7 +29,7 @@ public class map  {
 		this.fichetxt=fichetxt;//fichier contenant la grille de 0 et de 1
 		
 		inittab(); 
-		test();
+		//test();
 		
 	}
 	
