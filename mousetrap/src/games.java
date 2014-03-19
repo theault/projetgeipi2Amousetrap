@@ -1,5 +1,6 @@
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.IOException;
@@ -14,14 +15,23 @@ public class games extends JPanel{
 	map carte;
 	Image image;
 	
-	public games (){
+	public games ()
+	{
 	
-		carte = new map("1.jpg", "1.txt");
+		try {
+			carte = new map("jaune.jpg", "1.txt");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.image = carte.image;
-                    }
+		this.setBackground(Color.BLACK);
+     }
 
-	 public void paintComponent(Graphics g) {
+	
+	
+	public void paintComponent(Graphics g) {
 	      super.paintComponent(g);
-	      g.drawImage(image, 0, 0, this);
+	      g.drawImage(image, 0, 0,this);
 	  }
 }

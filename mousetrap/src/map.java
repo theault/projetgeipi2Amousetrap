@@ -19,7 +19,7 @@ public class map  {
 	BufferedReader lire ;
 	String fichetxt;
 	
-	public map (String url, String fichetxt)
+	public map (String url, String fichetxt) throws IOException
 	{
 		this.file=url;
 	     this.image = Toolkit.getDefaultToolkit().getImage(this.file);
@@ -28,30 +28,44 @@ public class map  {
 		this.Grille=new int [10][10];
 		this.fichetxt=fichetxt;//fichier contenant la grille de 0 et de 1
 		
+		inittab(); 
+		test();
+		
 	}
 	
 	public void inittab () throws IOException 
-	{
+	{   String chaine;
 		File fichier = new File (fichetxt);
 		long taillefichier = fichier.length();
 		lire = new BufferedReader (new FileReader (fichier));
 		char a ;
 		int i;
 		int j;
-				if (taillefichier <=99)
-					{
-						for ( i=0; i<=9; i++)
-						{
-								for (j=0; j<=9; j++)
-									{
-										a=(char)lire.read();
-									     Grille[i][j]=Character.getNumericValue(a);
-									}
-						}
-					}
 		
+		for (i=0;i<=9; i++)
+		{
+			chaine=lire.readLine(); // on recupere chaque ligne du fichier
+			for (j=0;j<=9;j++)
+			{
+				Grille[i][j]=Character.getNumericValue(chaine.charAt(j));// on convertit chaque caractere de la ligne en valeur numérique
+			}
+		}
+				
 		lire.close();	
     }
 	
+	
+	public void test ()
+	{ int i,j; 
+		for ( i=0; i<=9; i++)
+		{
+				for (j=0; j<=9; j++)
+					{
+						
+					   System.out.print("  "+Grille[i][j]);
+					}
+				System.out.println();
+		}
+	}
 
 }

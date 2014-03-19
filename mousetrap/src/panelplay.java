@@ -1,6 +1,9 @@
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -21,7 +24,7 @@ public class panelplay extends JPanel{
 	JButton multi = new JButton ("Multiplayer");
 	displaymanagergame managerjeu; 
 	fenetre fenetrebis;
-	
+	Image images; 
 	
 	public panelplay (displaymanager managerbis, fenetre fenetre1)
 	{
@@ -32,7 +35,7 @@ public class panelplay extends JPanel{
 		this.setLayout(new BorderLayout());
 		this.add(choix, BorderLayout.SOUTH);
 		this.add(image, BorderLayout.CENTER);
-		
+		this.images = Toolkit.getDefaultToolkit().getImage("jaune.jpg");
 		
 	  
 		choix.add( retour);
@@ -66,6 +69,11 @@ public class panelplay extends JPanel{
 			}
 		
 	}
+		
+		public void paintComponent(Graphics g) {
+		      super.paintComponent(g);
+		      g.drawImage(images, 0, 0,this);
+		  }
 	
 
 }
