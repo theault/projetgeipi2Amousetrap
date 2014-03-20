@@ -17,14 +17,16 @@ public class upgrade extends JPanel {
 	{
 		this.image= image ;
 		this.game=game;
+		
 	     this.setPreferredSize(new Dimension(20, 20));
+	     game.add(this);
      }
 	
 	
-	public void paintComponent (Graphics2D g)
+	public void paint  (Graphics2D g)
 	{
 		super.paintComponent(g);
 		System.out.println ("prout");
-	      g.drawImage(image, 0, 0,100,100, this);
+	      g.drawImage(image, 0, 0,100,100, null);
 	}
 }
