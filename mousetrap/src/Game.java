@@ -21,8 +21,8 @@ import java.awt.event.MouseWheelListener;
 public abstract class Game implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener {
 
 	protected boolean over;
-	protected String title = "My Game";
-	protected int width=400, height=300;
+	protected String title = "MouseTRap";
+	protected int width=606, height=628;
 	protected int delay = 30;
 
 	public void init() {}

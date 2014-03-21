@@ -22,7 +22,7 @@ public class panelplay extends JPanel{
 	JButton retour = new JButton ("Retour");
 	JButton Single = new JButton ("Single Player");
 	JButton multi = new JButton ("Multiplayer");
-	displaymanagergame managerjeu; 
+	jeu mygame; 
 	fenetre fenetrebis;
 	Image images; 
 	
@@ -66,15 +66,13 @@ public class panelplay extends JPanel{
 			public void actionPerformed(ActionEvent e)
 			{
 		     manager.choixmenu(5);
-			managerjeu = new displaymanagergame();
+			mygame = new jeu();
+			mygame.begin();
 			}
 		
 	}
 		
-		public void paintComponent(Graphics g) {
-		      super.paintComponent(g);
-		      g.drawImage(images, 0, 0,this);
-		  }
+		
 	
 
 }
