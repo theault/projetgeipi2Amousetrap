@@ -20,6 +20,7 @@ public class GameApplication {
 			public void run() {
 				JFrame frame = new JFrame(game.getTitle());
 				frame.setSize(game.getWidth(), game.getHeight());
+				frame.setResizable(false);
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				GameCanvas canvas = new GameCanvas();
 				canvas.setGame(game);

@@ -55,11 +55,7 @@ public class displaymanager {
 		}
 		else if (i==5)
 		{
-			JPanel panel = new JPanel ();
-			panel.setBackground( Color.BLACK);
-			fenetre1.setContentPane(panel);
-		    fenetre1.repaint();
-		    fenetre1.revalidate();
+			fenetre1.setVisible(false);
 		}
 			
 	}
