@@ -18,6 +18,7 @@ public class GameApplication {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
+				System.out.println("coucou");
 				JFrame frame = new JFrame(game.getTitle());
 				frame.setSize(game.getWidth(), game.getHeight());
 				frame.setResizable(false);
