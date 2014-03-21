@@ -5,35 +5,29 @@
 
 
 
-import java.awt.Color;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-
+/**
+ *
+ * @author paul
+ */
 public class GameApplication {
-	
-	
 
 	public static void start(final Game game) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				fenetre frame = game.frame;
-				//JPanel panel = new JPanel ();
-				/*panel.setBackground(Color.BLACK);
-				frame.add(panel);*/
-				frame.setSize(606, 628);
-				frame.setResizable(false);
+				JFrame frame = new JFrame(game.getTitle());
+				frame.setSize(game.getWidth(), game.getHeight());
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				GameCanvas canvas = new GameCanvas();
 				canvas.setGame(game);
 				frame.add(canvas);
+				frame.setVisible(true);
 				canvas.requestFocus();
 				new GameLoop(game, canvas).start();
-				System.out.println("wesh");
 			}
 		});
 	}
-	
 }

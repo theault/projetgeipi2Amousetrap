@@ -3,6 +3,8 @@
  * and open the template in the editor.
  */
 
+
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ComponentEvent;
@@ -23,6 +25,9 @@ public class GameCanvas extends JComponent implements ComponentListener {
     public GameCanvas(Game game) {
 		this.game = game;
 		addKeyListener(game);
+		addMouseListener(game);
+		addMouseMotionListener(game);
+		addMouseWheelListener(game);
 		requestFocus();
 		addComponentListener(this);
     }
@@ -30,6 +35,8 @@ public class GameCanvas extends JComponent implements ComponentListener {
 	public void setGame(Game game) {
 		this.game = game;
 		addKeyListener(game);
+		addMouseListener(game);
+		addMouseMotionListener(game);
 		requestFocus();
 		addComponentListener(this);
 	}

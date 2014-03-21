@@ -66,7 +66,7 @@ public class panelplay extends JPanel{
 			public void actionPerformed(ActionEvent e)
 			{
 		     manager.choixmenu(5);
-			managerjeu = new displaymanagergame(fenetrebis);
+			managerjeu = new displaymanagergame();
 			}
 		
 	}
