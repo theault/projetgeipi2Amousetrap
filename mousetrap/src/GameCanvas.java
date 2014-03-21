@@ -23,9 +23,6 @@ public class GameCanvas extends JComponent implements ComponentListener {
     public GameCanvas(Game game) {
 		this.game = game;
 		addKeyListener(game);
-		addMouseListener(game);
-		addMouseMotionListener(game);
-		addMouseWheelListener(game);
 		requestFocus();
 		addComponentListener(this);
     }
@@ -33,8 +30,6 @@ public class GameCanvas extends JComponent implements ComponentListener {
 	public void setGame(Game game) {
 		this.game = game;
 		addKeyListener(game);
-		addMouseListener(game);
-		addMouseMotionListener(game);
 		requestFocus();
 		addComponentListener(this);
 	}

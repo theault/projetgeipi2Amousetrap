@@ -1,16 +1,24 @@
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.io.IOException;
 
-public class displaymanagergame {
+import javax.swing.JPanel;
+
+
+
+public class displaymanagergame  {
 
 	fenetre fenetrejeu;
-	games contgames;
-	
+	GameApplication game;
+	map carte;
+	JPanel contgames = new JPanel();
+	gestionnaire managergame;
 	
 	public displaymanagergame (fenetre frame1)
 	{
 		this.fenetrejeu =frame1;
-		this.fenetrejeu.setSize(606, 628);
-		this.fenetrejeu.setResizable(false);
-		this.contgames = new games();// panel qui va contenir tout le jeu 
-		fenetrejeu.setContentPane(this.contgames); 
+	    this.managergame=new gestionnaire (this.fenetrejeu);
+	    this.managergame.truc();
 	}
+
 }

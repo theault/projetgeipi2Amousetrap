@@ -6,8 +6,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
-
 
 public class map  {
 	
@@ -29,23 +27,21 @@ public class map  {
 		this.fichetxt=fichetxt;//fichier contenant la grille de 0 et de 1
 		
 		inittab(); 
-		//test();
+		test();
 		
 	}
 	
 	public void inittab () throws IOException 
 	{   String chaine;
 		File fichier = new File (fichetxt);
-		long taillefichier = fichier.length();
 		lire = new BufferedReader (new FileReader (fichier));
-		char a ;
 		int i;
 		int j;
 		
-		for (i=0;i<=9; i++)
+		for (i=0;i<10; i++)
 		{
 			chaine=lire.readLine(); // on recupere chaque ligne du fichier
-			for (j=0;j<=9;j++)
+			for (j=0;j<10;j++)
 			{
 				Grille[i][j]=Character.getNumericValue(chaine.charAt(j));// on convertit chaque caractere de la ligne en valeur numérique
 			}

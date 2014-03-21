@@ -1,3 +1,7 @@
+import java.awt.Color;
+
+import javax.swing.JPanel;
+
 
 public class displaymanager {
 	
@@ -47,6 +51,14 @@ public class displaymanager {
 			fenetre1.setContentPane(menuoptions);
 			fenetre1.repaint();
 			fenetre1.revalidate();	
+		}
+		else if (i==5)
+		{
+			JPanel panel = new JPanel ();
+			panel.setBackground( Color.BLACK);
+			fenetre1.setContentPane(panel);
+		    fenetre1.repaint();
+		    fenetre1.revalidate();
 		}
 			
 	}
