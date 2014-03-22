@@ -69,7 +69,7 @@ public class panelmenu1 extends JPanel{
 
 	class play implements ActionListener {
 		public void actionPerformed(ActionEvent e)
-		{
+		{  System.out.println ("wesh");
 			manager.choixmenu(3); 
 		}
 	}

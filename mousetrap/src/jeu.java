@@ -71,6 +71,7 @@ public class jeu extends Game {
 		nbrline = lignes.size(); 
 		nbrcolonnes = lignes.get(0).length();
 		System.out.println("le fichier texte contient : " + nbrline + "lignes "+  nbrcolonnes+ "colonnes");
+		System.out.println("test recup valeur " + Valmap(0,1));
 	}
 	
 	public void Keypressed (KeyEvent e) {
@@ -118,3 +119,10 @@ public class jeu extends Game {
 	}
 
 }
+
+
+/* deja faiit :
+ * un putain de trucs de magiciens pour voir le gugusses QUI bouge, manque plus que l'images sprites
+ * normalement l'orientation du sprite est deja faite
+ * recuperation du fichier contenant les 0 et les 1 pour les colisions 
+ * il faudrait recuperer la photo de la map*/
