@@ -14,9 +14,11 @@ public class jeu extends Game {
     
 	final int vitesse=1; // vitesse de la mouse
 	BufferedImage Mouse;
+	BufferedImage map;
 	String urlfiletxt;
 	File filetxt;
 	String imagemouse;
+	String urlimagemap;
 	int fps;
 	int xmouse, ymouse; 
 	int haut,bas,droite,gauche;
@@ -34,20 +36,30 @@ public class jeu extends Game {
 	{  
 		this.urlfiletxt="map1.txt"; //adresse du fichier texte contenant les 0 et 1 de la map
 		this.filetxt= new File (this.urlfiletxt); // on recupere le fichier
-		this.haut=KeyEvent.VK_UP; //  pour recuperer ce que vaut la touche fleche du dessus
+		
+		/*this.haut=KeyEvent.VK_UP; //  pour recuperer ce que vaut la touche fleche du dessus
 		this.bas = KeyEvent.VK_DOWN;
 		this.droite = KeyEvent.VK_RIGHT;
-		this.gauche = KeyEvent.VK_LEFT;
+		this.gauche = KeyEvent.VK_LEFT;*/
+		
 		fps=0;
 		xmouse=300;
 		ymouse=300;
 		inittab(); // lecutre du tableau
+		
 		//imagemouse= "wesh l'adresse
 		/*try{
 		Mouse=ImageIO.read(new File (imagemouse));
 		} catch (IOException e){
 			e.printStackTrace();
 		}*/
+		
+		urlimagemap ="map-1.jpg";
+				   try{
+					   	map=ImageIO.read(new File (urlimagemap));
+				   	   } catch (IOException e){
+				   		   							e.printStackTrace();
+				   	   						   }
 		
 	}
 	
@@ -116,7 +128,7 @@ public class jeu extends Game {
 	
 	public void draw(Graphics2D g) {
 		//g.drawImage(Mouse.getSubimage(fps*tailleimagex, (direction-37)*tailleperso, w, h), xmouse,ymouse, null);// pour afficher le sprite de la souris 
-	}
+		g.drawImage(map, 0,0,null);}
 
 }
 

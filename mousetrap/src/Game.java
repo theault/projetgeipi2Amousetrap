@@ -22,7 +22,7 @@ public abstract class Game implements KeyListener, MouseListener, MouseMotionLis
 
 	protected boolean over;
 	protected String title = "MouseTRap";
-	protected int width=606, height=628;
+	protected int width=606, height=678;
 	protected int delay = 30;
 
 	public void init() {}
