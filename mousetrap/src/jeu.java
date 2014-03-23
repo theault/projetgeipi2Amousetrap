@@ -116,37 +116,40 @@ public class jeu extends Game {
 	 switch (direction ){
 		
 		case KeyEvent.VK_LEFT: //37
-			if (Valmap())
-			lines-=vitesse;
-			numerosprite =0;
+			if (getcolumn()>0 && Valmap(getline(),getcolumn()-1)!='1')
+			{lines-=vitesse;
+			numerosprite =0;}
 			break;
 	 
 		
 	case KeyEvent.VK_RIGHT://38
-			lines+=vitesse;
-			numerosprite=1;
+			if (getcolumn()<=nbrcolumn && Valmap(getline(),getcolumn()+2)!='1')
+		    {lines+=vitesse;
+			numerosprite=1;}
 			break;
 			
 	case KeyEvent.VK_UP://39
-			colonnes-=vitesse;
-			numerosprite=3;
+		if (getline()>0 && Valmap(getline()-1,getcolumn())!='1')
+		{  colonnes-=vitesse;
+			numerosprite=3;}
 			break;
 		
 	case KeyEvent.VK_DOWN://40
-			colonnes+=vitesse;
-			numerosprite =2;
+		if (getline()<=nbrcolumn && Valmap(getline()+2,getcolumn())!='1')
+		{ colonnes+=vitesse;
+			numerosprite =2;}
 			break;
 			
 		}
 		
 	 if (lines<0)
 		 lines=0;
-	 else  if (lines >width-40-vitesse)
-		 lines=(width-40-vitesse);
+	 else  if (lines >560-vitesse)
+		 lines=(560-vitesse);
 	 else if (colonnes<0)
 		 colonnes=0;
-	 else if (colonnes >height-40-vitesse)
-		 colonnes=(height-40-vitesse);// à revoir petit pb
+	 else if (colonnes >560-vitesse)
+		 colonnes=(560-vitesse);// à revoir petit pb
 	}
 
 	
