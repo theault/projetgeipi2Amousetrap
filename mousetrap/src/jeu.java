@@ -12,19 +12,19 @@ import javax.imageio.ImageIO;
 
 public class jeu extends Game {
     
-	final int vitesse=1; // vitesse de la mouse
+	final int vitesse=3; // vitesse de la mouse
 	BufferedImage Mouse;
 	BufferedImage map;
 	String urlfiletxt;
 	File filetxt;
-	String imagemouse;
+	String urlimagemouse;
 	String urlimagemap;
 	int fps;
-	int xmouse, ymouse; 
+	int lines, colonnes; 
+	int nbrlines, nbrcolumn;
 	int haut,bas,droite,gauche;
 	int direction;
-	int nbrline;
-    int nbrcolonnes;
+    int numerosprite;
 	ArrayList <String> lignes = new ArrayList <String>();
 	
 	public void begin () {
@@ -41,18 +41,16 @@ public class jeu extends Game {
 		this.bas = KeyEvent.VK_DOWN;
 		this.droite = KeyEvent.VK_RIGHT;
 		this.gauche = KeyEvent.VK_LEFT;*/
-		
+		direction =0;
 		fps=0;
-		xmouse=300;
-		ymouse=300;
 		inittab(); // lecutre du tableau
 		
-		//imagemouse= "wesh l'adresse
-		/*try{
-		Mouse=ImageIO.read(new File (imagemouse));
+		urlimagemouse= "stuart.jpg";
+		try{
+		Mouse=ImageIO.read(new File (urlimagemouse));
 		} catch (IOException e){
 			e.printStackTrace();
-		}*/
+		}
 		
 		urlimagemap ="map-1.jpg";
 				   try{
@@ -65,59 +63,90 @@ public class jeu extends Game {
 	
 	
 	public void inittab()
-	{    nbrline=0;
-	     nbrcolonnes =0;
-		try {
+	{    lines=0;
+	     colonnes =0;
+	     String line;
+		try { 
+			int A=0;
 			Scanner S = new Scanner (filetxt);
 					while (S.hasNextLine())
-							{
-								lignes.add(S.nextLine());
-							}
+							{   
+								line=S.nextLine();
+								lignes.add(line);
+								if (line.contains("5")){
+								 lines =A*20;
+								 colonnes = line.indexOf("5")*20;
+								}
+								 A++;
+								   }
+		   
 			S.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+												e.printStackTrace();
+										  }
 		
 		//test file
-		nbrline = lignes.size(); 
-		nbrcolonnes = lignes.get(0).length();
-		System.out.println("le fichier texte contient : " + nbrline + "lignes "+  nbrcolonnes+ "colonnes");
+		nbrlines = lignes.size(); 
+		nbrcolumn = lignes.get(0).length();
+		System.out.println("le fichier texte contient : " + nbrlines + "lignes "+  nbrcolumn+ "colonnes");
 		System.out.println("test recup valeur " + Valmap(0,1));
 	}
 	
-	public void Keypressed (KeyEvent e) {
+	public int getcolumn(){
+		return (colonnes/20);
+	}
+	
+	public int getline(){
+		return (lines/20);
+	}
+	
+	@Override 
+	public void keyPressed (KeyEvent e){
 		int key = e.getKeyCode();
-		if (key >36||key<41) // pour filtrer si la touche appuyer est bien la bonne 
+		if (key>36 && key <41)
 			direction = key;
 	}
 
 	@Override
 	public void update() {
 		fps++;  // regler la vitesse d'affichage
-		if(fps>5)
+		if(fps>6)
 			fps=0;
 		
-		switch (direction ){
+	 switch (direction ){
 		
 		case KeyEvent.VK_LEFT: //37
-			xmouse-=vitesse;
+			if (Valmap())
+			lines-=vitesse;
+			numerosprite =0;
+			break;
+	 
+		
+	case KeyEvent.VK_RIGHT://38
+			lines+=vitesse;
+			numerosprite=1;
+			break;
+			
+	case KeyEvent.VK_UP://39
+			colonnes-=vitesse;
+			numerosprite=3;
 			break;
 		
-		case KeyEvent.VK_RIGHT://38
-			xmouse+=vitesse;
-			break;
-		
-		case KeyEvent.VK_UP://39
-			ymouse-=vitesse;
-			break;
-		
-		case KeyEvent.VK_DOWN://40
-			xmouse+=vitesse;
+	case KeyEvent.VK_DOWN://40
+			colonnes+=vitesse;
+			numerosprite =2;
 			break;
 			
 		}
 		
+	 if (lines<0)
+		 lines=0;
+	 else  if (lines >width-40-vitesse)
+		 lines=(width-40-vitesse);
+	 else if (colonnes<0)
+		 colonnes=0;
+	 else if (colonnes >height-40-vitesse)
+		 colonnes=(height-40-vitesse);// à revoir petit pb
 	}
 
 	
@@ -127,8 +156,10 @@ public class jeu extends Game {
 	}
 	
 	public void draw(Graphics2D g) {
-		//g.drawImage(Mouse.getSubimage(fps*tailleimagex, (direction-37)*tailleperso, w, h), xmouse,ymouse, null);// pour afficher le sprite de la souris 
-		g.drawImage(map, 0,0,null);}
+		
+		g.drawImage(map, 0,0,null);
+		g.drawImage(Mouse.getSubimage(fps*40 ,numerosprite*40, 40, 40), lines,colonnes, null);// pour afficher le sprite de la souris 
+	}
 
 }
 
