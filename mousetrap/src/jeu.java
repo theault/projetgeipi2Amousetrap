@@ -116,8 +116,9 @@ public class jeu extends Game {
 	 switch (direction ){
 		
 		case KeyEvent.VK_LEFT: //37
-			column-=vitesse;
-			numerosprite =0;
+			if ( value(getrow(),getcolumn()-1)=='0'&& value(getrow()+1,getcolumn()-1)=='0')//value(Y,X-1)
+			{column-=vitesse;
+			numerosprite =0;}
 			break;
 	 
 		
@@ -139,20 +140,16 @@ public class jeu extends Game {
 			break;
 			
 		}
-		
-	 if (column<0)
-		 column=0;
-	 else  if (column >560-vitesse)
-		 column=(560-vitesse);
-	 else if (row<0)
-		 row=0;
-	 else if (row >560-vitesse)
-		 row=(560-vitesse);// à revoir petit pb
 	}
 
 	
 	
 	
+	private char value(int row1, int  column1) {
+		// TODO Auto-generated method stub
+		return lignes.get(row1).charAt(column1);
+	}
+
 	public void draw(Graphics2D g) {
 		
 		g.drawImage(map, 0,0,null);
