@@ -20,8 +20,8 @@ public class jeu extends Game {
 	String urlimagemouse;
 	String urlimagemap;
 	int fps;
-	int lines, colonnes; 
-	int nbrlines, nbrcolumn;
+	int column, row; 
+	int nbrows, nbrcolumn;
 	int haut,bas,droite,gauche;
 	int direction;
     int numerosprite;
@@ -45,7 +45,7 @@ public class jeu extends Game {
 		fps=0;
 		inittab(); // lecutre du tableau
 		
-		urlimagemouse= "stuart.jpg";
+		urlimagemouse= "stuart.gif";
 		try{
 		Mouse=ImageIO.read(new File (urlimagemouse));
 		} catch (IOException e){
@@ -63,19 +63,19 @@ public class jeu extends Game {
 	
 	
 	public void inittab()
-	{    lines=0;
-	     colonnes =0;
-	     String line;
+	{    column=0;
+	     row =0;
 		try { 
 			int A=0;
 			Scanner S = new Scanner (filetxt);
 					while (S.hasNextLine())
 							{   
-								line=S.nextLine();
+								String line=S.nextLine();
 								lignes.add(line);
 								if (line.contains("5")){
-								 lines =A*20;
-								 colonnes = line.indexOf("5")*20;
+								 row =A*20;
+								 column = line.indexOf("5")*20;
+								 System.out.println("je m'initialise à : " + row/20 + " lignes et "+column/20+ " colonnes");
 								}
 								 A++;
 								   }
@@ -86,19 +86,12 @@ public class jeu extends Game {
 										  }
 		
 		//test file
-		nbrlines = lignes.size(); 
+		nbrows = lignes.size(); 
 		nbrcolumn = lignes.get(0).length();
-		System.out.println("le fichier texte contient : " + nbrlines + "lignes "+  nbrcolumn+ "colonnes");
-		System.out.println("test recup valeur " + Valmap(0,1));
+		System.out.println("le fichier texte contient : " + nbrows + "lignes "+  nbrcolumn+ "colonnes");
+		//System.out.println("test recup valeur " + Valmap(0,1));
 	}
 	
-	public int getcolumn(){
-		return (colonnes/20);
-	}
-	
-	public int getline(){
-		return (lines/20);
-	}
 	
 	@Override 
 	public void keyPressed (KeyEvent e){
@@ -106,7 +99,14 @@ public class jeu extends Game {
 		if (key>36 && key <41)
 			direction = key;
 	}
+	
+	public int getrow(){
+		return row/20; // return le numero de la ligne ou se situe la souris (coord y)
+	}
 
+	public int getcolumn(){
+		return column/20; // return le numero de la coloones ou se situe la souris (coord x)
+	}
 	@Override
 	public void update() {
 		fps++;  // regler la vitesse d'affichage
@@ -116,52 +116,47 @@ public class jeu extends Game {
 	 switch (direction ){
 		
 		case KeyEvent.VK_LEFT: //37
-			if (getcolumn()>0 && Valmap(getline(),getcolumn()-1)!='1')
-			{lines-=vitesse;
-			numerosprite =0;}
+			column-=vitesse;
+			numerosprite =0;
 			break;
 	 
 		
 	case KeyEvent.VK_RIGHT://38
-			if (getcolumn()<=nbrcolumn && Valmap(getline(),getcolumn()+2)!='1')
-		    {lines+=vitesse;
-			numerosprite=1;}
+			
+		    column+=vitesse;
+			numerosprite=1;
 			break;
 			
 	case KeyEvent.VK_UP://39
-		if (getline()>0 && Valmap(getline()-1,getcolumn())!='1')
-		{  colonnes-=vitesse;
-			numerosprite=3;}
+		
+		  row-=vitesse;
+			numerosprite=3;
 			break;
 		
 	case KeyEvent.VK_DOWN://40
-		if (getline()<=nbrcolumn && Valmap(getline()+2,getcolumn())!='1')
-		{ colonnes+=vitesse;
-			numerosprite =2;}
+		row+=vitesse;
+			numerosprite =2;
 			break;
 			
 		}
 		
-	 if (lines<0)
-		 lines=0;
-	 else  if (lines >560-vitesse)
-		 lines=(560-vitesse);
-	 else if (colonnes<0)
-		 colonnes=0;
-	 else if (colonnes >560-vitesse)
-		 colonnes=(560-vitesse);// à revoir petit pb
+	 if (column<0)
+		 column=0;
+	 else  if (column >560-vitesse)
+		 column=(560-vitesse);
+	 else if (row<0)
+		 row=0;
+	 else if (row >560-vitesse)
+		 row=(560-vitesse);// à revoir petit pb
 	}
 
 	
 	
-	private char Valmap (int ligne , int colonnes){
-		return lignes.get(ligne).charAt(colonnes);
-	}
 	
 	public void draw(Graphics2D g) {
 		
 		g.drawImage(map, 0,0,null);
-		g.drawImage(Mouse.getSubimage(fps*40 ,numerosprite*40, 40, 40), lines,colonnes, null);// pour afficher le sprite de la souris 
+		g.drawImage(Mouse.getSubimage(fps*40 ,(numerosprite*60), 40, 40), column,row, null);// pour afficher le sprite de la souris 
 	}
 
 }
