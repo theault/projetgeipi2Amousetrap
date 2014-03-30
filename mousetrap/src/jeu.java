@@ -116,16 +116,16 @@ public class jeu extends Game {
 	 switch (direction ){
 		
 		case KeyEvent.VK_LEFT: //37
-			if ( value(getrow(),getcolumn()-1)=='0'&& value(getrow()+1,getcolumn()-1)=='0')//value(Y,X-1)
+			if ( column>0 && value(getrow(),getcolumn()-1)!='1'&& value(getrow()+1,getcolumn())!='1')//value(Y,X-1)
 			{column-=vitesse;
 			numerosprite =0;}
 			break;
 	 
 		
 	case KeyEvent.VK_RIGHT://38
-			
-		    column+=vitesse;
-			numerosprite=1;
+		if (  value(getrow(),getcolumn()+2)!='1'&& value(getrow()+1,getcolumn()+2)!='1')
+		{ column+=vitesse;
+			numerosprite=1;}
 			break;
 			
 	case KeyEvent.VK_UP://39
@@ -135,8 +135,9 @@ public class jeu extends Game {
 			break;
 		
 	case KeyEvent.VK_DOWN://40
-		row+=vitesse;
-			numerosprite =2;
+		if ( value(getrow()+2,getcolumn())!='1'&& value(getrow()+2,getcolumn()+1)!='1')//value(Y,X-1)
+		{row+=vitesse;
+			numerosprite =2;}
 			break;
 			
 		}
@@ -146,8 +147,9 @@ public class jeu extends Game {
 	
 	
 	private char value(int row1, int  column1) {
-		// TODO Auto-generated method stub
-		return lignes.get(row1).charAt(column1);
+		char a =lignes.get(row1).charAt(column1);
+		System.out.println("a la ligne : "+row1+" et à la colonne : "+column1+" j'ai une valeur de : " +a);
+		return a;
 	}
 
 	public void draw(Graphics2D g) {
@@ -156,9 +158,44 @@ public class jeu extends Game {
 		g.drawImage(Mouse.getSubimage(fps*40 ,(numerosprite*60), 40, 40), column,row, null);// pour afficher le sprite de la souris 
 	}
 
+
+
+public boolean collision (int row1, int column1, int row2, int column2){
+	row1=row1*20;
+	row2=row2*20;
+	column1=column1*20;
+	column2=column2*20;
+	int y1=row1;
+	int y2=row2;
+	int X1=column1;
+	int X2=column2;
+	
+	if (direction ==37){ // à gauche
+	  
+		row2+=19;	
+	}
+	
+	else if (direction ==38){
+		  column1+=39;
+		  column2+=39;
+		  row2+=19;	
+	}
+	else if (direction == 39)
+	{
+		column2+=39;
+		  row2-=19;	
+	}
+	else if (direction == 40)
+	{
+		  row1+=39;
+		  column2+=39;
+		  row2+=19;
+	}
+	
+	
+	return false;
 }
-
-
+}
 /* deja faiit :
  * un putain de trucs de magiciens pour voir le gugusses QUI bouge, manque plus que l'images sprites
  * normalement l'orientation du sprite est deja faite
