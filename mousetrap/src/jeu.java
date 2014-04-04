@@ -116,7 +116,7 @@ public class jeu extends Game {
 	 switch (direction ){
 		
 		case KeyEvent.VK_LEFT: //37
-			if ( column>0 && value(getrow(),getcolumn()-1)!='1'&& value(getrow()+1,getcolumn())!='1')//value(Y,X-1)
+			if ( collision (getrow(),getcolumn(), getrow()+1, getcolumn()))//value(Y,X-1)
 			{column-=vitesse;
 			numerosprite =0;}
 			break;
@@ -147,8 +147,10 @@ public class jeu extends Game {
 	
 	
 	private char value(int row1, int  column1) {
-		char a =lignes.get(row1).charAt(column1);
-		System.out.println("a la ligne : "+row1+" et à la colonne : "+column1+" j'ai une valeur de : " +a);
+		char a='1';
+		if (row1>=0 && column1>=0){
+		 a =lignes.get(row1).charAt(column1);
+		System.out.println("a la ligne : "+row1+" et à la colonne : "+column1+" j'ai une valeur de : " +a);}
 		return a;
 	}
 
@@ -161,40 +163,78 @@ public class jeu extends Game {
 
 
 public boolean collision (int row1, int column1, int row2, int column2){
+	
 	row1=row1*20;
 	row2=row2*20;
 	column1=column1*20;
 	column2=column2*20;
-	int y1=row1;
+    boolean colision=true; 
+    int y1=row1;
 	int y2=row2;
-	int X1=column1;
-	int X2=column2;
-	
+	int x1=column1;
+	int x2=column2;
+	int temp;
+	boolean case1=false ;
+	boolean case2=false ;
+    
 	if (direction ==37){ // à gauche
 	  
-		row2+=19;	
+		row2+=20;	
+		y2=row2;
+		x1=(x1/20);
+		x2=x2/20;
+		
+		if (value ((y1/20), x1-1)=='1') 
+		{    
+			x1=(x1*20)+20;
+			x2=x1;
+			case1=true;
+		}
+		
+		else if (value ((y2/20), x2-1)=='1')
+		{
+			x2=(x2*20)+20;
+			x1=x2;
+			case2=true;
+		}
+		
+		
 	}
 	
-	else if (direction ==38){
-		  column1+=39;
-		  column2+=39;
-		  row2+=19;	
+	/*else if (direction ==38){
+		  column1+=40;
+		  column2+=40;
+		  row2+=20;	
 	}
 	else if (direction == 39)
 	{
-		column2+=39;
+		column2+=40;
 		  row2-=19;	
 	}
 	else if (direction == 40)
 	{
-		  row1+=39;
-		  column2+=39;
-		  row2+=19;
+		  row1+=40;
+		  column2+=40;
+		  row2+=20;
 	}
 	
+	int y1=row1;
+	int y2=row2;
+	int X1=column1;
+	int X2=column2;*/
 	
-	return false;
+	switch (direction){
+	
+	case KeyEvent.VK_LEFT: 
+	    if (x1==column1||x2==column2)
+	    	colision = true;
+		break;
+	}
+	
+	return colision;
 }
+
+
 }
 /* deja faiit :
  * un putain de trucs de magiciens pour voir le gugusses QUI bouge, manque plus que l'images sprites
