@@ -116,7 +116,7 @@ public class jeu extends Game {
 	 switch (direction ){
 		
 		case KeyEvent.VK_LEFT: //37
-			if ( collision (getrow(),getcolumn(), getrow()+1, getcolumn()))//value(Y,X-1)
+			if ( collision (getrow(),getcolumn(), getrow()+1, getcolumn())==true)//value(Y,X-1)
 			{column-=vitesse;
 			numerosprite =0;}
 			break;
@@ -149,8 +149,11 @@ public class jeu extends Game {
 	private char value(int row1, int  column1) {
 		char a='1';
 		if (row1>=0 && column1>=0){
-		 a =lignes.get(row1).charAt(column1);
-		System.out.println("a la ligne : "+row1+" et à la colonne : "+column1+" j'ai une valeur de : " +a);}
+		  a =lignes.get(row1).charAt(column1);
+		System.out.println("a la ligne : "+row1+" et à la colonne : "+column1+" j'ai une valeur de : " +a);
+		  }
+		else 
+			a =lignes.get(0).charAt(0);	
 		return a;
 	}
 
@@ -168,35 +171,47 @@ public boolean collision (int row1, int column1, int row2, int column2){
 	row2=row2*20;
 	column1=column1*20;
 	column2=column2*20;
-    boolean colision=true; 
+    boolean colision=false; 
     int y1=row1;
 	int y2=row2;
 	int x1=column1;
 	int x2=column2;
-	int temp;
+	System.out.println(" colonnes 1 =" + column1);
+	System.out.println(" colonnes 2 =" + column2);
 	boolean case1=false ;
 	boolean case2=false ;
     
 	if (direction ==37){ // à gauche
-	  
-		row2+=20;	
+	   
+		row2+=15;
+		row1+=5;
 		y2=row2;
-		x1=(x1/20);
-		x2=x2/20;
+		y1=row1;
+		x1=(x1-18)/20;
+		x2=(x2-18)/20;
 		
-		if (value ((y1/20), x1-1)=='1') 
+		if (value ((y1/20), (x1))=='1') 
 		{    
 			x1=(x1*20)+20;
+			System.out.println(" x1= "+x1);
 			x2=x1;
 			case1=true;
 		}
 		
-		else if (value ((y2/20), x2-1)=='1')
+	   if (case1)
+	   {
+		   x2=x2/20;
+	   }
+		   
+		   
+			if (value ((y2/20), x2)=='1')
 		{
 			x2=(x2*20)+20;
+			System.out.println("x2 = "+x2);
 			x1=x2;
 			case2=true;
 		}
+	   
 		
 		
 	}
@@ -225,9 +240,13 @@ public boolean collision (int row1, int column1, int row2, int column2){
 	
 	switch (direction){
 	
-	case KeyEvent.VK_LEFT: 
-	    if (x1==column1||x2==column2)
-	    	colision = true;
+	case KeyEvent.VK_LEFT:
+		if (case1==false && case2==false)
+			colision=true;
+		else if (x1<column1||x2<column2)
+	    	{colision =true;
+	    	System.out.println("wesh");
+	    	}
 		break;
 	}
 	
