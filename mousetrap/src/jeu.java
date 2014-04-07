@@ -36,28 +36,23 @@ public class jeu extends Game {
 	{  
 		this.urlfiletxt="map1.txt"; //adresse du fichier texte contenant les 0 et 1 de la map
 		this.filetxt= new File (this.urlfiletxt); // on recupere le fichier
-		
-		/*this.haut=KeyEvent.VK_UP; //  pour recuperer ce que vaut la touche fleche du dessus
-		this.bas = KeyEvent.VK_DOWN;
-		this.droite = KeyEvent.VK_RIGHT;
-		this.gauche = KeyEvent.VK_LEFT;*/
 		direction =0;
 		fps=0;
 		inittab(); // lecutre du tableau
-		
 		urlimagemouse= "stuart.gif";
-		try{
-		Mouse=ImageIO.read(new File (urlimagemouse));
-		} catch (IOException e){
-			e.printStackTrace();
-		}
+		
+			try{
+					Mouse=ImageIO.read(new File (urlimagemouse));
+				} catch (IOException e){
+											e.printStackTrace();
+										}
 		
 		urlimagemap ="map-1.jpg";
-				   try{
-					   	map=ImageIO.read(new File (urlimagemap));
-				   	   } catch (IOException e){
-				   		   							e.printStackTrace();
-				   	   						   }
+		     try{
+					 map=ImageIO.read(new File (urlimagemap));
+				 } catch (IOException e){
+				   		   					e.printStackTrace();
+				   	   				     }
 		
 	}
 	
@@ -129,9 +124,9 @@ public class jeu extends Game {
 			break;
 			
 	case KeyEvent.VK_UP://39
-		
-		  row-=vitesse;
-			numerosprite=3;
+		if( collision (row,column, row + 20, column, direction)==true)
+		{ row-=vitesse;
+			numerosprite=3;}
 			break;
 		
 	case KeyEvent.VK_DOWN://40
@@ -168,14 +163,8 @@ public class jeu extends Game {
 
 
 public boolean collision (int row1, int column1, int row2, int column2, int direction){
+	
 	int direction1 = direction; 
-	/*row1=row1*20;
-	row2=row2*20;
-	column1=column1*20;
-	column2=column2*20;
-	if (column1==0 && column2==0)
-		{column1+=39;
-	    column2+=39;}*/
     boolean colision=false; 
     int y1=row1;
 	int y2=row2;
@@ -220,61 +209,108 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 	
 	
 	else if (direction ==KeyEvent.VK_RIGHT){ // à gdroite
-		System.out.println(" prout");
-		row2+=10;
-		row1+=5;
-		y2=row2;
-		y1=row1;
-		x1=(x1+19)/20;
-		x2=(x2+19)/20;
+					System.out.println(" prout");
+					row2+=10;
+					row1+=5;
+					y2=row2;
+					y1=row1;
+					x1=(x1+19)/20;
+					x2=(x2+19)/20;
 		
-		if (value ((y1/20), (x1))=='1') 
-		{    
-			x1=(x1*20)-20;
-			System.out.println(" x1= "+x1);
-			x2=x1;
-			case1=true;
-		}
+			if (value ((y1/20), (x1))=='1') 
+				{    
+					x1=(x1*20)-20;
+					System.out.println(" x1= "+x1);
+					x2=x1;
+					case1=true;
+				}
 		
-	   if (case1)
-	   {
-		   x2=x2/20;
-	   }
+			if (case1)
+	   			{
+		   			x2=x2/20;
+	   			}
 		   
 		   
 			if (value ((y2/20), x2)=='1')
-		{
-			x2=(x2*20)-20;
-			System.out.println("x2 = "+x2);
-			x1=x2;
-			case2=true;
-		}
+				{
+					x2=(x2*20)-20;
+					System.out.println("x2 = "+x2);
+					x1=x2;
+					case2=true;
+				}
+	   }
+	
+	
+	else if (direction ==KeyEvent.VK_UP){ // en haut
+		
+		row2-=20;
+		column2+=35;
+		column1+=5;
+		x1=column1;
+		x2=column2;
+		y2=row2;
+		y1=(y1-19)/20;
+		y2=(y2-19)/20;
+	
+		if (value ((y1), (x1/20))=='1') 
+			{    
+				y1=(y1*20)+20;
+				System.out.println(" y1= "+y1);
+				y2=y1;
+				case1=true;
+			}
+	
+		if (case1)
+			{
+				y2=y2/20;
+			}
 	   
-		
-		
-	}
+	   
+		if (value ((y2), x2/20)=='1')
+			{
+				y2=(y2*20)+20;
+				System.out.println("y2 = "+y2);
+				y1=y2;
+				case2=true;
+			}
+   }
 	
-	/*else if (direction ==38){
-		  column1+=40;
-		  column2+=40;
-		  row2+=20;	
-	}
-	else if (direction == 39)
-	{
-		column2+=40;
-		  row2-=19;	
-	}
-	else if (direction == 40)
-	{
-		  row1+=40;
-		  column2+=40;
-		  row2+=20;
-	}
+	else if (direction ==KeyEvent.VK_DOWN){ // en bas
+		
+		row2+=20;
+		row1+=40;
+		column2+=35;
+		column1+=5;
+		x1=column1;
+		x2=column2;
+		y1=row1;
+		y2=row2;
+		y1=(y1+19)/20;
+		y2=(y2+19)/20;
 	
-	int y1=row1;
-	int y2=row2;
-	int X1=column1;
-	int X2=column2;*/
+		if (value ((y1), (x1/20))=='1') 
+			{    
+				y1=(y1*20)-20;
+				System.out.println(" y1= "+y1);
+				y2=y1;
+				case1=true;
+			}
+	
+		if (case1)
+			{
+				y2=y2/20;
+			}
+	   
+	   
+		if (value ((y2), x2/20)=='1')
+			{
+				y2=(y2*20)-20;
+				System.out.println("y2 = "+y2);
+				y1=y2;
+				case2=true;
+			}
+   }
+	
 	
 	switch (direction1){
 	
@@ -282,8 +318,8 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 		if (case1==false && case2==false)
 			colision=true;
 		else if (x1<column1 && x2<column2)
-	    	{colision =true;
-	    	System.out.println("wesh");
+	    	{
+				colision =true;
 	    	}
 		break;
 		
@@ -291,8 +327,26 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 		if (case1==false && case2==false)
 			colision=true;
 		else if (x1>column1 && x2>column2)
-	    	{colision =true;
-	    	System.out.println("wesh");
+	    	{
+				colision =true;
+	    	}
+		break;
+		
+	case KeyEvent.VK_UP:
+		if (case1==false && case2==false)
+			colision=true;
+		else if (y1<row1 && y2<row2)
+	    	{
+				colision =true;
+	    	}
+		break;
+		
+	case KeyEvent.VK_DOWN:
+		if (case1==false && case2==false)
+			colision=true;
+		else if (y1>row1 && y2>row2)
+	    	{
+				colision =true;
 	    	}
 		break;
 	}
@@ -302,8 +356,4 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 
 
 }
-/* deja faiit :
- * un putain de trucs de magiciens pour voir le gugusses QUI bouge, manque plus que l'images sprites
- * normalement l'orientation du sprite est deja faite
- * recuperation du fichier contenant les 0 et les 1 pour les colisions 
- * il faudrait recuperer la photo de la map*/
+
