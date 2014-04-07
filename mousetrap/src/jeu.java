@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -145,7 +146,7 @@ public class jeu extends Game {
 		char a='1';
 		if (row1>=0 && column1>=0){
 		  a =lignes.get(row1).charAt(column1);
-		System.out.println("a la ligne : "+row1+" et à la colonne : "+column1+" j'ai une valeur de : " +a);
+		//System.out.println("a la ligne : "+row1+" et à la colonne : "+column1+" j'ai une valeur de : " +a);
 		  }
 		else if (column1==30)
 			a=lignes.get(row1).charAt(29);
@@ -156,8 +157,22 @@ public class jeu extends Game {
 
 	public void draw(Graphics2D g) {
 		
+		
 		g.drawImage(map, 0,0,null);
 		g.drawImage(Mouse.getSubimage(fps*40 ,(numerosprite*60), 40, 40), column,row, null);// pour afficher le sprite de la souris 
+		
+		int i,j;//x,y de la map, on affiche les fromages
+		g.setColor(Color.YELLOW);
+		for (i=0; i<30; i++)//parcourt lignes
+				{
+					for (j=0; j<30;j++)//parcourt colonnes
+						{
+							if (value(i,j)=='F')
+							{
+							   g.fillOval(j*20+10, i*20+10, 20, 20); //provisoire
+						}
+				}
+				}
 	}
 
 
