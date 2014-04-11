@@ -26,7 +26,9 @@ public class jeu extends Game {
 	int haut,bas,droite,gauche;
 	int direction;
     int numerosprite;
+    int score;
 	ArrayList <String> lignes = new ArrayList <String>();
+	char dynamic [][] = new char [29][29];
 	
 	public void begin () {
 		GameApplication.start(new jeu());
@@ -35,6 +37,7 @@ public class jeu extends Game {
 	
 	public jeu ()
 	{  
+		this.score=0;
 		this.urlfiletxt="map1.txt"; //adresse du fichier texte contenant les 0 et 1 de la map
 		this.filetxt= new File (this.urlfiletxt); // on recupere le fichier
 		direction =0;
@@ -113,7 +116,8 @@ public class jeu extends Game {
 		
 		case KeyEvent.VK_LEFT: //37
 			if ( collision (row,column, row + 20, column, direction)==true)//value(Y,X-1)
-			{column-=vitesse;
+			{   
+				column-=vitesse;
 			numerosprite =0;}
 			break;
 	 
@@ -131,7 +135,7 @@ public class jeu extends Game {
 			break;
 		
 	case KeyEvent.VK_DOWN://40
-		if ( value(getrow()+2,getcolumn())!='1'&& value(getrow()+2,getcolumn()+1)!='1')//value(Y,X-1)
+		if ( collision (row,column, row +20, column, direction)==true)//value(Y,X-1)
 		{row+=vitesse;
 			numerosprite =2;}
 			break;
@@ -140,6 +144,14 @@ public class jeu extends Game {
 	}
 
 	
+	private void change (int row1, int column1, char s) // methode pour remplacer un caractere dans le tablea!!!
+	{
+		String nv = lignes.get(row1);
+		StringBuffer buffer = new StringBuffer(nv);
+		buffer.setCharAt(column1, s);
+	    nv = buffer.toString();
+		lignes.set(row1, nv);
+	}
 	
 	
 	private char value(int row1, int  column1) {
@@ -150,6 +162,8 @@ public class jeu extends Game {
 		  }
 		else if (column1==30)
 			a=lignes.get(row1).charAt(29);
+		else if (row1==30)
+			a=lignes.get(29).charAt(column1);
 		else 
 			a =lignes.get(0).charAt(0);	
 		return a;
@@ -179,7 +193,6 @@ public class jeu extends Game {
 
 public boolean collision (int row1, int column1, int row2, int column2, int direction){
 	
-	int direction1 = direction; 
     boolean colision=false; 
     int y1=row1;
 	int y2=row2;
@@ -187,8 +200,16 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 	int x2=column2;
 	System.out.println(" colonnes 1 =" + column1);
 	System.out.println(" colonnes 2 =" + column2);
+	System.out.println(" ligne 1 =" + row1);
+	System.out.println(" ligne 2 =" + row2);
 	boolean case1=false ;
 	boolean case2=false ;
+	
+	if (value (row1/20, column1/20)=='F'||value(row2/20,column2/20)=='F')
+	{    
+		change (row1/20, column1/20,'0');
+		this.score+=100;
+	}
     
 	if (direction ==KeyEvent.VK_LEFT){ // à gauche
 		
@@ -302,10 +323,20 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 		y2=row2;
 		y1=(y1+19)/20;
 		y2=(y2+19)/20;
+		System.out.println(" colonnes 1 =" + column1);
+		System.out.println(" colonnes 2 =" + column2);
+		System.out.println(" ligne 1 =" + row1);
+		System.out.println(" ligne 2 =" + row2);
+		
+		if (value (row1/20, column1/20)=='F'||value(row2/20,column2/20)=='F')
+		{    
+			change (row1/20, column1/20,'0');
+			this.score+=100;
+		}
 	
-		if (value ((y1), (x1/20))=='1') 
+		 if (value ((y1), (x1/20))=='1') 
 			{    
-				y1=(y1*20)-20;
+				y1=(y1*20);
 				System.out.println(" y1= "+y1);
 				y2=y1;
 				case1=true;
@@ -319,15 +350,16 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 	   
 		if (value ((y2), x2/20)=='1')
 			{
-				y2=(y2*20)-20;
+				y2=(y2*20);
 				System.out.println("y2 = "+y2);
 				y1=y2;
 				case2=true;
 			}
+		
    }
 	
 	
-	switch (direction1){
+	switch (direction){
 	
 	case KeyEvent.VK_LEFT:
 		if (case1==false && case2==false)
