@@ -28,10 +28,10 @@ public class jeu extends Game {
     int numerosprite;
     int score;
 	ArrayList <String> lignes = new ArrayList <String>();
-	char dynamic [][] = new char [29][29];
 	cat chat;
 	cat chat2;
-	
+	point avant;
+	dynamicmanager mng;
 	public void begin () {
 		GameApplication.start(new jeu());
 
@@ -39,6 +39,7 @@ public class jeu extends Game {
 	
 	public jeu ()
 	{  
+		mng = new dynamicmanager();
 		this.score=0;
 		this.urlfiletxt="map1.txt"; //adresse du fichier texte contenant les 0 et 1 de la map
 		this.filetxt= new File (this.urlfiletxt); // on recupere le fichier
@@ -63,6 +64,7 @@ public class jeu extends Game {
 	chat2 = new cat (20,20,540,20,540,540,20,540);
 	chat.start();
 	chat2.start();
+	avant=new point (column, row);
 	}
 	
 	
@@ -116,7 +118,9 @@ public class jeu extends Game {
 		fps++;  // regler la vitesse d'affichage
 		if(fps>6)
 			fps=0;
-		
+		avant.y=row;
+		avant.x=column;
+		mng.change(avant, new point (row,column), 'M');	
 	 switch (direction ){
 		
 		case KeyEvent.VK_LEFT: //37
@@ -214,6 +218,7 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 	System.out.println(" ligne 2 =" + row2);
 	boolean case1=false ;
 	boolean case2=false ;
+	
 	
 	if (value (row1/20, column1/20)=='F'||value(row2/20,column2/20)=='F')
 	{    
