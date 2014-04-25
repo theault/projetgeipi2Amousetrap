@@ -29,6 +29,8 @@ public class jeu extends Game {
     int score;
 	ArrayList <String> lignes = new ArrayList <String>();
 	char dynamic [][] = new char [29][29];
+	cat chat;
+	cat chat2;
 	
 	public void begin () {
 		GameApplication.start(new jeu());
@@ -57,7 +59,10 @@ public class jeu extends Game {
 				 } catch (IOException e){
 				   		   					e.printStackTrace();
 				   	   				     }
-		
+	chat = new cat (20,480,540,480,540,80,20,80);
+	chat2 = new cat (20,20,540,20,540,540,20,540);
+	chat.start();
+	chat2.start();
 	}
 	
 	
@@ -177,6 +182,7 @@ public class jeu extends Game {
 		
 		int i,j;//x,y de la map, on affiche les fromages
 		g.setColor(Color.YELLOW);
+		
 		for (i=0; i<30; i++)//parcourt lignes
 				{
 					for (j=0; j<30;j++)//parcourt colonnes
@@ -184,9 +190,13 @@ public class jeu extends Game {
 							if (value(i,j)=='F')
 							{
 							   g.fillOval(j*20+10, i*20+10, 20, 20); //provisoire
+							}
 						}
 				}
-				}
+		
+		g.setColor(Color.RED);
+		g.fillRect(chat.pcat.x, chat.pcat.y, 40, 40);
+		g.fillRect(chat2.pcat.x, chat2.pcat.y, 40, 40);
 	}
 
 
