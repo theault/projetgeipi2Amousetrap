@@ -16,7 +16,9 @@ public class jeu extends Game {
 	final int vitesse=4; // vitesse de la mouse
 	BufferedImage Mouse;
 	BufferedImage map;
+	BufferedImage gameover;
 	String urlfiletxt;
+	String urlgameover;
 	File filetxt;
 	String urlimagemouse;
 	String urlimagemap;
@@ -47,7 +49,12 @@ public class jeu extends Game {
 		fps=0;
 		inittab(); // lecutre du tableau
 		urlimagemouse= "stuart.gif";
-		
+		urlgameover="gameover.png";
+		try{
+			gameover=ImageIO.read(new File (urlgameover));
+		} catch (IOException e){
+									e.printStackTrace();
+								}
 			try{
 					Mouse=ImageIO.read(new File (urlimagemouse));
 				} catch (IOException e){
@@ -102,10 +109,16 @@ public class jeu extends Game {
 	
 	@Override 
 	public void keyPressed (KeyEvent e){
-		int key = e.getKeyCode();
+	     int key = e.getKeyCode();
 		if (key>36 && key <41)
 			direction = key;
-	}
+		if (mng.dead)
+			direction=0;
+		else if (key==10||key==13)
+			{fenetre fenetrepp= new fenetre();
+			displaymanager manager1= new displaymanager (fenetrepp);
+			}
+			}
 	
 	public int getrow(){
 		return row/20; // return le numero de la ligne ou se situe la souris (coord y)
@@ -118,6 +131,10 @@ public class jeu extends Game {
 	
 	@Override
 	public void update() {
+		if (mng.dead){
+			chat.stop();
+			chat2.stop();
+		}
 		fps++;  // regler la vitesse d'affichage
 		if(fps>6)
 			fps=0;
@@ -152,7 +169,8 @@ public class jeu extends Game {
 		{row+=vitesse;
 			numerosprite =2;}
 			break;
-			
+	case  0: break;
+		
 		}
 	}
 
@@ -206,7 +224,7 @@ public class jeu extends Game {
 		g.fillRect(chat.pcat.x, chat.pcat.y, 40, 40);
 		g.fillRect(chat2.pcat.x, chat2.pcat.y, 40, 40);
 		if (mng.dead)
-			g.fillRect(0, 0, 400, 400);
+			g.drawImage(gameover, 150,150,null);
 		g.drawString(Integer.toString(score),300, 620);
 	}
 

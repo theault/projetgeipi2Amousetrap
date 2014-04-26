@@ -39,8 +39,7 @@ public class dynamicmanager {
 				        	dynamic [l2+1][c2+1]=c;
 				        	dynamic [l2][c2+1]=c;
 				        	verif(l2,c2,c);
-				      if (dead)
-				    	  System.out.println("MoOOOOOOOOOOOOOOOOOOOOOOOOOOPOOOOOOOOOOOOOOooooooooooooooooooooooooooooooooooooooooORT");
+				    
 				        System.out.println("--------------------------");
 						for (int i =0; i<30;i++)
 							{for(int j=0; j<30; j++)

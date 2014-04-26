@@ -1,11 +1,12 @@
 
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JPanel;
 
 
 public class displaymanager {
-	
+	int key;
 	fenetre fenetre1;
 	panelmenu1 menuprincipal;
 	panelcredits menucredits;
@@ -59,5 +60,4 @@ public class displaymanager {
 		}
 			
 	}
-
 }
