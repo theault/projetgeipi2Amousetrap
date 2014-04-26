@@ -33,14 +33,16 @@ public class jeu extends Game {
 	cat chat;
 	cat chat2;
 	point avant;
+	int res;
 	dynamicmanager mng;
 	public void begin () {
-		GameApplication.start(new jeu());
+		GameApplication.start(new jeu(res));
 
 	}
 	
-	public jeu ()
+	public jeu (int i)
 	{  
+		this.res=i;
 		mng = new dynamicmanager();
 		this.score=0;
 		this.urlfiletxt="map1.txt"; //adresse du fichier texte contenant les 0 et 1 de la map
@@ -65,12 +67,12 @@ public class jeu extends Game {
 		     try{
 					 map=ImageIO.read(new File (urlimagemap));
 				 } catch (IOException e){
-				   		   					e.printStackTrace();
-				   	   				     }
+				   		   					e.printStackTrace();}
+	if (res==0)	{		   	   				     
 	chat = new cat (20,480,540,480,540,80,20,80,mng);
 	chat2 = new cat (20,20,540,20,540,540,20,540,mng);
 	chat.start();
-	chat2.start();
+	chat2.start();}
 	
 	}
 	
@@ -221,8 +223,11 @@ public class jeu extends Game {
 				}
 		
 		g.setColor(Color.RED);
-		g.fillRect(chat.pcat.x, chat.pcat.y, 40, 40);
-		g.fillRect(chat2.pcat.x, chat2.pcat.y, 40, 40);
+		
+		if (res == 0)
+	   {g.fillRect(chat.pcat.x, chat.pcat.y, 40, 40);
+		g.fillRect(chat2.pcat.x, chat2.pcat.y, 40, 40);}
+		
 		if (mng.dead)
 			g.drawImage(gameover, 150,150,null);
 		g.drawString("Score : "+Integer.toString(score),300, 620);

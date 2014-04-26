@@ -32,7 +32,7 @@ JLabel pseudo = new JLabel ("Votre pseudo : ");
 JPanel rejoindre;
 JPanel fiche;
 JPanel dessus;
-int port =8080;
+int port =9999;
 
 
 public panelmulti (displaymanager managerbis)
@@ -96,14 +96,8 @@ public panelmulti (displaymanager managerbis)
 	class multi implements ActionListener {
 		public void actionPerformed(ActionEvent e)
 		{   
-			try {
-				Socket s = new Socket(ip.getText(),port);
 				Connexion connect = new Connexion (ip.getText());
-				connect.start(); 
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			
 		}
 
 	}

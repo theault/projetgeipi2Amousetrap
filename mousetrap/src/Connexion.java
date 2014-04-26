@@ -2,15 +2,16 @@ import java.io.*;
 import java.net.*;
 
  public class Connexion extends Thread {
- static int port = 8080;
+ static int port = 9999;
  Socket socket ;
- 
+
 
  
  
  public Connexion(String text) {
 	 try {
 			socket= new Socket(text, port);
+			this.start();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -37,7 +38,7 @@ try {
 }
  
 String str = "bonjour ";
- for (int i = 0; i < 10; i++) {
+ for (int i = 0; i < 100; i++) {
  sisw.println(str+i); // envoi d’un message
  try {
 	str = sisr.readLine();
@@ -47,7 +48,6 @@ String str = "bonjour ";
 } // lecture de la reponse
  System.out.println(str);
  }
- System.out.println("END"); // message de fermeture
     //sisw.println("END") ;
      try {
 		sisr.close();
