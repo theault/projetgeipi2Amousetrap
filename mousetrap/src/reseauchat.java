@@ -11,8 +11,9 @@ import java.util.Scanner;
 import javax.imageio.ImageIO;
 
 
-public class jeu extends Game {
+public class reseauchat extends Game {
     
+	boolean communication=false;
 	final int vitesse=4; // vitesse de la mouse
 	BufferedImage Mouse;
 	BufferedImage map;
@@ -30,20 +31,19 @@ public class jeu extends Game {
     int numerosprite;
     int score;
 	ArrayList <String> lignes = new ArrayList <String>();
-	cat chat;
-	cat chat2;
+	int columnmouse, rowmouse;
 	point avant;
-	int res;
-	dynamicmanager mng;
 	
+
+	
+	dynamicmanager mng;
 	public void begin () {
-		GameApplication.start(new jeu(res));
+		GameApplication.start(new reseauchat());
 
 	}
 	
-	public jeu (int i)
+	public reseauchat ()
 	{  
-		this.res=i;
 		mng = new dynamicmanager();
 		this.score=0;
 		this.urlfiletxt="map1.txt"; //adresse du fichier texte contenant les 0 et 1 de la map
@@ -69,11 +69,7 @@ public class jeu extends Game {
 					 map=ImageIO.read(new File (urlimagemap));
 				 } catch (IOException e){
 				   		   					e.printStackTrace();}
-	if (res==0)	{		   	   				     
-	chat = new cat (20,480,540,480,540,80,20,80,mng);
-	chat2 = new cat (20,20,540,20,540,540,20,540,mng);
-	chat.start();
-	chat2.start();}
+	
 	
 	}
 	
@@ -89,11 +85,15 @@ public class jeu extends Game {
 								String line=S.nextLine();
 								lignes.add(line);
 								if (line.contains("5")){
-								 row =A*20;
-								 column = line.indexOf("5")*20;
-								 avant=new point (column, row);
-								 System.out.println("je m'initialise à : " + row/20 + " lignes et "+column/20+ " colonnes");
+								 rowmouse =A*20;
+								 columnmouse = line.indexOf("5")*20;
 								}
+								if (line.contains("4")){
+									 row =A*20;
+									 column = line.indexOf("4")*20;
+									 avant=new point (column, row);
+									 System.out.println("je m'initialise à : " + row/20 + " lignes et "+column/20+ " colonnes");
+									}
 								 A++;
 								   }
 		   
@@ -134,10 +134,8 @@ public class jeu extends Game {
 	
 	@Override
 	public void update() {
-		if (mng.dead){
-			chat.stop();
-			chat2.stop();
-		}
+	
+		
 		fps++;  // regler la vitesse d'affichage
 		if(fps>6)
 			fps=0;
@@ -207,7 +205,7 @@ public class jeu extends Game {
 		
 		
 		g.drawImage(map, 0,0,null);
-		g.drawImage(Mouse.getSubimage(fps*40 ,(numerosprite*60), 40, 40), column,row, null);// pour afficher le sprite de la souris 
+		g.drawImage(Mouse.getSubimage(fps*40 ,(numerosprite*60), 40, 40), columnmouse,rowmouse, null);// pour afficher le sprite de la souris 
 		
 		int i,j;//x,y de la map, on affiche les fromages
 		g.setColor(Color.YELLOW);
@@ -225,10 +223,11 @@ public class jeu extends Game {
 		
 		g.setColor(Color.RED);
 		
-		if (res == 0)
-	   {g.fillRect(chat.pcat.x, chat.pcat.y, 40, 40);
-		g.fillRect(chat2.pcat.x, chat2.pcat.y, 40, 40);}
 		
+	   g.fillRect(column, row, 40, 40);
+	   g.setColor(Color.GREEN);
+	   if (communication)
+		   g.fillOval(450, 450, 80, 80);
 		if (mng.dead)
 			g.drawImage(gameover, 150,150,null);
 		g.drawString("Score : "+Integer.toString(score),300, 620);
@@ -445,6 +444,11 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 	}
 	
 	return colision;
+}
+
+public void changebool(boolean nv) {
+	communication=nv;
+	
 }
 
 

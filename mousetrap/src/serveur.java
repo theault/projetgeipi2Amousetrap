@@ -5,17 +5,21 @@ import java.net.*;
  
  static final int port = 9999;
  static int i =0;
+ static jeu mygame;
  
- public static void main(String[] args) throws Exception {
- 
+ public static void main(displaymanager mng) throws Exception {
+	 mygame = new jeu (1);
+	 mygame.begin(); 
+	 mng.choixmenu(5);
  System.out.println ("coucoucouccijcjdjkcknjedc");
  
  ServerSocket s = new ServerSocket(port);
  Socket soc = s.accept();
  System.out.println ("coucoucouccijcjdjkcknjedc");
-
+ 
  BufferedReader sisr = new BufferedReader(new InputStreamReader(soc.getInputStream()));
  PrintWriter sisw = new PrintWriter( new BufferedWriter( new OutputStreamWriter(soc.getOutputStream())),true);
+
  
  while (true) {
  

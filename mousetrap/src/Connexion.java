@@ -4,7 +4,7 @@ import java.net.*;
  public class Connexion extends Thread {
  static int port = 9999;
  Socket socket ;
-
+reseauchat chat;
 
  
  
@@ -16,12 +16,14 @@ import java.net.*;
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	 chat=new reseauchat();
+	 chat.begin();
+	 chat.changebool(true);
 }
 
 
 public void run() {
- System.out.println("SOCKET = " + socket);
- // illustration des capacites bidirectionnelles du flux
+ 
  BufferedReader sisr=null;
 try {
 	sisr = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
@@ -39,6 +41,7 @@ try {
  
 String str = "bonjour ";
  for (int i = 0; i < 100; i++) {
+  
  sisw.println(str+i); // envoi d’un message
  try {
 	str = sisr.readLine();
@@ -48,6 +51,7 @@ String str = "bonjour ";
 } // lecture de la reponse
  System.out.println(str);
  }
+ 
     //sisw.println("END") ;
      try {
 		sisr.close();
@@ -57,6 +61,7 @@ String str = "bonjour ";
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-   
+    
 	}
+ 
 }

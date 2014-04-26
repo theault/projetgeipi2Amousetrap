@@ -81,14 +81,16 @@ public panelmulti (displaymanager managerbis)
 	
 	class serv implements ActionListener {
 		public void actionPerformed(ActionEvent e)
-		{
+		{  
 			serveur serv = new serveur ();
 			try {
-				serv.main(null);
+				serv.main(manager);
+				
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			
 		}
 
 	}
