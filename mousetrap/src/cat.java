@@ -40,9 +40,9 @@ public class cat extends Thread  {
 				
 		for (int j =1; j<5;j++){
 			while (different (pcat,tab[j])){
+		    	mnger.change(avant, pcat , 'X');
 		    	avant.x = pcat.x;
 		    	avant.y=pcat.y;
-		    	mnger.change(avant, pcat , 'X');
 				try {
 					Thread.sleep(50);
 				} catch (InterruptedException e) {
@@ -65,9 +65,9 @@ public class cat extends Thread  {
 		
 		for (int j =4; j>=0;j--){
 			while (different (pcat,tab[j])){
+				mnger.change(avant, pcat , 'X');
 				avant.x = pcat.x;
 		    	avant.y=pcat.y;
-				mnger.change(avant, pcat , 'X');
 				try {
 					Thread.sleep(50);
 				} catch (InterruptedException e) {

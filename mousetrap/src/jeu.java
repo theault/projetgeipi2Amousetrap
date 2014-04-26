@@ -62,8 +62,8 @@ public class jeu extends Game {
 				   	   				     }
 	chat = new cat (20,480,540,480,540,80,20,80,mng);
 	chat2 = new cat (20,20,540,20,540,540,20,540,mng);
-	/*chat.start();
-	chat2.start();*/
+	chat.start();
+	chat2.start();
 	
 	}
 	
@@ -114,6 +114,8 @@ public class jeu extends Game {
 	public int getcolumn(){
 		return column/20; // return le numero de la coloones ou se situe la souris (coord x)
 	}
+	
+	
 	@Override
 	public void update() {
 		fps++;  // regler la vitesse d'affichage
@@ -203,6 +205,9 @@ public class jeu extends Game {
 		g.setColor(Color.RED);
 		g.fillRect(chat.pcat.x, chat.pcat.y, 40, 40);
 		g.fillRect(chat2.pcat.x, chat2.pcat.y, 40, 40);
+		if (mng.dead)
+			g.fillRect(0, 0, 400, 400);
+		g.drawString(Integer.toString(score),300, 620);
 	}
 
 
