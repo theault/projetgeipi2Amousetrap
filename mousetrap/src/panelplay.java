@@ -50,9 +50,19 @@ public class panelplay extends JPanel{
 		 
 		 this.retour.addActionListener(new retour());
 	     this.Single.addActionListener(new Single());
+	     this.multi.addActionListener(new multi());
 			
 			
 		}
+	
+	
+	class multi implements ActionListener {
+		public void actionPerformed(ActionEvent e)
+		{
+			manager.choixmenu(6);
+		}
+	
+}
 		
 		class retour implements ActionListener {
 			public void actionPerformed(ActionEvent e)

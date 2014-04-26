@@ -225,7 +225,7 @@ public class jeu extends Game {
 		g.fillRect(chat2.pcat.x, chat2.pcat.y, 40, 40);
 		if (mng.dead)
 			g.drawImage(gameover, 150,150,null);
-		g.drawString(Integer.toString(score),300, 620);
+		g.drawString("Score : "+Integer.toString(score),300, 620);
 	}
 
 

@@ -12,6 +12,7 @@ public class displaymanager {
 	panelcredits menucredits;
 	panelplay menuplay ;
 	paneloptions menuoptions;
+	panelmulti menureseau;
 	
 	public displaymanager (fenetre frame1)
 	{
@@ -20,6 +21,7 @@ public class displaymanager {
 		this.menucredits=new panelcredits(this);
 		this.menuplay = new panelplay (this, this.fenetre1);
 		this.menuoptions = new paneloptions (this);
+		this.menureseau= new panelmulti(this);
 		choixmenu(1);
 		fenetre1.setVisible(true);
 		
@@ -57,6 +59,13 @@ public class displaymanager {
 		else if (i==5)
 		{
 			fenetre1.setVisible(false);
+		}
+		
+		else if (i==6)
+		{
+			fenetre1.setContentPane(menureseau);
+			fenetre1.repaint();
+			fenetre1.revalidate();	
 		}
 			
 	}
