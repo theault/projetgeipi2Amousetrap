@@ -83,6 +83,12 @@ public panelmulti (displaymanager managerbis)
 		public void actionPerformed(ActionEvent e)
 		{
 			serveur serv = new serveur ();
+			try {
+				serv.main(null);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 
 	}
@@ -93,6 +99,7 @@ public panelmulti (displaymanager managerbis)
 			try {
 				Socket s = new Socket(ip.getText(),port);
 				Connexion connect = new Connexion (ip.getText());
+				connect.start(); 
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

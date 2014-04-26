@@ -5,7 +5,7 @@ import java.io.*;
  static final int port = 8080;
 
  public static void main(String[] args) throws Exception {
- 
+ System.out.println ("coucoucouccijcjdjkcknjedc");
  ServerSocket s = new ServerSocket(port);
  Socket soc = s.accept();
  System.out.println("SOCKET "+s);
