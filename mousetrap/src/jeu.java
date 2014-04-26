@@ -60,11 +60,11 @@ public class jeu extends Game {
 				 } catch (IOException e){
 				   		   					e.printStackTrace();
 				   	   				     }
-	chat = new cat (20,480,540,480,540,80,20,80);
-	chat2 = new cat (20,20,540,20,540,540,20,540);
-	chat.start();
-	chat2.start();
-	avant=new point (column, row);
+	chat = new cat (20,480,540,480,540,80,20,80,mng);
+	chat2 = new cat (20,20,540,20,540,540,20,540,mng);
+	/*chat.start();
+	chat2.start();*/
+	
 	}
 	
 	
@@ -81,6 +81,7 @@ public class jeu extends Game {
 								if (line.contains("5")){
 								 row =A*20;
 								 column = line.indexOf("5")*20;
+								 avant=new point (column, row);
 								 System.out.println("je m'initialise à : " + row/20 + " lignes et "+column/20+ " colonnes");
 								}
 								 A++;
@@ -118,9 +119,10 @@ public class jeu extends Game {
 		fps++;  // regler la vitesse d'affichage
 		if(fps>6)
 			fps=0;
+		
+		mng.change(avant, new point (column,row), 'M');	
 		avant.y=row;
 		avant.x=column;
-		mng.change(avant, new point (row,column), 'M');	
 	 switch (direction ){
 		
 		case KeyEvent.VK_LEFT: //37

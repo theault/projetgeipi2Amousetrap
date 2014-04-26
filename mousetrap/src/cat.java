@@ -7,12 +7,13 @@ public class cat extends Thread  {
 	point p2;
 	point p3;
 	point p4;
-	point test;
+	point avant;
 	point pcat;
 	point tab [];
+	dynamicmanager mnger;
 
-	public cat (int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4){
-		
+	public cat (int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4, dynamicmanager mng){
+		mnger=mng;
 		p1=new point (x1,y1);
 		p2=new point (x2,y2);
 		p3=new point (x3,y3);
@@ -24,6 +25,7 @@ public class cat extends Thread  {
 		tab[3]=p4;
 		tab[4]=p1;
 	    pcat=new point (p1.x,p1.y);//point  courant du chat
+	    avant = new point (p1.x, p1.y);
 	}
 	
 	public void run(){
@@ -38,7 +40,10 @@ public class cat extends Thread  {
 				
 		for (int j =1; j<5;j++){
 			while (different (pcat,tab[j])){
-		    	try {
+		    	avant.x = pcat.x;
+		    	avant.y=pcat.y;
+		    	mnger.change(avant, pcat , 'X');
+				try {
 					Thread.sleep(50);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
@@ -60,7 +65,10 @@ public class cat extends Thread  {
 		
 		for (int j =4; j>=0;j--){
 			while (different (pcat,tab[j])){
-		    	try {
+				avant.x = pcat.x;
+		    	avant.y=pcat.y;
+				mnger.change(avant, pcat , 'X');
+				try {
 					Thread.sleep(50);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
@@ -82,7 +90,9 @@ public class cat extends Thread  {
 	}
 }
 	
-	public boolean different (point p1, point p2){
+	
+	public boolean different (point p1, point p2)
+	{
 		if (p1.x==p2.x && p2.y==p1.y)
 			 return false;
 		else 
