@@ -33,24 +33,27 @@ public class reseauchat extends Game {
 	ArrayList <String> lignes = new ArrayList <String>();
 	int columnmouse, rowmouse;
 	point avant;
-	
-
+	int xres,yres;
+    gameclient client;
 	
 	dynamicmanager mng;
 	public boolean begin () {
-		GameApplication.start(new reseauchat());
+		System.out.println ("sdqdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
+		GameApplication.start(new reseauchat(client));
 		return true;
 
 	}
 	
-	public reseauchat ()
-	{  communication = false;
+	public reseauchat (gameclient clientbis)
+	{  client=clientbis;
+		communication = false;
 		mng = new dynamicmanager();
 		this.score=0;
 		this.urlfiletxt="map1.txt"; //adresse du fichier texte contenant les 0 et 1 de la map
 		this.filetxt= new File (this.urlfiletxt); // on recupere le fichier
 		direction =0;
 		fps=0;
+		xres=yres=0;
 		inittab(); // lecutre du tableau
 		urlimagemouse= "stuart.gif";
 		urlgameover="gameover.png";
@@ -125,6 +128,7 @@ public class reseauchat extends Game {
 			}
 	
 	public int getrow(){
+		
 		return row/20; // return le numero de la ligne ou se situe la souris (coord y)
 	}
 
@@ -135,7 +139,9 @@ public class reseauchat extends Game {
 	
 	@Override
 	public void update() {
-	
+		//System.out.println("je suis à " +row +" & "+column+ " || "  +yres +" & "+xres);
+		client.x=column;
+		client.y=row;
 		
 		fps++;  // regler la vitesse d'affichage
 		if(fps>6)
@@ -176,7 +182,14 @@ public class reseauchat extends Game {
 		}
 	}
 
-	
+	  public int getx (){
+		  System.out.println(" x "+this.xres);
+	    	return this.xres;
+	    }
+	    public int gety (){
+	    	System.out.println(" y "+this.yres);
+	    	return this.yres;
+	    }
 	private void change (int row1, int column1, char s) // methode pour remplacer un caractere dans le tablea!!!
 	{
 		String nv = lignes.get(row1);
@@ -244,10 +257,10 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 	int y2=row2;
 	int x1=column1;
 	int x2=column2;
-	System.out.println(" colonnes 1 =" + column1);
+	/*System.out.println(" colonnes 1 =" + column1);
 	System.out.println(" colonnes 2 =" + column2);
 	System.out.println(" ligne 1 =" + row1);
-	System.out.println(" ligne 2 =" + row2);
+	System.out.println(" ligne 2 =" + row2);*/
 	boolean case1=false ;
 	boolean case2=false ;
 	
@@ -270,7 +283,7 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 			if (value ((y1/20), (x1))=='1') 
 				{    
 					x1=(x1*20)+20;
-					System.out.println(" x1= "+x1);
+					//System.out.println(" x1= "+x1);
 					x2=x1;
 					case1=true;
 				}
@@ -284,7 +297,7 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 			if (value ((y2/20), x2)=='1')
 				{
 					x2=(x2*20)+20;
-					System.out.println("x2 = "+x2);
+					//System.out.println("x2 = "+x2);
 					x1=x2;
 					case2=true;
 				}
@@ -292,7 +305,7 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 	
 	
 	else if (direction ==KeyEvent.VK_RIGHT){ // à gdroite
-					System.out.println(" prout");
+					//System.out.println(" prout");
 					row2+=10;
 					row1+=5;
 					y2=row2;
@@ -303,7 +316,7 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 			if (value ((y1/20), (x1))=='1') 
 				{    
 					x1=(x1*20)-20;
-					System.out.println(" x1= "+x1);
+					//System.out.println(" x1= "+x1);
 					x2=x1;
 					case1=true;
 				}
@@ -317,7 +330,7 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 			if (value ((y2/20), x2)=='1')
 				{
 					x2=(x2*20)-20;
-					System.out.println("x2 = "+x2);
+					//System.out.println("x2 = "+x2);
 					x1=x2;
 					case2=true;
 				}
@@ -338,7 +351,7 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 		if (value ((y1), (x1/20))=='1') 
 			{    
 				y1=(y1*20)+20;
-				System.out.println(" y1= "+y1);
+				//System.out.println(" y1= "+y1);
 				y2=y1;
 				case1=true;
 			}
@@ -352,7 +365,7 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 		if (value ((y2), x2/20)=='1')
 			{
 				y2=(y2*20)+20;
-				System.out.println("y2 = "+y2);
+				//System.out.println("y2 = "+y2);
 				y1=y2;
 				case2=true;
 			}
@@ -370,11 +383,11 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 		y2=row2;
 		y1=(y1+19)/20;
 		y2=(y2+19)/20;
-		System.out.println(" colonnes 1 =" + column1);
+		/*System.out.println(" colonnes 1 =" + column1);
 		System.out.println(" colonnes 2 =" + column2);
 		System.out.println(" ligne 1 =" + row1);
 		System.out.println(" ligne 2 =" + row2);
-		
+		*/
 		if (value (row1/20, column1/20)=='F'||value(row2/20,column2/20)=='F')
 		{    
 			change (row1/20, column1/20,'0');
@@ -384,7 +397,7 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 		 if (value ((y1), (x1/20))=='1') 
 			{    
 				y1=(y1*20);
-				System.out.println(" y1= "+y1);
+				//System.out.println(" y1= "+y1);
 				y2=y1;
 				case1=true;
 			}
@@ -398,7 +411,7 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 		if (value ((y2), x2/20)=='1')
 			{
 				y2=(y2*20);
-				System.out.println("y2 = "+y2);
+				//System.out.println("y2 = "+y2);
 				y1=y2;
 				case2=true;
 			}
@@ -452,7 +465,6 @@ public void changebool(boolean nv) {
 	communication=nv;
 	
 }
-
 
 }
 

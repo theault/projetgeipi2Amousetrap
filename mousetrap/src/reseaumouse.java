@@ -39,6 +39,7 @@ public class reseaumouse extends Game {
 	point pcat;
 	
 	public boolean begin () {
+		System.out.println ("sdqdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd11111111111111");
 		GameApplication.start(new reseaumouse());
         return true;
 	}
@@ -94,6 +95,10 @@ public class reseaumouse extends Game {
 								 avant=new point (column, row);
 								 System.out.println("je m'initialise à : " + row/20 + " lignes et "+column/20+ " colonnes");
 								}
+								if (line.contains("4")){
+									 pcat.y =A*20;
+									 pcat.x = line.indexOf("4")*20;
+									 pcatbefore=new point (column, row);}
 								 A++;
 								   }
 		   
@@ -199,7 +204,12 @@ public class reseaumouse extends Game {
 			a =lignes.get(0).charAt(0);	
 		return a;
 	}
-
+    public int getx (){
+    	return this.column;
+    }
+    public int gety (){
+    	return this.row;
+    }
 	public void draw(Graphics2D g) {
 		
 		
@@ -222,7 +232,7 @@ public class reseaumouse extends Game {
 		
 		g.setColor(Color.RED);
 		
-		
+		System.out.println("test dans affichage " +pcat.x+" "+pcat.y);
 	   g.fillRect(pcat.x, pcat.y, 40, 40);
 		
 		
@@ -240,10 +250,10 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 	int y2=row2;
 	int x1=column1;
 	int x2=column2;
-	System.out.println(" colonnes 1 =" + column1);
+	/*System.out.println(" colonnes 1 =" + column1);
 	System.out.println(" colonnes 2 =" + column2);
 	System.out.println(" ligne 1 =" + row1);
-	System.out.println(" ligne 2 =" + row2);
+	System.out.println(" ligne 2 =" + row2);*/
 	boolean case1=false ;
 	boolean case2=false ;
 	
@@ -266,7 +276,7 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 			if (value ((y1/20), (x1))=='1') 
 				{    
 					x1=(x1*20)+20;
-					System.out.println(" x1= "+x1);
+					//System.out.println(" x1= "+x1);
 					x2=x1;
 					case1=true;
 				}
@@ -280,7 +290,7 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 			if (value ((y2/20), x2)=='1')
 				{
 					x2=(x2*20)+20;
-					System.out.println("x2 = "+x2);
+					//System.out.println("x2 = "+x2);
 					x1=x2;
 					case2=true;
 				}
@@ -288,7 +298,7 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 	
 	
 	else if (direction ==KeyEvent.VK_RIGHT){ // à gdroite
-					System.out.println(" prout");
+					//System.out.println(" prout");
 					row2+=10;
 					row1+=5;
 					y2=row2;
@@ -299,7 +309,7 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 			if (value ((y1/20), (x1))=='1') 
 				{    
 					x1=(x1*20)-20;
-					System.out.println(" x1= "+x1);
+					//System.out.println(" x1= "+x1);
 					x2=x1;
 					case1=true;
 				}
@@ -313,7 +323,7 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 			if (value ((y2/20), x2)=='1')
 				{
 					x2=(x2*20)-20;
-					System.out.println("x2 = "+x2);
+					//System.out.println("x2 = "+x2);
 					x1=x2;
 					case2=true;
 				}
@@ -334,7 +344,7 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 		if (value ((y1), (x1/20))=='1') 
 			{    
 				y1=(y1*20)+20;
-				System.out.println(" y1= "+y1);
+				//System.out.println(" y1= "+y1);
 				y2=y1;
 				case1=true;
 			}
@@ -348,7 +358,7 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 		if (value ((y2), x2/20)=='1')
 			{
 				y2=(y2*20)+20;
-				System.out.println("y2 = "+y2);
+				//System.out.println("y2 = "+y2);
 				y1=y2;
 				case2=true;
 			}
@@ -366,10 +376,10 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 		y2=row2;
 		y1=(y1+19)/20;
 		y2=(y2+19)/20;
-		System.out.println(" colonnes 1 =" + column1);
+		/*System.out.println(" colonnes 1 =" + column1);
 		System.out.println(" colonnes 2 =" + column2);
 		System.out.println(" ligne 1 =" + row1);
-		System.out.println(" ligne 2 =" + row2);
+		System.out.println(" ligne 2 =" + row2);*/
 		
 		if (value (row1/20, column1/20)=='F'||value(row2/20,column2/20)=='F')
 		{    
@@ -380,7 +390,7 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 		 if (value ((y1), (x1/20))=='1') 
 			{    
 				y1=(y1*20);
-				System.out.println(" y1= "+y1);
+				//System.out.println(" y1= "+y1);
 				y2=y1;
 				case1=true;
 			}
@@ -394,7 +404,7 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 		if (value ((y2), x2/20)=='1')
 			{
 				y2=(y2*20);
-				System.out.println("y2 = "+y2);
+				//System.out.println("y2 = "+y2);
 				y1=y2;
 				case2=true;
 			}
@@ -448,6 +458,7 @@ public void setposmouse (int recuprow, int recupcolumn){
 	pcat.x=recupcolumn;
 	pcat.y=recuprow;
 	pcatbefore =pcat;
+	System.out.println ("on m a envoyé "+pcat.x+" "+pcat.y);
 	//mng.change(pcatbefore, pcat , 'X');
 }
 
