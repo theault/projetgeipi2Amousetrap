@@ -81,10 +81,13 @@ public panelmulti (displaymanager managerbis)
 	
 	class serv implements ActionListener {
 		public void actionPerformed(ActionEvent e)
-		{  
-			serveur serv = new serveur ();
+		{  boolean result = false;
+			reseaumouse nem = new reseaumouse();
+		    while (!result)
+		    	result=nem.begin();
+			reseau1 serv = new reseau1 ();
 			try {
-				serv.main(manager);
+				serv.main(nem);
 				
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
@@ -97,8 +100,19 @@ public panelmulti (displaymanager managerbis)
 
 	class multi implements ActionListener {
 		public void actionPerformed(ActionEvent e)
-		{   
-				Connexion connect = new Connexion (ip.getText());
+		{   boolean result= false;
+			reseauchat nem = new reseauchat();
+		    while (!result)
+		    	result=nem.begin();
+			client con = new client ();
+			
+			try {
+				con.main(ip.getText());
+				
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
 		}
 

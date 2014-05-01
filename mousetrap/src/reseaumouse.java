@@ -1,3 +1,4 @@
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -11,9 +12,8 @@ import java.util.Scanner;
 import javax.imageio.ImageIO;
 
 
-public class reseauchat extends Game {
+public class reseaumouse extends Game {
     
-	boolean communication;
 	final int vitesse=4; // vitesse de la mouse
 	BufferedImage Mouse;
 	BufferedImage map;
@@ -23,6 +23,7 @@ public class reseauchat extends Game {
 	File filetxt;
 	String urlimagemouse;
 	String urlimagemap;
+	point pcatbefore;
 	int fps;
 	int column, row; 
 	int nbrows, nbrcolumn;
@@ -31,20 +32,21 @@ public class reseauchat extends Game {
     int numerosprite;
     int score;
 	ArrayList <String> lignes = new ArrayList <String>();
-	int columnmouse, rowmouse;
+	cat chat;
+	cat chat2;
 	point avant;
-	
-
-	
 	dynamicmanager mng;
+	point pcat;
+	
 	public boolean begin () {
-		GameApplication.start(new reseauchat());
-		return true;
-
+		GameApplication.start(new reseaumouse());
+        return true;
 	}
 	
-	public reseauchat ()
-	{  communication = false;
+	public reseaumouse ()
+	{  
+		pcat= new point (0,0);
+		pcatbefore =pcat;
 		mng = new dynamicmanager();
 		this.score=0;
 		this.urlfiletxt="map1.txt"; //adresse du fichier texte contenant les 0 et 1 de la map
@@ -70,6 +72,7 @@ public class reseauchat extends Game {
 					 map=ImageIO.read(new File (urlimagemap));
 				 } catch (IOException e){
 				   		   					e.printStackTrace();}
+			   	   				     
 	
 	
 	}
@@ -86,15 +89,11 @@ public class reseauchat extends Game {
 								String line=S.nextLine();
 								lignes.add(line);
 								if (line.contains("5")){
-								 rowmouse =A*20;
-								 columnmouse = line.indexOf("5")*20;
+								 row =A*20;
+								 column = line.indexOf("5")*20;
+								 avant=new point (column, row);
+								 System.out.println("je m'initialise à : " + row/20 + " lignes et "+column/20+ " colonnes");
 								}
-								if (line.contains("4")){
-									 row =A*20;
-									 column = line.indexOf("4")*20;
-									 avant=new point (column, row);
-									 System.out.println("je m'initialise à : " + row/20 + " lignes et "+column/20+ " colonnes");
-									}
 								 A++;
 								   }
 		   
@@ -135,7 +134,6 @@ public class reseauchat extends Game {
 	
 	@Override
 	public void update() {
-	
 		
 		fps++;  // regler la vitesse d'affichage
 		if(fps>6)
@@ -206,7 +204,7 @@ public class reseauchat extends Game {
 		
 		
 		g.drawImage(map, 0,0,null);
-		g.drawImage(Mouse.getSubimage(fps*40 ,(numerosprite*60), 40, 40), columnmouse,rowmouse, null);// pour afficher le sprite de la souris 
+		g.drawImage(Mouse.getSubimage(fps*40 ,(numerosprite*60), 40, 40), column,row, null);// pour afficher le sprite de la souris 
 		
 		int i,j;//x,y de la map, on affiche les fromages
 		g.setColor(Color.YELLOW);
@@ -225,11 +223,9 @@ public class reseauchat extends Game {
 		g.setColor(Color.RED);
 		
 		
-	   g.fillRect(column, row, 40, 40);
-	   g.setColor(Color.GREEN);
-	   if (communication)
-	   { g.fillOval(450, 450, 80, 80);}
-	   
+	   g.fillRect(pcat.x, pcat.y, 40, 40);
+		
+		
 		if (mng.dead)
 			g.drawImage(gameover, 150,150,null);
 		g.drawString("Score : "+Integer.toString(score),300, 620);
@@ -448,11 +444,12 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 	return colision;
 }
 
-public void changebool(boolean nv) {
-	communication=nv;
-	
+public void setposmouse (int recuprow, int recupcolumn){
+	pcat.x=recupcolumn;
+	pcat.y=recuprow;
+	pcatbefore =pcat;
+	//mng.change(pcatbefore, pcat , 'X');
 }
-
 
 }
 

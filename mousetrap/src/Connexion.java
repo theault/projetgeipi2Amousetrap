@@ -1,66 +1,75 @@
 import java.io.*;
 import java.net.*;
 
- public class Connexion extends Thread {
+ public class Connexion  {
  static int port = 9999;
- Socket socket ;
-reseauchat chat;
-
+ static Socket socket ;
+static reseauchat chat;
+static String temp;
  
  
- public Connexion(String text) {
-	 try {
-			socket= new Socket(text, port);
-			this.start();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	 chat=new reseauchat();
-	 chat.begin();
+public static void main(String text, reseauchat mchat) throws Exception {
+	 
+	chat=mchat;
+    socket= new Socket(text, port);
+    
 	 chat.changebool(true);
-}
+   BufferedReader sisr;
 
-
-public void run() {
- 
- BufferedReader sisr=null;
-try {
-	sisr = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-} catch (IOException e) {
-	// TODO Auto-generated catch block
-	e.printStackTrace();
-}
- PrintWriter sisw=null;
-try {
+	sisr = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+ PrintWriter sisw;
 	sisw = new PrintWriter(new BufferedWriter( new OutputStreamWriter(socket.getOutputStream())),true);
-} catch (IOException e) {
-	// TODO Auto-generated catch block
-	e.printStackTrace();
-}
+
  
-String str = "bonjour ";
- for (int i = 0; i < 100; i++) {
-  
- sisw.println(str+i); // envoi d’un message
+
+while (true) {
+ //System.out.println("woullalalalalal");
+ String str = "C";
+ if (chat.row/100==0||chat.column/100==0){
+	 
+	 if (chat.row/100==0 && chat.column/100==0){
+		 						temp = "0"+Integer.toString(chat.row);
+		 						str = str+temp;
+		 						temp = "0"+Integer.toString(chat.column);
+		 						str = str+temp;
+	 					 }
+	 else if (chat.column/100==0 && chat.column/100!=0){
+								temp = "0"+Integer.toString(chat.row);
+								str = str+temp;
+								str=str+Integer.toString(chat.column);
+	 }
+	 
+	 else {
+		 		str=str+Integer.toString(chat.row);
+		 		temp = "0"+Integer.toString(chat.column);
+				str = str+temp;
+	 	  }
+	 
+ }
+ 
+ else {
+	 		str=str+Integer.toString(chat.row)+Integer.toString(chat.column);	
+ }
+
+ sisw.println(str); // envoi d’un message
  try {
 	str = sisr.readLine();
 } catch (IOException e) {
 	// TODO Auto-generated catch block
 	e.printStackTrace();
 } // lecture de la reponse
- System.out.println(str);
+ //System.out.println(str);
  }
  
-    //sisw.println("END") ;
-     try {
+    
+    /* try {
 		sisr.close();
 		sisw.close();
 		socket.close();
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-	}
+	}*/
     
 	}
  

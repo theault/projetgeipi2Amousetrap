@@ -5,10 +5,12 @@ import java.net.*;
  
  static final int port = 9999;
  static int i =0;
- static jeu mygame;
+ static reseaumouse mygame;
+ static int recuprow=0;
+ static int recupcolumn=0;
  
  public static void main(displaymanager mng) throws Exception {
-	 mygame = new jeu (1);
+	 mygame = new reseaumouse ();
 	 mygame.begin(); 
 	 mng.choixmenu(5);
  System.out.println ("coucoucouccijcjdjkcknjedc");
@@ -23,14 +25,21 @@ import java.net.*;
  
  while (true) {
  
- i++;
  String str = sisr.readLine(); // lecture du message
- if (str.equals("END")) break;
+ 
+ /*if (str.charAt(1)=='C') {*/
+	recuprow= Character.getNumericValue(str.charAt(1))*100 + Character.getNumericValue(str.charAt(2))*10 + Character.getNumericValue(str.charAt(3)); 
+	recupcolumn= Character.getNumericValue(str.charAt(4))*100 + Character.getNumericValue(str.charAt(5))*10 + Character.getNumericValue(str.charAt(6)); 
+    System.out.println(""+recuprow+" "+recupcolumn);
+ //}
+ 
+ mygame.setposmouse(recuprow, recupcolumn);
+ 
  System.out.println("ECHO = " + str); // trace locale
  sisw.println(str); // renvoi d’un e;kcho
  }
- sisr.close();
- sisw.close();
- soc.close();
+ //sisr.close();
+ //sisw.close();
+// soc.close();
  }
  }
