@@ -40,7 +40,7 @@ public class gameserver extends Thread {
 			/*System.out.println("CLIENT["+packet.getAddress()+" : "+packet.getPort()+"]>" +message);
 			System.out.println("CLIENT" +message);*/
 				//System.out.println("je retourne pong");
-		     sendData ("pong".getBytes(), packet.getAddress(), packet.getPort());
+		    sendData ("pong".getBytes(), packet.getAddress(), packet.getPort());
 			decode(message);
 			try {
 				Thread.sleep (10);
@@ -62,13 +62,14 @@ public class gameserver extends Thread {
 	}
  
 	public void decode (String data)
-	{    // System.out.println("j'ai eu " +data);
+	{   //System.out.println("!!!!!!!!j'ai eu " +data);
 		recuprow=100* Character.getNumericValue(data.charAt(0))+10* Character.getNumericValue(data.charAt(1))+Character.getNumericValue(data.charAt(2));
 		recupcol=100* Character.getNumericValue(data.charAt(3))+10* Character.getNumericValue(data.charAt(4))+Character.getNumericValue(data.charAt(5));
-	   //System.out.println("j'ai eu " + recuprow + " "+recupcol);
-		mouse.pcat.x=recupcol;
-		mouse.pcat.y=recuprow;
-		//mouse.setposmouse(recuprow, recupcol);
+	    //System.out.println("/////j'ai eu " + recuprow + " "+recupcol);
+		//mouse.resx=recupcol;
+		//mouse.resy=recuprow;
+		//System.out.println("j'ai eu " + mouse.resx+ " "+mouse.resy);
+		mouse.setposmouse(recuprow, recupcol);
 	   
 	}
 }

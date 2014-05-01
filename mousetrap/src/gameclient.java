@@ -21,13 +21,14 @@ public class gameclient extends Thread {
 		try {
 			this.socket = new DatagramSocket();
 			try {
+				
 				this.ipadress=InetAddress.getByName(ipAddress);
 			} catch (UnknownHostException e) {
-				// TODO Auto-generated catch block
+				System.out.println("probleme connexion");
 				e.printStackTrace();
 			}
 		} catch (SocketException e) {
-			// TODO Auto-generated catch block
+			System.out.println("probleme connexion");
 			e.printStackTrace();
 		}
 		
@@ -36,19 +37,21 @@ public class gameclient extends Thread {
 	public void run ()
 	{  chat33.begin();
 		System.out.println("client rejoinds la partie");
+		sendData("ping".getBytes());
 		while (true){
-			System.out.println("i am at " +x+ " "+y);
+			
 			byte[] data = new byte [1024];
 			DatagramPacket packet = new DatagramPacket (data, data.length);
 			try {
 				socket.receive(packet);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 			String message =new String(packet.getData());
 			System.out.println("SERVER> "+message);
 			System.out.println("SERVER2222> "+creationpacket());
+			 System.out.println(" je renvoies " +creationpacket());
 			sendData(creationpacket().getBytes());
 			try {
 				Thread.sleep (10);
@@ -64,12 +67,12 @@ public class gameclient extends Thread {
 		try {
 			socket.send(packet);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.out.println("probleme envoie");
 			e.printStackTrace();
 		}
 	}
 	
-	public String creationpacket (){
+	public synchronized String creationpacket (){
 		String str="";
 		System.out.println("le chat est à " +y + " "+x);
 		String temp;
@@ -81,7 +84,7 @@ public class gameclient extends Thread {
 				 						temp = "0"+Integer.toString(x);
 				 						str = str+temp;
 			 					 }
-			 else if (x/100==0 && y/100!=0){
+			 else if (y/100==0 && x/100!=0){
 										temp = "0"+Integer.toString(y);
 										str = str+temp;
 										str=str+Integer.toString(x);

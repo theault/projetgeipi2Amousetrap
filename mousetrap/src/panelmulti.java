@@ -96,9 +96,7 @@ public panelmulti (displaymanager managerbis)
 		public void actionPerformed(ActionEvent e)
 		{   gameclient socketclient;
 	        socketclient = new gameclient ( ip.getText());
-	       //cat.begin();
 			socketclient.start();
-			socketclient.sendData("ping".getBytes());
 		}
 
 	}
