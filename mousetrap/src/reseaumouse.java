@@ -49,7 +49,6 @@ public class reseaumouse extends Game {
 	{  val1=val2=false;
 		server=serverbis;
 		pcat= new point (50,50);
-		pcatbefore =pcat;
 		mng = new dynamicmanager();
 		this.score=0;
 		this.urlfiletxt="map1.txt"; //adresse du fichier texte contenant les 0 et 1 de la map
@@ -102,7 +101,7 @@ public class reseaumouse extends Game {
 									 pcat.y =A*20;
 									 pcat.x = line.indexOf("4")*20;
 									 
-									 pcatbefore=new point (column, row);}
+									 pcatbefore=new point (pcat.x, pcat.y);}
 								 A++;
 								   }
 		   

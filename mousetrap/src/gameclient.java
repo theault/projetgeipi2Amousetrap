@@ -18,7 +18,7 @@ public class gameclient extends Thread {
 	
 	public gameclient (String ipAddress){
 		chat33=new reseauchat(this);
-		x=y=0;
+		x=y=5;
 		try {
 			this.socket = new DatagramSocket();
 			try {
@@ -38,7 +38,7 @@ public class gameclient extends Thread {
 	public void run ()
 	{  chat33.begin();
 		System.out.println("client rejoinds la partie");
-		sendData("ping".getBytes());
+		sendData("begin".getBytes());
 		while (true){
 			
 			byte[] data = new byte [1024];
