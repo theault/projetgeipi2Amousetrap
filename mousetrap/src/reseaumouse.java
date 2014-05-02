@@ -1,6 +1,9 @@
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -10,6 +13,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+
 
 
 public class reseaumouse extends Game {
@@ -18,12 +25,13 @@ public class reseaumouse extends Game {
 	BufferedImage Mouse;
 	BufferedImage map;
 	BufferedImage gameover;
+	BufferedImage catwinimage;
 	String urlfiletxt;
 	String urlgameover;
 	File filetxt;
 	String urlimagemouse;
 	String urlimagemap;
-	point pcatbefore;
+	String catwin;
 	int fps;
 	int column, row; 
 	int nbrows, nbrcolumn;
@@ -34,24 +42,27 @@ public class reseaumouse extends Game {
 	ArrayList <String> lignes = new ArrayList <String>();
 	boolean val1,val2;
 	boolean colcat =false;
-	point avant;
 	dynamicmanager mng;
-	point pcat;
-	point temp;
 	private int a;
 	private int b;
 	 gameserver server;
+	JPanel panel;
+	Font f;
+
 	
 	public void begin () {
 		GameApplication.start(this);
 	}
 	
 	public reseaumouse (gameserver serverbis)
-	{  val1=val2=false;
+	{   
+		panel= new JPanel();
+		panel.setBackground(Color.BLACK);
+		val1=val2=false;
 		server=serverbis;
-		pcat= new point (50,50);
 		mng = new dynamicmanager();
 		this.score=0;
+		this.catwin="chatwin.jpg";
 		this.urlfiletxt="map1.txt"; //adresse du fichier texte contenant les 0 et 1 de la map
 		this.filetxt= new File (this.urlfiletxt); // on recupere le fichier
 		direction =0;
@@ -59,6 +70,11 @@ public class reseaumouse extends Game {
 		inittab(); // lecutre du tableau
 		urlimagemouse= "stuart.gif";
 		urlgameover="gameover.png";
+		try{
+			catwinimage=ImageIO.read(new File (catwin));
+		} catch (IOException e){
+									e.printStackTrace();
+								}
 		try{
 			gameover=ImageIO.read(new File (urlgameover));
 		} catch (IOException e){
@@ -75,9 +91,9 @@ public class reseaumouse extends Game {
 					 map=ImageIO.read(new File (urlimagemap));
 				 } catch (IOException e){
 				   		   					e.printStackTrace();}
-		a=pcat.x;
-		b=pcat.y;
+		      
 		val1=true;
+		
 	}
 	
 	
@@ -95,7 +111,7 @@ public class reseaumouse extends Game {
 								if (line.contains("5")){
 								 row =A*20;
 								 column = line.indexOf("5")*20;
-								 avant=new point (column, row);
+		
 								 //System.out.println("je m'initialise à : " + row/20 + " lignes et "+column/20+ " colonnes");
 								}
 								if (line.contains("4")){
@@ -128,8 +144,9 @@ public class reseaumouse extends Game {
 		if (mng.dead)
 			direction=0;
 		else if (key==10||key==13)
-			{fenetre fenetrepp= new fenetre();
-			displaymanager manager1= new displaymanager (fenetrepp);
+			{
+			   recupframe().dispose();
+			   server.setalive(false);
 			}
 			}
 	
@@ -146,7 +163,7 @@ public class reseaumouse extends Game {
 	public void update() {
 		server.x=column;
 		server.y=row;
-		avant= new point (column,row);
+		
 		fps++;  // regler la vitesse d'affichage
 		if(fps>6)
 			fps=0;
@@ -181,10 +198,10 @@ public class reseaumouse extends Game {
 	case  0: break;
 		
 		}
-	 mng.change(avant, new point (column,row), 'M');	
+	
 	 if (val1 && val2)
-	 {colisionwithcat();	
-	 }
+		 colisionwithcat();	
+	 
 
 	}
 	
@@ -222,11 +239,13 @@ public class reseaumouse extends Game {
     	return this.row;
     }
 	public void draw(Graphics2D g) {
-		
-		
-		g.drawImage(map, 0,0,null);
+		recupframe().add(panel);
+		recupframe().revalidate();
+		panel.setLayout(null);
+		recupframe().setLayout(null);
+		if (!mng.dead ||!colcat)
+	   {g.drawImage(map, 0,0,null);
 		g.drawImage(Mouse.getSubimage(fps*40 ,(numerosprite*60), 40, 40), column,row, null);// pour afficher le sprite de la souris 
-		
 		int i,j;//x,y de la map, on affiche les fromages
 		g.setColor(Color.YELLOW);
 		
@@ -240,16 +259,27 @@ public class reseaumouse extends Game {
 							}
 						}
 				}
-		
 		g.setColor(Color.RED);
-		
-	  //System.out.println("test dans affichage " +a+" "+b);
-	   g.fillRect(b, a, 40, 40);
+		//System.out.println("test dans affichage " +a+" "+b);
+	    g.fillRect(b, a, 40, 40);}
 		
 		
 		if (mng.dead ||colcat)
-			g.drawImage(gameover, 150,150,null);
-		g.drawString("Score : "+Integer.toString(score),300, 620);
+		 {  
+			server.setalive(false);
+		    //recupframe().revalidate();
+			g.setColor(Color.RED);
+			f = new Font("Comic Sans MS", Font.BOLD, 20);
+			g.setFont(f);
+			g.drawString("Les chats gagnent",400, 630);
+			g.drawString("Press Enter to Quit",0, 630);
+			g.drawImage(map, 0,0,null);
+			g.drawImage(catwinimage, 0,0,null);
+			}
+		g.setColor(Color.YELLOW);
+		f = new Font("Comic Sans MS", Font.BOLD, 20);
+		g.setFont(f);
+		g.drawString("Score : "+Integer.toString(score),260, 630);
 	}
 
 
@@ -492,12 +522,29 @@ public int getb (){
 }
 
 public void colisionwithcat (){
-	if ((row+40)==a|| (row-40)==a||(column+40)==b||(column-40)==b)
+	if (a==row)
+	{if (Math.abs(column+40-b)<40||Math.abs(column-b)<40)
 		{colcat=true;
-		System.out.println("la souris est à "+row+" & "+column+" le chat est a "+a+" & "+b);
-		System.out.println("!!!!!!!!!!!!!!!!!!!!attention collision avec chatttt !!!!!!!!!!!!!!!!!!!!!!!");
+		//System.out.println("la souris est à "+row+" & "+column+" le chat est a "+a+" & "+b);
+		//System.out.println("!!!!!!!!!!!!!!!!!!!!attention collision avec chatttt !!!!!!!!!!!!!!!!!!!!!!!");
+		}}
+	
+	else if (b==column)
+	{
+		if(Math.abs(row-a)<40||Math.abs(row+40-a)<40)
+		{colcat=true;
+		//System.out.println("la souris est à "+row+" & "+column+" le chat est a "+a+" & "+b);
+		//System.out.println("!!!!!!!!!!!!!!!!!!!!attention collision avec chatttt !!!!!!!!!!!!!!!!!!!!!!!");
 		}
+	}
 }
+class retour implements ActionListener {
+	public void actionPerformed(ActionEvent e)
+	{
+		System.out.println("coucou");
+		recupframe().dispose();
+	}
 
+}
 }
 

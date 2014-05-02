@@ -23,6 +23,7 @@ public class GameApplication {
 				frame.add(canvas);
 				frame.setVisible(true);
 				canvas.requestFocus();
+				game.setframe(frame);
 				new GameLoop(game, canvas).start();
 			}
 		});

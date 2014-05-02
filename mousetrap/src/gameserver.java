@@ -14,11 +14,14 @@ public class gameserver extends Thread {
 	private int port = 9999;
 	int recuprow, recupcol;
 	int x,y;
-	int remembera,rememberb;
+	private boolean alive;
 	ArrayList <String> tabres = new ArrayList <String>(0);
+	veilleur look;
 	
 	public gameserver (){
-		remembera=rememberb=0;
+		alive=true;
+		look= new veilleur(this);
+		look.start();
 		mouse22=new reseaumouse(this);
 		try {
 			Thread.sleep(1000);
@@ -40,11 +43,13 @@ public class gameserver extends Thread {
 	
 	public void run ()
 	{ System.out.println("serveur mis en route");
-		while (true){
+	
+		while (alive){
+			System.out.println("1");
 			byte[] data = new byte [1024];
 			DatagramPacket packet = new DatagramPacket (data, data.length);
 			try {
-				socket.receive(packet);
+				 socket.receive(packet);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -66,6 +71,8 @@ public class gameserver extends Thread {
 			}
 	
 		}
+		socket.close();
+		System.out.println("Leserveur est bien fermé");
 	}
 	public void sendData (byte[]  data, InetAddress ipadress, int portbis) {
 		DatagramPacket packet = new DatagramPacket (data, data.length, ipadress,portbis);
@@ -82,14 +89,12 @@ public class gameserver extends Thread {
 		recuprow=100* Character.getNumericValue(data.charAt(0))+10* Character.getNumericValue(data.charAt(1))+Character.getNumericValue(data.charAt(2));
 		recupcol=100* Character.getNumericValue(data.charAt(3))+10* Character.getNumericValue(data.charAt(4))+Character.getNumericValue(data.charAt(5));
 	    
-		mouse22.pcatbefore= new point (rememberb, remembera);
+		
 		
 		if (recuprow<=600 && recupcol<=600 && recuprow>=0 && recupcol>=0)
 		{mouse22.seta(recuprow);
 	    mouse22.setb(recupcol);
-	    remembera=recuprow;
-	    rememberb=recupcol;
-	    mouse22.pcat=new point (recupcol,recuprow);}
+	    }
 	 
 		//System.out.println("/////j'ai eu " + recuprow + " "+recupcol);
 		//System.out.println("j'ai eu " + mouse.resx+ " "+mouse.resy);
@@ -130,4 +135,13 @@ public class gameserver extends Thread {
 		 //System.out.println(" je renvoies " +str);
 		return str;
 	}
+	
+	public void setalive (boolean alive) {this.alive=alive;}
+	public boolean getalive () {return this.alive;}
+	
+	public void clore ()  { 
+		socket.close() ;
+	System.out.println("serveur fermé");}
+	
+	
 }

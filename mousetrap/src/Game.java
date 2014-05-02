@@ -14,6 +14,8 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author paul
@@ -24,7 +26,7 @@ public abstract class Game implements KeyListener, MouseListener, MouseMotionLis
 	protected String title = "MouseTrap";
 	protected int width=606, height=678;
 	protected int delay = 60;
-
+	JFrame frame;
 	public void init() {}
 	abstract public void update();
 	abstract public void draw(Graphics2D g);
@@ -36,7 +38,8 @@ public abstract class Game implements KeyListener, MouseListener, MouseMotionLis
 	public int getHeight() { return height; }
 	public int getDelay() { return delay; }
 	public void resize(int width, int height) {}
-
+    public JFrame recupframe(){return frame;}
+    public void setframe (JFrame framebis){ this.frame = framebis;}
 	public void keyTyped(KeyEvent e) {
 	}
 
