@@ -33,6 +33,7 @@ public class reseaumouse extends Game {
     int score;
 	ArrayList <String> lignes = new ArrayList <String>();
 	boolean val1,val2;
+	boolean colcat =false;
 	point avant;
 	dynamicmanager mng;
 	point pcat;
@@ -95,13 +96,13 @@ public class reseaumouse extends Game {
 								 row =A*20;
 								 column = line.indexOf("5")*20;
 								 avant=new point (column, row);
-								 System.out.println("je m'initialise à : " + row/20 + " lignes et "+column/20+ " colonnes");
+								 //System.out.println("je m'initialise à : " + row/20 + " lignes et "+column/20+ " colonnes");
 								}
 								if (line.contains("4")){
-									 pcat.y =A*20;
-									 pcat.x = line.indexOf("4")*20;
-									 
-									 pcatbefore=new point (pcat.x, pcat.y);}
+									 a =A*20;
+									 b= line.indexOf("4")*20;
+									 System.out.println("le chat : je m'initialise à : " + a/20 + " lignes et "+b/20+ " colonnes");
+									 }
 								 A++;
 								   }
 		   
@@ -145,11 +146,10 @@ public class reseaumouse extends Game {
 	public void update() {
 		server.x=column;
 		server.y=row;
+		avant= new point (column,row);
 		fps++;  // regler la vitesse d'affichage
 		if(fps>6)
 			fps=0;
-		mng.change(avant, new point (column,row), 'M');	
-		pcat=new point (b,a);
 		//System.out.println("test la valeur de a est de "+ this.a+ "et pour "+this.b);
 	 switch (direction ){
 		
@@ -181,9 +181,13 @@ public class reseaumouse extends Game {
 	case  0: break;
 		
 		}
+	 mng.change(avant, new point (column,row), 'M');	
 	 if (val1 && val2)
-	 mng.change(pcatbefore, pcat, 'X');	
+	 {colisionwithcat();	
+	 }
+
 	}
+	
 
 	
 	private void change (int row1, int column1, char s) // methode pour remplacer un caractere dans le tablea!!!
@@ -193,7 +197,6 @@ public class reseaumouse extends Game {
 		buffer.setCharAt(column1, s);
 	    nv = buffer.toString();
 		lignes.set(row1, nv);
-		server.tabres.set(row1, nv);
 		
 	}
 	
@@ -240,11 +243,11 @@ public class reseaumouse extends Game {
 		
 		g.setColor(Color.RED);
 		
-		//System.out.println("test dans affichage " +pcat.x+" "+pcat.y);
+	  //System.out.println("test dans affichage " +a+" "+b);
 	   g.fillRect(b, a, 40, 40);
 		
 		
-		if (mng.dead)
+		if (mng.dead ||colcat)
 			g.drawImage(gameover, 150,150,null);
 		g.drawString("Score : "+Integer.toString(score),300, 620);
 	}
@@ -486,6 +489,14 @@ public void setb(int abis){
 }
 public int getb (){
 	return this.b;
+}
+
+public void colisionwithcat (){
+	if ((row+40)==a|| (row-40)==a||(column+40)==b||(column-40)==b)
+		{colcat=true;
+		System.out.println("la souris est à "+row+" & "+column+" le chat est a "+a+" & "+b);
+		System.out.println("!!!!!!!!!!!!!!!!!!!!attention collision avec chatttt !!!!!!!!!!!!!!!!!!!!!!!");
+		}
 }
 
 }

@@ -143,8 +143,8 @@ public class reseauchat extends Game {
 		/*fps++;  // regler la vitesse d'affichage
 		if(fps>6)
 			fps=0;*/
-		System.out.println(" dans reseau chat test la valeur de a est de "+ this.a+ "et pour "+this.b);
-		mng.change(avant, new point (column,row), 'M');	
+		//System.out.println(" dans reseau chat test la valeur de a est de "+ this.a+ "et pour "+this.b);
+		mng.change(avant, new point (column,row), 'X');	
 		avant.y=row;
 		avant.x=column;
 		
@@ -408,11 +408,6 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 		System.out.println(" ligne 1 =" + row1);
 		System.out.println(" ligne 2 =" + row2);
 		*/
-		if (value (row1/20, column1/20)=='F'||value(row2/20,column2/20)=='F')
-		{    
-			change (row1/20, column1/20,'0');
-			this.score+=100;
-		}
 	
 		 if (value ((y1), (x1/20))=='1') 
 			{    

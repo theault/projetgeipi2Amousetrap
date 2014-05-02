@@ -57,7 +57,7 @@ public class gameclient extends Thread {
 			decode(message);
 			//System.out.println("gameclient \\\\__/////j'ai eu " + recuprow + " "+recupcol);
 			try {
-				Thread.sleep (10);
+				Thread.sleep (0);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -109,7 +109,7 @@ public class gameclient extends Thread {
 	}
 	
 	public void decode (String data)
-	{   System.out.println("!!!!!!!!j'ai eu " +data);
+	{   //System.out.println("!!!!!!!!j'ai eu " +data);
 		recuprow=100* Character.getNumericValue(data.charAt(0))+10* Character.getNumericValue(data.charAt(1))+Character.getNumericValue(data.charAt(2));
 		recupcol=100* Character.getNumericValue(data.charAt(3))+10* Character.getNumericValue(data.charAt(4))+Character.getNumericValue(data.charAt(5));
 		

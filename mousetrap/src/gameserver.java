@@ -14,9 +14,11 @@ public class gameserver extends Thread {
 	private int port = 9999;
 	int recuprow, recupcol;
 	int x,y;
+	int remembera,rememberb;
 	ArrayList <String> tabres = new ArrayList <String>(0);
 	
 	public gameserver (){
+		remembera=rememberb=0;
 		mouse22=new reseaumouse(this);
 		try {
 			Thread.sleep(1000);
@@ -57,7 +59,7 @@ public class gameserver extends Thread {
 			//System.out.println("gameserve r\\\\__/////j'ai eu " + recuprow + " "+recupcol);
 			mouse22.seta(recuprow);
 			try {
-				Thread.sleep (10);
+				Thread.sleep (0);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -75,22 +77,23 @@ public class gameserver extends Thread {
 		}
 	}
  
-	public void decode (String data)
+	public synchronized void decode (String data)
 	{   //System.out.println("!!!!!!!!j'ai eu " +data);
 		recuprow=100* Character.getNumericValue(data.charAt(0))+10* Character.getNumericValue(data.charAt(1))+Character.getNumericValue(data.charAt(2));
 		recupcol=100* Character.getNumericValue(data.charAt(3))+10* Character.getNumericValue(data.charAt(4))+Character.getNumericValue(data.charAt(5));
 	    
-		//mouse22.pcatbefore=new point (mouse22.getb(),mouse22.geta());
+		mouse22.pcatbefore= new point (rememberb, remembera);
 		
 		if (recuprow<=600 && recupcol<=600 && recuprow>=0 && recupcol>=0)
 		{mouse22.seta(recuprow);
-	    mouse22.setb(recupcol);}
-	  //  mouse22.pcat=new point (mouse22.getb(),mouse22.geta());
+	    mouse22.setb(recupcol);
+	    remembera=recuprow;
+	    rememberb=recupcol;
+	    mouse22.pcat=new point (recupcol,recuprow);}
+	 
 		//System.out.println("/////j'ai eu " + recuprow + " "+recupcol);
-		//mouse.resx=recupcol;
-		//mouse.resy=recuprow;
 		//System.out.println("j'ai eu " + mouse.resx+ " "+mouse.resy);
-		//mouse22.setposmouse(recuprow, recupcol);
+		
 	   
 	}
 	

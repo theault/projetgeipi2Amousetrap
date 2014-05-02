@@ -29,18 +29,18 @@ public class dynamicmanager {
 		    	   		sem.acquire();
 		    	   		//System.out.println("la lettre est " +c);
 		    	   		//System.out.println("glouglouglou");
-				      // if (c1/30==0 && c2/30==0 && l1/30==0 && l2/30==0 && c1>=0 && c2>=0 && l1>=0 && l2>=0)
-				        	dynamic [l1][c1]='0';
-				        	dynamic [l1+1][c1]='0';
-				        	dynamic [l1+1][c1+1]='0';
-				        	dynamic [l1][c1+1]='0';
+				       if (c1/30==0 && c2/30==0 && l1/30==0 && l2/30==0 && c1>=0 && c2>=0 && l1>=0 && l2>=0)
+				        	{dynamic [l1][c1]='1';
+				        	dynamic [l1+1][c1]='1';
+				        	dynamic [l1+1][c1+1]='1';
+				        	dynamic [l1][c1+1]='1';
 				        	dynamic [l2][c2]=c;
 				        	dynamic [l2+1][c2]=c;
 				        	dynamic [l2+1][c2+1]=c;
 				        	dynamic [l2][c2+1]=c;
-				        	verif(l2,c2,c);
+				        	verif(l2,c2,c);}
 				    
-				      /*  System.out.println("--------------------------");
+				       /*System.out.println("--------------------------");
 						for (int i =0; i<30;i++)
 							{for(int j=0; j<30; j++)
 								System.out.print(""+dynamic[i][j]);
@@ -56,7 +56,9 @@ public class dynamicmanager {
 	}
 	
 	public void verif (int l2, int c2, char c) {
-		if (c=='M')
+		
+		if (c2/30==0 && l2/30==0 && l2>=0 && c2>=0)
+		{if (c=='M')
 		{
 		    if (dynamic[l2-1][c2]=='X'||dynamic[l2-1][c2+1]=='X'||dynamic[l2][c2+2]=='X'||dynamic[l2+1][c2+2]=='X'||dynamic[l2+2][c2]=='X'||dynamic[l2+2][c2+1]=='X'||dynamic[l2][c2-1]=='X'||dynamic[l2+1][c2-1]=='X')
 		             dead=true;
@@ -66,6 +68,6 @@ public class dynamicmanager {
 			 if (dynamic[l2-1][c2]=='M'||dynamic[l2-1][c2+1]=='M'||dynamic[l2][c2+2]=='M'||dynamic[l2+1][c2+2]=='M'||dynamic[l2+2][c2]=='M'||dynamic[l2+2][c2+1]=='M'||dynamic[l2][c2-1]=='M'||dynamic[l2+1][c2-1]=='M')
 	             dead=true;
 		}
-	}
+	}}
 	
 }
