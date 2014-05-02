@@ -20,11 +20,15 @@ public class reseauchat extends Game {
 	BufferedImage Mouse;
 	BufferedImage map;
 	BufferedImage gameover;
+	BufferedImage souriswin;
+	BufferedImage catwinimage;
 	String urlfiletxt;
 	String urlgameover;
 	File filetxt;
 	String urlimagemouse;
 	String urlimagemap;
+	String souriswinurl;
+	String catwin;
 	private int fps;
 	int column, row; 
 	int nbrows, nbrcolumn;
@@ -59,12 +63,21 @@ public class reseauchat extends Game {
 	    communication = false;
 		mng = new dynamicmanager();
 		this.score=0;
+		this.catwin="chatwin.jpg";
 		this.urlfiletxt="map1.txt"; //adresse du fichier texte contenant les 0 et 1 de la map
 		this.filetxt= new File (this.urlfiletxt); // on recupere le fichier
 		directmouse=direction =0;
 		fps=0;
 		inittab(); // lecutre du tableau
 		urlimagemouse= "stuart.gif";
+		
+		souriswinurl="souriswin.jpg";
+		try{
+			souriswin=ImageIO.read(new File (souriswinurl));
+		} catch (IOException e){
+									e.printStackTrace();
+								}
+		
 		urlgameover="gameover.png";
 		try{
 			gameover=ImageIO.read(new File (urlgameover));
@@ -82,7 +95,13 @@ public class reseauchat extends Game {
 					 map=ImageIO.read(new File (urlimagemap));
 				 } catch (IOException e){
 				   		   					e.printStackTrace();}
-	
+	        
+		     
+		     try{
+					catwinimage=ImageIO.read(new File (catwin));
+				} catch (IOException e){
+											e.printStackTrace();
+										}
 	    val1=true;
 	}
 	
@@ -281,7 +300,7 @@ public class reseauchat extends Game {
 	   
 		if (empty==0)
 			{
-				g.drawImage(gameover, 150,150,null);
+				g.drawImage(souriswin, 0,0,null);
 				g.setColor(Color.RED);
 				f = new Font("Comic Sans MS", Font.BOLD, 20);
 				g.setFont(f);
@@ -289,10 +308,23 @@ public class reseauchat extends Game {
 				g.drawString("Press Enter to Quit",0, 630);
 			}
 		
+		if (mng.dead ||colmouse)
+		 {  
+			client.setalive(false);
+			g.setColor(Color.RED);
+			f = new Font("Comic Sans MS", Font.BOLD, 20);
+			g.setFont(f);
+			g.drawString("Les chats gagnent",400, 630);
+			g.drawString("Press Enter to Quit",0, 630);
+			g.drawImage(catwinimage, 0,0,null);
+			}
+		
 		g.setColor(Color.YELLOW);
 		f = new Font("Comic Sans MS", Font.BOLD, 20);
 		g.setFont(f);
 		g.drawString("Il reste: "+Integer.toString(empty),250, 630);
+		
+		
 	}
 
 

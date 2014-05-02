@@ -26,12 +26,14 @@ public class reseaumouse extends Game {
 	BufferedImage map;
 	BufferedImage gameover;
 	BufferedImage catwinimage;
+	BufferedImage souriswin;
 	String urlfiletxt;
 	String urlgameover;
 	File filetxt;
 	String urlimagemouse;
 	String urlimagemap;
 	String catwin;
+	String souriswinurl;
 	int fps;
 	int column, row; 
 	int nbrows, nbrcolumn;
@@ -70,6 +72,14 @@ public class reseaumouse extends Game {
 		inittab(); // lecutre du tableau
 		urlimagemouse= "stuart.gif";
 		urlgameover="gameover.png";
+		
+		souriswinurl="souriswin.jpg";
+		try{
+			souriswin=ImageIO.read(new File (souriswinurl));
+		} catch (IOException e){
+									e.printStackTrace();
+								}
+		
 		try{
 			catwinimage=ImageIO.read(new File (catwin));
 		} catch (IOException e){
@@ -239,7 +249,7 @@ public class reseaumouse extends Game {
     	return this.row;
     }
 	public void draw(Graphics2D g) {
-		
+		int empty=0;
 		recupframe().add(panel);
 		recupframe().revalidate();
 		
@@ -255,6 +265,7 @@ public class reseaumouse extends Game {
 						{
 							if (value(i,j)=='F')
 							{
+								empty++;
 							   g.fillOval(j*20+10, i*20+10, 20, 20); //provisoire
 							}
 						}
@@ -263,6 +274,15 @@ public class reseaumouse extends Game {
 		//System.out.println("test dans affichage " +a+" "+b);
 	    g.fillRect(b, a, 40, 40);}
 		
+		if (empty==0)
+		{
+			g.drawImage(souriswin, 0,0,null);
+			g.setColor(Color.RED);
+			f = new Font("Comic Sans MS", Font.BOLD, 20);
+			g.setFont(f);
+			g.drawString("La souris win",400, 630);
+			g.drawString("Press Enter to Quit",0, 630);
+		}
 		
 		if (mng.dead ||colcat)
 		 {  
