@@ -23,7 +23,7 @@ public class reseauchat extends Game {
 	File filetxt;
 	String urlimagemouse;
 	String urlimagemap;
-	int fps;
+	private int fps;
 	int column, row; 
 	int nbrows, nbrcolumn;
 	int haut,bas,droite,gauche;
@@ -33,8 +33,10 @@ public class reseauchat extends Game {
 	ArrayList <String> lignes = new ArrayList <String>();
 	int columnmouse, rowmouse;
 	point avant;
-	int xres,yres;
     gameclient client;
+    private int a;
+	private int b;
+	private int directmouse;
 	
 	dynamicmanager mng;
 	public void begin () {
@@ -48,9 +50,8 @@ public class reseauchat extends Game {
 		this.score=0;
 		this.urlfiletxt="map1.txt"; //adresse du fichier texte contenant les 0 et 1 de la map
 		this.filetxt= new File (this.urlfiletxt); // on recupere le fichier
-		direction =0;
+		directmouse=direction =0;
 		fps=0;
-		xres=yres=0;
 		inittab(); // lecutre du tableau
 		urlimagemouse= "stuart.gif";
 		urlgameover="gameover.png";
@@ -86,8 +87,8 @@ public class reseauchat extends Game {
 								String line=S.nextLine();
 								lignes.add(line);
 								if (line.contains("5")){
-								 rowmouse =A*20;
-								 columnmouse = line.indexOf("5")*20;
+								 a=rowmouse =A*20;
+								 b=columnmouse = line.indexOf("5")*20;
 								}
 								if (line.contains("4")){
 									 row =A*20;
@@ -139,39 +140,66 @@ public class reseauchat extends Game {
 		//System.out.println("je suis à " +row +" & "+column+ " || "  +yres +" & "+xres);
 		
 		
-		fps++;  // regler la vitesse d'affichage
+		/*fps++;  // regler la vitesse d'affichage
 		if(fps>6)
-			fps=0;
-		
+			fps=0;*/
+		System.out.println(" dans reseau chat test la valeur de a est de "+ this.a+ "et pour "+this.b);
 		mng.change(avant, new point (column,row), 'M');	
 		avant.y=row;
 		avant.x=column;
+		
+		 switch (directmouse ){
+			
+			case KeyEvent.VK_LEFT: //37
+				collision (a,b, a + 20, b, 789);//value(Y,X-1)
+				break;
+		 
+			
+		case KeyEvent.VK_RIGHT://38
+			 collision (a,b + 20, a + 20, b + 20, 789);
+	         break;
+				
+		case KeyEvent.VK_UP://39
+		 collision (a,b, a + 20, b, 789);
+		 break;
+			
+		case KeyEvent.VK_DOWN://40
+		     collision (a,b,a +20, b, 789);//value(Y,X-1)
+			break;
+		
+		case  0: break;
+			}
+		
 	 switch (direction ){
 		
 		case KeyEvent.VK_LEFT: //37
 			if ( collision (row,column, row + 20, column, direction)==true)//value(Y,X-1)
 			{   
 				column-=vitesse;
-			numerosprite =0;}
+			//numerosprite =0;
+				}
 			break;
 	 
 		
 	case KeyEvent.VK_RIGHT://38
 		if (  collision (row,column + 20, row + 20, column + 20, direction)==true)
 		{ column+=vitesse;
-			numerosprite=1;}
+			//numerosprite=1;
+			}
 			break;
 			
 	case KeyEvent.VK_UP://39
 		if( collision (row,column, row + 20, column, direction)==true)
 		{ row-=vitesse;
-			numerosprite=3;}
+			//numerosprite=3;
+			}
 			break;
 		
 	case KeyEvent.VK_DOWN://40
 		if ( collision (row,column, row +20, column, direction)==true)//value(Y,X-1)
 		{row+=vitesse;
-			numerosprite =2;}
+			//numerosprite =2;
+		}
 			break;
 	case  0: break;
 		
@@ -180,14 +208,7 @@ public class reseauchat extends Game {
      client.y=row;
 	}
 
-	  public int getx (){
-		  System.out.println(" x "+this.xres);
-	    	return this.xres;
-	    }
-	    public int gety (){
-	    	System.out.println(" y "+this.yres);
-	    	return this.yres;
-	    }
+	 
 	private void change (int row1, int column1, char s) // methode pour remplacer un caractere dans le tablea!!!
 	{
 		String nv = lignes.get(row1);
@@ -217,7 +238,7 @@ public class reseauchat extends Game {
 		
 		
 		g.drawImage(map, 0,0,null);
-		g.drawImage(Mouse.getSubimage(fps*40 ,(numerosprite*60), 40, 40), columnmouse,rowmouse, null);// pour afficher le sprite de la souris 
+		g.drawImage(Mouse.getSubimage(fps*40 ,(numerosprite*60), 40, 40), b,a, null);// pour afficher le sprite de la souris 
 		
 		int i,j;//x,y de la map, on affiche les fromages
 		g.setColor(Color.YELLOW);
@@ -243,13 +264,13 @@ public class reseauchat extends Game {
 	   
 		if (mng.dead)
 			g.drawImage(gameover, 150,150,null);
-		g.drawString("Score : "+Integer.toString(score),300, 620);
+		g.drawString("Score de l'ennemi : "+Integer.toString(score),100, 620);
 	}
 
 
 
 public boolean collision (int row1, int column1, int row2, int column2, int direction){
-	
+	int i=1;
     boolean colision=false; 
     int y1=row1;
 	int y2=row2;
@@ -263,9 +284,10 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 	boolean case2=false ;
 	
 	
-	if (value (row1/20, column1/20)=='F'||value(row2/20,column2/20)=='F')
+	if ((value (row1/20,column1/20)=='F'||value(row2/20,column2/20)=='F')&& direction==789)
 	{    
 		change (row1/20, column1/20,'0');
+		i=0;
 		this.score+=100;
 	}
     
@@ -369,7 +391,7 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 			}
    }
 	
-	else if (direction ==KeyEvent.VK_DOWN){ // en bas
+	else if ((direction ==KeyEvent.VK_DOWN||direction==789)&& i==1){ // en bas
 		
 		row2+=20;
 		row1+=40;
@@ -454,6 +476,8 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 				colision =true;
 	    	}
 		break;
+		
+    default : break;
 	}
 	
 	return colision;
@@ -464,5 +488,36 @@ public void changebool(boolean nv) {
 	
 }
 
+public void seta(int abis){
+	this.a=abis;
+	//System.out.println("la valeur de a est " +this.a);
+}
+public int geta (){
+	return this.a;
+}
+
+public void setb(int abis){
+	this.b=abis;
+	//System.out.println("la valeur de a est " +this.a);
+}
+
+public void setfps(int abis){
+	this.fps=abis;
+	//System.out.println("la valeur de a est " +this.a);
+}
+
+public void setnumerosprite(int abis){
+	this.numerosprite=abis;
+	//System.out.println("la valeur de a est " +this.a);
+}
+
+public void setdirectmousee(int abis){
+	this.directmouse=abis;
+	//System.out.println("la valeur de a est " +this.a);
+}
+
+public int getb (){
+	return this.b;
+}
 }
 

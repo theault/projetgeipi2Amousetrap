@@ -32,7 +32,7 @@ public class reseaumouse extends Game {
     int numerosprite;
     int score;
 	ArrayList <String> lignes = new ArrayList <String>();
-	
+	boolean val1,val2;
 	point avant;
 	dynamicmanager mng;
 	point pcat;
@@ -46,9 +46,9 @@ public class reseaumouse extends Game {
 	}
 	
 	public reseaumouse (gameserver serverbis)
-	{  
+	{  val1=val2=false;
 		server=serverbis;
-		pcat= new point (0,0);
+		pcat= new point (50,50);
 		pcatbefore =pcat;
 		mng = new dynamicmanager();
 		this.score=0;
@@ -77,8 +77,7 @@ public class reseaumouse extends Game {
 				   		   					e.printStackTrace();}
 		a=pcat.x;
 		b=pcat.y;
-	   temp= new point (pcat.x,pcat.y);
-	
+		val1=true;
 	}
 	
 	
@@ -117,6 +116,7 @@ public class reseaumouse extends Game {
 		nbrcolumn = lignes.get(0).length();
 		System.out.println("le fichier texte contient : " + nbrows + "lignes "+  nbrcolumn+ "colonnes");
 		//System.out.println("test recup valeur " + Valmap(0,1));
+		val2=true;
 	}
 	
 	
@@ -144,15 +144,14 @@ public class reseaumouse extends Game {
 	
 	@Override
 	public void update() {
-		/*server.x=column;
+		server.x=column;
 		server.y=row;
-		//seta(80);
 		fps++;  // regler la vitesse d'affichage
 		if(fps>6)
 			fps=0;
 		mng.change(avant, new point (column,row), 'M');	
-		pcat=temp;*/
-		System.out.println("test la valeur de a est de "+ this.a+ "et pour n"+this.b);
+		pcat=new point (b,a);
+		//System.out.println("test la valeur de a est de "+ this.a+ "et pour "+this.b);
 	 switch (direction ){
 		
 		case KeyEvent.VK_LEFT: //37
@@ -183,6 +182,8 @@ public class reseaumouse extends Game {
 	case  0: break;
 		
 		}
+	 if (val1 && val2)
+	 mng.change(pcatbefore, pcat, 'X');	
 	}
 
 	

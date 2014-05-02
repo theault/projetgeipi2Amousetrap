@@ -29,7 +29,7 @@ public class dynamicmanager {
 		    	   		sem.acquire();
 		    	   		//System.out.println("la lettre est " +c);
 		    	   		//System.out.println("glouglouglou");
-				       
+				      // if (c1/30==0 && c2/30==0 && l1/30==0 && l2/30==0 && c1>=0 && c2>=0 && l1>=0 && l2>=0)
 				        	dynamic [l1][c1]='0';
 				        	dynamic [l1+1][c1]='0';
 				        	dynamic [l1+1][c1+1]='0';

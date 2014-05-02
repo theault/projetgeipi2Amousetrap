@@ -18,6 +18,12 @@ public class gameserver extends Thread {
 	
 	public gameserver (){
 		mouse22=new reseaumouse(this);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		mouse22.begin();
 		x=y=0;
 			try {
@@ -73,8 +79,13 @@ public class gameserver extends Thread {
 	{   //System.out.println("!!!!!!!!j'ai eu " +data);
 		recuprow=100* Character.getNumericValue(data.charAt(0))+10* Character.getNumericValue(data.charAt(1))+Character.getNumericValue(data.charAt(2));
 		recupcol=100* Character.getNumericValue(data.charAt(3))+10* Character.getNumericValue(data.charAt(4))+Character.getNumericValue(data.charAt(5));
-	    mouse22.seta(recuprow);
-	    mouse22.setb(recupcol);
+	    
+		//mouse22.pcatbefore=new point (mouse22.getb(),mouse22.geta());
+		
+		if (recuprow<=600 && recupcol<=600 && recuprow>=0 && recupcol>=0)
+		{mouse22.seta(recuprow);
+	    mouse22.setb(recupcol);}
+	  //  mouse22.pcat=new point (mouse22.getb(),mouse22.geta());
 		//System.out.println("/////j'ai eu " + recuprow + " "+recupcol);
 		//mouse.resx=recupcol;
 		//mouse.resy=recuprow;
@@ -112,8 +123,7 @@ public class gameserver extends Thread {
 		 else {
 			 		str=str+Integer.toString(y)+Integer.toString(x);	
 		 }
-		 for (int i =0; i<30;i++)
-			 str=str+tabres.get(i);
+		 str=str+Integer.toString(mouse22.fps)+Integer.toString(mouse22.numerosprite)+Integer.toString(mouse22.direction);
 		 //System.out.println(" je renvoies " +str);
 		return str;
 	}

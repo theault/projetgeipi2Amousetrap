@@ -77,7 +77,7 @@ public class gameclient extends Thread {
 	
 	public synchronized String creationpacket (){
 		String str="";
-		System.out.println("le chat est à " +y + " "+x);
+		//System.out.println("le chat est à " +y + " "+x);
 		String temp;
 		 if (y/100==0||x/100==0){
 			 
@@ -109,10 +109,16 @@ public class gameclient extends Thread {
 	}
 	
 	public void decode (String data)
-	{   //System.out.println("!!!!!!!!j'ai eu " +data);
+	{   System.out.println("!!!!!!!!j'ai eu " +data);
 		recuprow=100* Character.getNumericValue(data.charAt(0))+10* Character.getNumericValue(data.charAt(1))+Character.getNumericValue(data.charAt(2));
 		recupcol=100* Character.getNumericValue(data.charAt(3))+10* Character.getNumericValue(data.charAt(4))+Character.getNumericValue(data.charAt(5));
-	   
+		
+		if (recuprow<=600 && recupcol<=600 && recuprow>=0 && recupcol>=0)
+		{chat33.setfps(Character.getNumericValue(data.charAt(6)));
+		chat33.seta(recuprow);
+	    chat33.setb(recupcol);
+	    chat33.setnumerosprite(Character.getNumericValue(data.charAt(7)));
+	    chat33.setdirectmousee(Character.getNumericValue(data.charAt(8))*10+Character.getNumericValue(data.charAt(9)));}
 	   
 	}
 }
