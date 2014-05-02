@@ -15,8 +15,14 @@ public class gameclient extends Thread {
 	private int port = 9999;
 	int x,y;
 	int recuprow,recupcol;
+	private boolean alive;
+	veilleurclient Veilleur;
 	
 	public gameclient (String ipAddress){
+		
+		alive=true;
+		Veilleur=new veilleurclient(this);
+		Veilleur.start();
 		chat33=new reseauchat(this);
 		x=y=5;
 		try {
@@ -36,10 +42,11 @@ public class gameclient extends Thread {
 	}
 	
 	public void run ()
-	{  chat33.begin();
+	{   
+		chat33.begin();
 		System.out.println("client rejoinds la partie");
 		sendData("begin".getBytes());
-		while (true){
+		while (alive){
 			
 			byte[] data = new byte [1024];
 			DatagramPacket packet = new DatagramPacket (data, data.length);
@@ -121,4 +128,12 @@ public class gameclient extends Thread {
 	    chat33.setdirectmousee(Character.getNumericValue(data.charAt(8))*10+Character.getNumericValue(data.charAt(9)));}
 	   
 	}
+	
+	public void setalive (boolean alive) {this.alive=alive;}
+	public boolean getalive () {return this.alive;}
+	
+	public void Clore ()  { 
+		socket.close() ;
+	System.out.println("client deconnecté");}
+	
 }

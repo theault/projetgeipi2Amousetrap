@@ -45,7 +45,6 @@ public class gameserver extends Thread {
 	{ System.out.println("serveur mis en route");
 	
 		while (alive){
-			System.out.println("1");
 			byte[] data = new byte [1024];
 			DatagramPacket packet = new DatagramPacket (data, data.length);
 			try {

@@ -239,10 +239,10 @@ public class reseaumouse extends Game {
     	return this.row;
     }
 	public void draw(Graphics2D g) {
+		
 		recupframe().add(panel);
 		recupframe().revalidate();
-		panel.setLayout(null);
-		recupframe().setLayout(null);
+		
 		if (!mng.dead ||!colcat)
 	   {g.drawImage(map, 0,0,null);
 		g.drawImage(Mouse.getSubimage(fps*40 ,(numerosprite*60), 40, 40), column,row, null);// pour afficher le sprite de la souris 
@@ -273,7 +273,6 @@ public class reseaumouse extends Game {
 			g.setFont(f);
 			g.drawString("Les chats gagnent",400, 630);
 			g.drawString("Press Enter to Quit",0, 630);
-			g.drawImage(map, 0,0,null);
 			g.drawImage(catwinimage, 0,0,null);
 			}
 		g.setColor(Color.YELLOW);
@@ -538,13 +537,6 @@ public void colisionwithcat (){
 		}
 	}
 }
-class retour implements ActionListener {
-	public void actionPerformed(ActionEvent e)
-	{
-		System.out.println("coucou");
-		recupframe().dispose();
-	}
 
-}
 }
 

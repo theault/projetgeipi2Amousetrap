@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
+import javax.swing.JPanel;
 
 
 public class reseauchat extends Game {
@@ -32,11 +34,15 @@ public class reseauchat extends Game {
     int score;
 	ArrayList <String> lignes = new ArrayList <String>();
 	int columnmouse, rowmouse;
-	point avant;
     gameclient client;
     private int a;
 	private int b;
 	private int directmouse;
+	boolean colmouse;
+	boolean val1,val2;
+	Font f;
+	JPanel panel;
+	
 	
 	dynamicmanager mng;
 	public void begin () {
@@ -44,8 +50,13 @@ public class reseauchat extends Game {
    }
 	
 	public reseauchat (gameclient clientbis)
-	{  client=clientbis;
-		communication = false;
+	{  
+		panel= new JPanel();
+		panel.setBackground(Color.BLACK);
+		val1=val2=false;
+		client=clientbis;
+		colmouse=false;
+	    communication = false;
 		mng = new dynamicmanager();
 		this.score=0;
 		this.urlfiletxt="map1.txt"; //adresse du fichier texte contenant les 0 et 1 de la map
@@ -72,7 +83,7 @@ public class reseauchat extends Game {
 				 } catch (IOException e){
 				   		   					e.printStackTrace();}
 	
-	
+	    val1=true;
 	}
 	
 	
@@ -93,7 +104,6 @@ public class reseauchat extends Game {
 								if (line.contains("4")){
 									 row =A*20;
 									 column = line.indexOf("4")*20;
-									 avant=new point (column, row);
 									 System.out.println("je m'initialise à : " + row/20 + " lignes et "+column/20+ " colonnes");
 									}
 								 A++;
@@ -109,6 +119,7 @@ public class reseauchat extends Game {
 		nbrcolumn = lignes.get(0).length();
 		System.out.println("le fichier texte contient : " + nbrows + "lignes "+  nbrcolumn+ "colonnes");
 		//System.out.println("test recup valeur " + Valmap(0,1));
+		val2=true;
 	}
 	
 	
@@ -120,9 +131,10 @@ public class reseauchat extends Game {
 		if (mng.dead)
 			direction=0;
 		else if (key==10||key==13)
-			{fenetre fenetrepp= new fenetre();
-			displaymanager manager1= new displaymanager (fenetrepp);
-			}
+		{
+		   recupframe().dispose();
+		   client.setalive(false);
+		}
 			}
 	
 	public int getrow(){
@@ -144,9 +156,7 @@ public class reseauchat extends Game {
 		if(fps>6)
 			fps=0;*/
 		//System.out.println(" dans reseau chat test la valeur de a est de "+ this.a+ "et pour "+this.b);
-		mng.change(avant, new point (column,row), 'X');	
-		avant.y=row;
-		avant.x=column;
+		
 		
 		 switch (directmouse ){
 			
@@ -164,7 +174,7 @@ public class reseauchat extends Game {
 		 break;
 			
 		case KeyEvent.VK_DOWN://40
-		     collision (a,b,a +20, b, 789);//value(Y,X-1)
+		     collision (a,b,a +20, b, 790);//value(Y,X-1)
 			break;
 		
 		case  0: break;
@@ -206,6 +216,9 @@ public class reseauchat extends Game {
 		}
 	 client.x=column;
      client.y=row;
+     
+     if (val1 && val2)
+		 colisionwithmouse();
 	}
 
 	 
@@ -235,7 +248,10 @@ public class reseauchat extends Game {
 	}
 
 	public void draw(Graphics2D g) {
+		int empty =0;
 		
+		recupframe().add(panel);
+		recupframe().revalidate();
 		
 		g.drawImage(map, 0,0,null);
 		g.drawImage(Mouse.getSubimage(fps*40 ,(numerosprite*60), 40, 40), b,a, null);// pour afficher le sprite de la souris 
@@ -249,6 +265,7 @@ public class reseauchat extends Game {
 						{
 							if (value(i,j)=='F')
 							{
+								empty++;
 							   g.fillOval(j*20+10, i*20+10, 20, 20); //provisoire
 							}
 						}
@@ -262,9 +279,20 @@ public class reseauchat extends Game {
 	   if (communication)
 	   { g.fillOval(450, 450, 80, 80);}
 	   
-		if (mng.dead)
-			g.drawImage(gameover, 150,150,null);
-		g.drawString("Score de l'ennemi : "+Integer.toString(score),100, 620);
+		if (empty==0)
+			{
+				g.drawImage(gameover, 150,150,null);
+				g.setColor(Color.RED);
+				f = new Font("Comic Sans MS", Font.BOLD, 20);
+				g.setFont(f);
+				g.drawString("La souris win",400, 630);
+				g.drawString("Press Enter to Quit",0, 630);
+			}
+		
+		g.setColor(Color.YELLOW);
+		f = new Font("Comic Sans MS", Font.BOLD, 20);
+		g.setFont(f);
+		g.drawString("Il reste: "+Integer.toString(empty),250, 630);
 	}
 
 
@@ -391,7 +419,7 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 			}
    }
 	
-	else if ((direction ==KeyEvent.VK_DOWN||direction==789)&& i==1){ // en bas
+	else if ((direction ==KeyEvent.VK_DOWN||direction==790)&& i==1){ // en bas
 		
 		row2+=20;
 		row1+=40;
@@ -408,7 +436,13 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 		System.out.println(" ligne 1 =" + row1);
 		System.out.println(" ligne 2 =" + row2);
 		*/
-	
+		
+		if (value (row1/20, column1/20)=='F'||value(row2/20,column2/20)=='F')
+		{    
+			change (row1/20, column1/20,'0');
+			this.score+=100;
+		}
+		
 		 if (value ((y1), (x1/20))=='1') 
 			{    
 				y1=(y1*20);
@@ -514,5 +548,24 @@ public void setdirectmousee(int abis){
 public int getb (){
 	return this.b;
 }
+
+public void colisionwithmouse (){
+	if (a==row)
+	{if (Math.abs(column+40-b)<40||Math.abs(column-b)<40)
+		{colmouse=true;
+		//System.out.println("la souris est à "+row+" & "+column+" le chat est a "+a+" & "+b);
+		//System.out.println("!!!!!!!!!!!!!!!!!!!!attention collision avec chatttt !!!!!!!!!!!!!!!!!!!!!!!");
+		}}
+	
+	else if (b==column)
+	{
+		if(Math.abs(row-a)<40||Math.abs(row+40-a)<40)
+		{colmouse=true;
+		//System.out.println("la souris est à "+row+" & "+column+" le chat est a "+a+" & "+b);
+		//System.out.println("!!!!!!!!!!!!!!!!!!!!attention collision avec chatttt !!!!!!!!!!!!!!!!!!!!!!!");
+		}
+	  }
+	}
+
 }
 
