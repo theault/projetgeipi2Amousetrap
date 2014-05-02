@@ -31,23 +31,23 @@ public class reseaumouse extends Game {
 	int direction;
     int numerosprite;
     int score;
-    int resx,resy;
 	ArrayList <String> lignes = new ArrayList <String>();
-	cat chat;
-	cat chat2;
+	
 	point avant;
 	dynamicmanager mng;
 	point pcat;
 	point temp;
-	protected int a;
-	int b;
-	public boolean begin () {
-		GameApplication.start(new reseaumouse());
-        return true;
+	private int a;
+	private int b;
+	 gameserver server;
+	
+	public void begin () {
+		GameApplication.start(this);
 	}
 	
-	public reseaumouse ()
-	{  resx=resy=0;
+	public reseaumouse (gameserver serverbis)
+	{  
+		server=serverbis;
 		pcat= new point (0,0);
 		pcatbefore =pcat;
 		mng = new dynamicmanager();
@@ -75,7 +75,7 @@ public class reseaumouse extends Game {
 					 map=ImageIO.read(new File (urlimagemap));
 				 } catch (IOException e){
 				   		   					e.printStackTrace();}
-		this.seta(pcat.x);
+		a=pcat.x;
 		b=pcat.y;
 	   temp= new point (pcat.x,pcat.y);
 	
@@ -92,6 +92,7 @@ public class reseaumouse extends Game {
 							{   
 								String line=S.nextLine();
 								lignes.add(line);
+								server.tabres.add(line);
 								if (line.contains("5")){
 								 row =A*20;
 								 column = line.indexOf("5")*20;
@@ -99,8 +100,8 @@ public class reseaumouse extends Game {
 								 System.out.println("je m'initialise à : " + row/20 + " lignes et "+column/20+ " colonnes");
 								}
 								if (line.contains("4")){
-									 resy=pcat.y =A*20;
-									 resx=pcat.x = line.indexOf("4")*20;
+									 pcat.y =A*20;
+									 pcat.x = line.indexOf("4")*20;
 									 
 									 pcatbefore=new point (column, row);}
 								 A++;
@@ -143,17 +144,15 @@ public class reseaumouse extends Game {
 	
 	@Override
 	public void update() {
-		
+		/*server.x=column;
+		server.y=row;
+		//seta(80);
 		fps++;  // regler la vitesse d'affichage
 		if(fps>6)
 			fps=0;
-		test();
 		mng.change(avant, new point (column,row), 'M');	
-		pcat=
-		/*pcat.x=resx;
-		pcat.y=resy;*/
-		pcat=temp;
-		System.out.println("la magie opere ??? " +this.geta()+" "+b);
+		pcat=temp;*/
+		System.out.println("test la valeur de a est de "+ this.a+ "et pour n"+this.b);
 	 switch (direction ){
 		
 		case KeyEvent.VK_LEFT: //37
@@ -194,6 +193,8 @@ public class reseaumouse extends Game {
 		buffer.setCharAt(column1, s);
 	    nv = buffer.toString();
 		lignes.set(row1, nv);
+		server.tabres.set(row1, nv);
+		
 	}
 	
 	
@@ -240,7 +241,7 @@ public class reseaumouse extends Game {
 		g.setColor(Color.RED);
 		
 		//System.out.println("test dans affichage " +pcat.x+" "+pcat.y);
-	   g.fillRect(pcat.x, pcat.y, 40, 40);
+	   g.fillRect(b, a, 40, 40);
 		
 		
 		if (mng.dead)
@@ -461,29 +462,31 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 	return colision;
 }
 
-public synchronized void setposmouse (int recuprow, int recupcolumn){
-	temp=new point(this.pcat.x,this.pcat.y);
+/*public synchronized void setposmouse (int recuprow, int recupcolumn){
+	temp=new point(pcat.x,pcat.y);
 	//System.out.println ("////////on m a envoyé "+recuprow+" "+recupcolumn);
 	if (recuprow<=600 && recuprow>=0 &&recupcolumn<=600 && recupcolumn>=0 )
-	{this.seta(recupcolumn);
-	this.b=recuprow;
+	{  this.a=recupcolumn;
+	   b=recuprow;
 	}
 	System.out.println ("///////////on m a envoyé "+a+" "+b);
 	//mng.change(pcatbefore, pcat , 'X');
-}
+}*/
 public void seta(int abis){
 	this.a=abis;
-	//System.out.println("la valeur de a est " +this.geta());
+	//System.out.println("la valeur de a est " +this.a);
 }
 public int geta (){
 	return this.a;
 }
-public void setpoint (point A, point B){
-	A.x=B.x;
-	A.y=B.y;
+
+public void setb(int abis){
+	this.b=abis;
+	//System.out.println("la valeur de a est " +this.a);
 }
-public void test (){
-	System.out.println("tessst la val de a est " +this.geta());
+public int getb (){
+	return this.b;
 }
+
 }
 

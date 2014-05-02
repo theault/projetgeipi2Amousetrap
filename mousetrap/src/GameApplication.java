@@ -8,10 +8,6 @@
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-/**
- *
- * @author paul
- */
 public class GameApplication {
 
 	public static void start(final Game game) {

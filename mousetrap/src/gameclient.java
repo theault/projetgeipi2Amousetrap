@@ -14,6 +14,7 @@ public class gameclient extends Thread {
 	private reseauchat chat33;
 	private int port = 9999;
 	int x,y;
+	int recuprow,recupcol;
 	
 	public gameclient (String ipAddress){
 		chat33=new reseauchat(this);
@@ -49,10 +50,12 @@ public class gameclient extends Thread {
 				e.printStackTrace();
 			}
 			String message =new String(packet.getData());
-			System.out.println("SERVER> "+message);
+			/*System.out.println("SERVER> "+message);
 			System.out.println("SERVER2222> "+creationpacket());
-			 System.out.println(" je renvoies " +creationpacket());
+			 System.out.println(" je renvoies " +creationpacket());*/
 			sendData(creationpacket().getBytes());
+			decode(message);
+			//System.out.println("gameclient \\\\__/////j'ai eu " + recuprow + " "+recupcol);
 			try {
 				Thread.sleep (10);
 			} catch (InterruptedException e) {
@@ -101,7 +104,15 @@ public class gameclient extends Thread {
 		 else {
 			 		str=str+Integer.toString(y)+Integer.toString(x);	
 		 }
-		 System.out.println(" je renvoies " +str);
+		 //System.out.println(" je renvoies " +str);
 		return str;
+	}
+	
+	public void decode (String data)
+	{   //System.out.println("!!!!!!!!j'ai eu " +data);
+		recuprow=100* Character.getNumericValue(data.charAt(0))+10* Character.getNumericValue(data.charAt(1))+Character.getNumericValue(data.charAt(2));
+		recupcol=100* Character.getNumericValue(data.charAt(3))+10* Character.getNumericValue(data.charAt(4))+Character.getNumericValue(data.charAt(5));
+	   
+	   
 	}
 }

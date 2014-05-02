@@ -37,12 +37,9 @@ public class reseauchat extends Game {
     gameclient client;
 	
 	dynamicmanager mng;
-	public boolean begin () {
-		System.out.println ("sdqdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
-		GameApplication.start(new reseauchat(client));
-		return true;
-
-	}
+	public void begin () {
+		GameApplication.start(this);
+   }
 	
 	public reseauchat (gameclient clientbis)
 	{  client=clientbis;
@@ -140,8 +137,7 @@ public class reseauchat extends Game {
 	@Override
 	public void update() {
 		//System.out.println("je suis à " +row +" & "+column+ " || "  +yres +" & "+xres);
-		client.x=column;
-		client.y=row;
+		
 		
 		fps++;  // regler la vitesse d'affichage
 		if(fps>6)
@@ -180,6 +176,8 @@ public class reseauchat extends Game {
 	case  0: break;
 		
 		}
+	 client.x=column;
+     client.y=row;
 	}
 
 	  public int getx (){
