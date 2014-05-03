@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
+import javax.swing.JPanel;
 
 
 public class jeu extends Game {
@@ -17,11 +19,13 @@ public class jeu extends Game {
 	BufferedImage Mouse;
 	BufferedImage map;
 	BufferedImage gameover;
+	BufferedImage souriswin;
 	String urlfiletxt;
 	String urlgameover;
 	File filetxt;
 	String urlimagemouse;
 	String urlimagemap;
+	String souriswinurl;
 	int fps;
 	int column, row; 
 	int nbrows, nbrcolumn;
@@ -34,6 +38,8 @@ public class jeu extends Game {
 	cat chat2;
 	point avant;
 	dynamicmanager mng;
+	JPanel panel;
+	Font f;
 	
 	public void begin () {
 		GameApplication.start(new jeu());
@@ -42,7 +48,8 @@ public class jeu extends Game {
 	
 	public jeu ()
 	{  
-		
+		panel= new JPanel();
+		panel.setBackground(Color.BLACK);
 		mng = new dynamicmanager();
 		this.score=0;
 		this.urlfiletxt="map1.txt"; //adresse du fichier texte contenant les 0 et 1 de la map
@@ -52,6 +59,13 @@ public class jeu extends Game {
 		inittab(); // lecutre du tableau
 		urlimagemouse= "stuart.gif";
 		urlgameover="gameover.png";
+		
+		souriswinurl="souriswin.jpg";
+		try{
+			souriswin=ImageIO.read(new File (souriswinurl));
+		} catch (IOException e){
+									e.printStackTrace();
+								}
 		try{
 			gameover=ImageIO.read(new File (urlgameover));
 		} catch (IOException e){
@@ -203,8 +217,10 @@ public class jeu extends Game {
 	}
 
 	public void draw(Graphics2D g) {
+		int empty = 0;
 		
-		
+		recupframe().add(panel);
+		recupframe().revalidate();
 		g.drawImage(map, 0,0,null);
 		g.drawImage(Mouse.getSubimage(fps*40 ,(numerosprite*60), 40, 40), column,row, null);// pour afficher le sprite de la souris 
 		
@@ -217,6 +233,7 @@ public class jeu extends Game {
 						{
 							if (value(i,j)=='F')
 							{
+								empty++;
 							   g.fillOval(j*20+10, i*20+10, 20, 20); //provisoire
 							}
 						}
@@ -228,9 +245,28 @@ public class jeu extends Game {
 	   g.fillRect(chat.pcat.x, chat.pcat.y, 40, 40);
 		g.fillRect(chat2.pcat.x, chat2.pcat.y, 40, 40);
 		
+		if (empty==0)
+		{
+			g.drawImage(souriswin, 0,0,null);
+			g.setColor(Color.RED);
+			f = new Font("Comic Sans MS", Font.BOLD, 20);
+			g.setFont(f);
+			g.drawString("La souris win",400, 630);
+			g.drawString("Press Enter to Quit",0, 630);
+		}
+		
 		if (mng.dead)
-			g.drawImage(gameover, 150,150,null);
-		g.drawString("Score : "+Integer.toString(score),300, 620);
+			{g.drawImage(gameover, 150,150,null);
+			g.setColor(Color.RED);
+			f = new Font("Comic Sans MS", Font.BOLD, 20);
+			g.setFont(f);
+			g.drawString("Les chats gagnent",400, 630);
+			g.drawString("Press Enter to Quit",0, 630);}
+		
+		g.setColor(Color.YELLOW);
+		f = new Font("Comic Sans MS", Font.BOLD, 20);
+		g.setFont(f);
+		g.drawString(" Score : "+Integer.toString(score),260, 630);
 	}
 
 
