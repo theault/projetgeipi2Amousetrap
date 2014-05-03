@@ -17,10 +17,12 @@ public class gameclient extends Thread {
 	int recuprow,recupcol;
 	private boolean alive;
 	veilleurclient Veilleur;
+
 	
 	public gameclient (String ipAddress){
 		
 		alive=true;
+		
 		Veilleur=new veilleurclient(this);
 		Veilleur.start();
 		chat33=new reseauchat(this);

@@ -298,7 +298,7 @@ public class reseaumouse extends Game {
 		g.setColor(Color.YELLOW);
 		f = new Font("Comic Sans MS", Font.BOLD, 20);
 		g.setFont(f);
-		g.drawString("Score : "+Integer.toString(score),260, 630);
+		g.drawString(" Score : "+Integer.toString(score),260, 630);
 	}
 
 

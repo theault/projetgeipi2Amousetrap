@@ -27,7 +27,6 @@ JButton join = new JButton ("Rejoindre !!");
 displaymanager manager;
 JLabel nom = new JLabel ("Adresse IP de l'hôte : ");
 JTextField ip = new JTextField ("expl : 194.153.205.26 ");
-JTextField name = new JTextField ("Gustave... ");
 JLabel pseudo = new JLabel ("Votre pseudo : ");
 JPanel rejoindre;
 JPanel fiche;
@@ -54,13 +53,12 @@ public panelmulti (displaymanager managerbis)
 		hote.setBackground(Color.WHITE);
 		retour.setBackground(Color.WHITE);
 		join.setBackground(Color.WHITE);
-		name.setPreferredSize(new Dimension(150, 30));
+		
 		ip.setPreferredSize(new Dimension(150, 30));
 		rejoindre.add(nom);
 		rejoindre.add(ip);
 		rejoindre.add(join);
 		fiche.add(pseudo);
-		fiche.add(name);
 		dessus.add(hote);
 		dessus.add(retour);
 		this.add(rejoindre, BorderLayout.SOUTH);

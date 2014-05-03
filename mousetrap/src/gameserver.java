@@ -18,8 +18,11 @@ public class gameserver extends Thread {
 	ArrayList <String> tabres = new ArrayList <String>(0);
 	veilleur look;
 	
+
+	
 	public gameserver (){
 		alive=true;
+		
 		look= new veilleur(this);
 		look.start();
 		mouse22=new reseaumouse(this);
@@ -84,8 +87,10 @@ public class gameserver extends Thread {
 	}
  
 	public synchronized void decode (String data)
-	{   //System.out.println("!!!!!!!!j'ai eu " +data);
-		recuprow=100* Character.getNumericValue(data.charAt(0))+10* Character.getNumericValue(data.charAt(1))+Character.getNumericValue(data.charAt(2));
+	{  // System.out.println("!!!!!!!!j'ai eu " +data);
+		
+	
+	    recuprow=100* Character.getNumericValue(data.charAt(0))+10* Character.getNumericValue(data.charAt(1))+Character.getNumericValue(data.charAt(2));
 		recupcol=100* Character.getNumericValue(data.charAt(3))+10* Character.getNumericValue(data.charAt(4))+Character.getNumericValue(data.charAt(5));
 	    
 		
@@ -94,6 +99,7 @@ public class gameserver extends Thread {
 		{mouse22.seta(recuprow);
 	    mouse22.setb(recupcol);
 	    }
+		
 	 
 		//System.out.println("/////j'ai eu " + recuprow + " "+recupcol);
 		//System.out.println("j'ai eu " + mouse.resx+ " "+mouse.resy);

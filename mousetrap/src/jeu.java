@@ -117,8 +117,8 @@ public class jeu extends Game {
 		if (mng.dead)
 			direction=0;
 		else if (key==10||key==13)
-			{fenetre fenetrepp= new fenetre();
-			displaymanager manager1= new displaymanager (fenetrepp);
+			{
+				recupframe().dispose();
 			}
 			}
 	

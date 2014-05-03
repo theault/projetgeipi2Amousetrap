@@ -13,7 +13,7 @@ import javax.swing.SwingConstants;
 public class panelmenu1 extends JPanel{
 
 	JButton play = new JButton("Play!!!");
-	JButton optn = new JButton("Options");
+	JButton optn = new JButton("Régles");
 	JButton credits = new JButton("Crédits");
 	JButton quitter = new JButton("Quitter");
 	JLabel nomjeu = new JLabel ("Mouse trap");
