@@ -53,6 +53,10 @@ public class reseaumouse extends Game {
 	 gameserver server;
 	JPanel panel;
 	Font f;
+	private int directcat;
+	String urlchat;
+	int fpscat;
+	int numerospritecat;
 
 	
 	public void begin () {
@@ -61,6 +65,8 @@ public class reseaumouse extends Game {
 	
 	public reseaumouse (gameserver serverbis)
 	{   
+		fpscat=numerospritecat=0;
+		directcat=0;
 		panel= new JPanel();
 		panel.setBackground(Color.BLACK);
 		val1=val2=false;
@@ -76,6 +82,14 @@ public class reseaumouse extends Game {
 		inittab(); // lecutre du tableau
 		urlimagemouse= "stuart.gif";
 		urlgameover="gameover.png";
+		
+		
+		urlchat="chat.gif";
+		try{
+			chatimage=ImageIO.read(new File (urlchat));
+		} catch (IOException e){
+									e.printStackTrace();
+								}
 		
 		souriswinurl="souriswin.jpg";
 		
@@ -118,6 +132,14 @@ public class reseaumouse extends Game {
 	}
 	
 	
+	public int getDirectcat() {
+		return directcat;
+	}
+
+	public void setDirectcat(int directcat) {
+		this.directcat = directcat;
+	}
+
 	public void inittab()
 	{    column=0;
 	     row =0;
@@ -188,7 +210,35 @@ public class reseaumouse extends Game {
 		fps++;  // regler la vitesse d'affichage
 		if(fps>6)
 			fps=0;
+		
+		fpscat++;  // regler la vitesse d'affichage
+		if(fpscat>2)
+			fpscat=0;
 		//System.out.println("test la valeur de a est de "+ this.a+ "et pour "+this.b);
+		
+		 switch (directcat ){
+			
+			case KeyEvent.VK_LEFT: //37
+				   numerospritecat =1;
+					break;
+		 
+			
+		case KeyEvent.VK_RIGHT://38
+			    numerospritecat=2;
+				break;
+				
+		case KeyEvent.VK_UP://39
+			    numerospritecat=3;
+				break;
+			
+		case KeyEvent.VK_DOWN://40
+				 numerospritecat =0;
+				 break;
+				 
+		case  0: break;
+			
+			}
+		
 	 switch (direction ){
 		
 		case KeyEvent.VK_LEFT: //37
@@ -267,6 +317,7 @@ public class reseaumouse extends Game {
 		if (!mng.dead ||!colcat)
 	   {g.drawImage(map, 0,0,null);
 		g.drawImage(Mouse.getSubimage(fps*40 ,(numerosprite*60), 40, 40), column,row, null);// pour afficher le sprite de la souris 
+		g.drawImage(chatimage.getSubimage(fpscat*40 ,(numerospritecat*40), 40, 40),b,a,null);}
 		int i,j;//x,y de la map, on affiche les fromages
 		g.setColor(Color.YELLOW);
 		
@@ -284,7 +335,7 @@ public class reseaumouse extends Game {
 				}
 		g.setColor(Color.RED);
 		//System.out.println("test dans affichage " +a+" "+b);
-	    g.fillRect(b, a, 40, 40);}
+	    //g.fillRect(b, a, 40, 40);}
 		
 		if (empty==0)
 		{

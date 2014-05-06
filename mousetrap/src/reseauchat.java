@@ -196,7 +196,7 @@ public class reseauchat extends Game {
 		fps++;  // regler la vitesse d'affichage
 		if(fps>2)
 		fps=0;
-		System.out.println("numero fps chat"+fps);
+		//System.out.println("numero fps chat"+fps);
 		fpsmouse++;  // regler la vitesse d'affichage
 		if(fpsmouse>6)
 		fpsmouse=0;
@@ -263,7 +263,7 @@ public class reseauchat extends Game {
 	case  0: break;
 		
 		}
-	 System.out.println("numerosprite "+numerosprite);
+	 //System.out.println("numerosprite "+numerosprite);
 	 client.x=column;
      client.y=row;
      

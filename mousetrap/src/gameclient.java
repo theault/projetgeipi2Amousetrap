@@ -66,7 +66,7 @@ public class gameclient extends Thread {
 			decode(message);
 			//System.out.println("gameclient \\\\__/////j'ai eu " + recuprow + " "+recupcol);
 			try {
-				Thread.sleep (0);
+				Thread.sleep (10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -113,6 +113,7 @@ public class gameclient extends Thread {
 		 else {
 			 		str=str+Integer.toString(y)+Integer.toString(x);	
 		 }
+		 str=str+Integer.toString(chat33.direction);
 		 //System.out.println(" je renvoies " +str);
 		return str;
 	}
@@ -127,7 +128,7 @@ public class gameclient extends Thread {
 		chat33.seta(recuprow);
 	    chat33.setb(recupcol);
 	    //chat33.setnumerosprite(Character.getNumericValue(data.charAt(7)));
-	    chat33.setdirectmousee(Character.getNumericValue(data.charAt(8))*10+Character.getNumericValue(data.charAt(9)));}
+	    chat33.setdirectmousee(Character.getNumericValue(data.charAt(6))*10+Character.getNumericValue(data.charAt(7)));}
 	   
 	}
 	

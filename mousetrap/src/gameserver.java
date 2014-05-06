@@ -66,7 +66,7 @@ public class gameserver extends Thread {
 			//System.out.println("gameserve r\\\\__/////j'ai eu " + recuprow + " "+recupcol);
 			mouse22.seta(recuprow);
 			try {
-				Thread.sleep (0);
+				Thread.sleep (10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -94,7 +94,7 @@ public class gameserver extends Thread {
 		recupcol=100* Character.getNumericValue(data.charAt(3))+10* Character.getNumericValue(data.charAt(4))+Character.getNumericValue(data.charAt(5));
 	    
 		
-		
+		mouse22.setDirectcat(Character.getNumericValue(data.charAt(6))*10+Character.getNumericValue(data.charAt(7)));
 		if (recuprow<=600 && recupcol<=600 && recuprow>=0 && recupcol>=0)
 		{mouse22.seta(recuprow);
 	    mouse22.setb(recupcol);
@@ -136,7 +136,7 @@ public class gameserver extends Thread {
 		 else {
 			 		str=str+Integer.toString(y)+Integer.toString(x);	
 		 }
-		 str=str+Integer.toString(mouse22.fps)+Integer.toString(mouse22.numerosprite)+Integer.toString(mouse22.direction);
+		 str=str+Integer.toString(mouse22.direction);
 		 //System.out.println(" je renvoies " +str);
 		return str;
 	}
