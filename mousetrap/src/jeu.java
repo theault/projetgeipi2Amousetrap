@@ -20,6 +20,10 @@ public class jeu extends Game {
 	BufferedImage map;
 	BufferedImage gameover;
 	BufferedImage souriswin;
+	BufferedImage fromage;
+	String urlfromage;
+	BufferedImage chatimage;
+	String urlchat;
 	String urlfiletxt;
 	String urlgameover;
 	File filetxt;
@@ -58,8 +62,20 @@ public class jeu extends Game {
 		fps=0;
 		inittab(); // lecutre du tableau
 		urlimagemouse= "stuart.gif";
+		urlfromage="Fromage.gif";
+		souriswinurl="souriswin.jpg";
 		urlgameover="gameover.png";
-		
+		try{
+			fromage=ImageIO.read(new File (urlfromage));
+		} catch (IOException e){
+									e.printStackTrace();
+								}
+		urlchat="chat.gif";
+		try{
+			chatimage=ImageIO.read(new File (urlchat));
+		} catch (IOException e){
+									e.printStackTrace();
+								}
 		souriswinurl="souriswin.jpg";
 		try{
 			souriswin=ImageIO.read(new File (souriswinurl));
@@ -130,7 +146,7 @@ public class jeu extends Game {
 			direction = key;
 		if (mng.dead)
 			direction=0;
-		else if (key==10||key==13)
+	    if (direction==KeyEvent.VK_ENTER)
 			{
 				recupframe().dispose();
 			}
@@ -234,16 +250,18 @@ public class jeu extends Game {
 							if (value(i,j)=='F')
 							{
 								empty++;
-							   g.fillOval(j*20+10, i*20+10, 20, 20); //provisoire
+								g.drawImage(fromage, j*20+10,i*20+10,null);
+							  // g.fillOval(j*20+10, i*20, 20, 20); //provisoire
 							}
 						}
 				}
 		
 		g.setColor(Color.RED);
 		
-		
-	   g.fillRect(chat.pcat.x, chat.pcat.y, 40, 40);
-		g.fillRect(chat2.pcat.x, chat2.pcat.y, 40, 40);
+		g.drawImage(chatimage.getSubimage(chat.getFps()*40 ,(chat.getNumerosprite()*40), 40, 40), chat.pcat.x,chat.pcat.y,null);
+		g.drawImage(chatimage.getSubimage(chat2.getFps()*40 ,(chat2.getNumerosprite()*40), 40, 40), chat2.pcat.x, chat2.pcat.y,null);
+	  /* g.fillRect(chat.pcat.x, chat.pcat.y, 40, 40);
+		g.fillRect(chat2.pcat.x, chat2.pcat.y, 40, 40);*/
 		
 		if (empty==0)
 		{
@@ -255,7 +273,7 @@ public class jeu extends Game {
 			g.drawString("Press Enter to Quit",0, 630);
 		}
 		
-		if (mng.dead)
+		if (mng.dead && empty!=0)
 			{g.drawImage(gameover, 150,150,null);
 			g.setColor(Color.RED);
 			f = new Font("Comic Sans MS", Font.BOLD, 20);

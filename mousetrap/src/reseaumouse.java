@@ -27,6 +27,9 @@ public class reseaumouse extends Game {
 	BufferedImage gameover;
 	BufferedImage catwinimage;
 	BufferedImage souriswin;
+	BufferedImage fromage;
+	String urlfromage;
+	BufferedImage chatimage;
 	String urlfiletxt;
 	String urlgameover;
 	File filetxt;
@@ -63,6 +66,7 @@ public class reseaumouse extends Game {
 		val1=val2=false;
 		server=serverbis;
 		mng = new dynamicmanager();
+		urlfromage="Fromage.gif";
 		this.score=0;
 		this.catwin="chatwin.jpg";
 		this.urlfiletxt="map1.txt"; //adresse du fichier texte contenant les 0 et 1 de la map
@@ -74,6 +78,13 @@ public class reseaumouse extends Game {
 		urlgameover="gameover.png";
 		
 		souriswinurl="souriswin.jpg";
+		
+		try{
+			fromage=ImageIO.read(new File (urlfromage));
+		} catch (IOException e){
+									e.printStackTrace();}
+								
+		
 		try{
 			souriswin=ImageIO.read(new File (souriswinurl));
 		} catch (IOException e){
@@ -266,7 +277,8 @@ public class reseaumouse extends Game {
 							if (value(i,j)=='F')
 							{
 								empty++;
-							   g.fillOval(j*20+10, i*20+10, 20, 20); //provisoire
+								g.drawImage(fromage, j*20+10,i*20+10,null);
+								//g.fillOval(j*20+10, i*20+10, 20, 20); //provisoire
 							}
 						}
 				}

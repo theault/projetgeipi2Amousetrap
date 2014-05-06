@@ -22,6 +22,9 @@ public class reseauchat extends Game {
 	BufferedImage gameover;
 	BufferedImage souriswin;
 	BufferedImage catwinimage;
+	BufferedImage fromage;
+	String urlfromage;
+	BufferedImage chatimage;
 	String urlfiletxt;
 	String urlgameover;
 	File filetxt;
@@ -29,6 +32,7 @@ public class reseauchat extends Game {
 	String urlimagemap;
 	String souriswinurl;
 	String catwin;
+	String urlchat;
 	private int fps;
 	int column, row; 
 	int nbrows, nbrcolumn;
@@ -42,11 +46,12 @@ public class reseauchat extends Game {
     private int a;
 	private int b;
 	private int directmouse;
+	private int fpsmouse;
 	boolean colmouse;
 	boolean val1,val2;
 	Font f;
 	JPanel panel;
-	
+	int numerospritemouse;
 	
 	dynamicmanager mng;
 	public void begin () {
@@ -55,6 +60,8 @@ public class reseauchat extends Game {
 	
 	public reseauchat (gameclient clientbis)
 	{  
+		numerospritemouse=0;
+		fpsmouse=0;
 		panel= new JPanel();
 		panel.setBackground(Color.BLACK);
 		val1=val2=false;
@@ -62,6 +69,7 @@ public class reseauchat extends Game {
 		colmouse=false;
 	    communication = false;
 		mng = new dynamicmanager();
+		urlfromage="Fromage.gif";
 		this.score=0;
 		this.catwin="chatwin.jpg";
 		this.urlfiletxt="map1.txt"; //adresse du fichier texte contenant les 0 et 1 de la map
@@ -71,7 +79,21 @@ public class reseauchat extends Game {
 		inittab(); // lecutre du tableau
 		urlimagemouse= "stuart.gif";
 		
+		urlchat="chat.gif";
+		try{
+			chatimage=ImageIO.read(new File (urlchat));
+		} catch (IOException e){
+									e.printStackTrace();
+								}
+		
 		souriswinurl="souriswin.jpg";
+		
+		try{
+			fromage=ImageIO.read(new File (urlfromage));
+		} catch (IOException e){
+									e.printStackTrace();}
+								
+		
 		try{
 			souriswin=ImageIO.read(new File (souriswinurl));
 		} catch (IOException e){
@@ -171,9 +193,13 @@ public class reseauchat extends Game {
 		//System.out.println("je suis à " +row +" & "+column+ " || "  +yres +" & "+xres);
 		
 		
-		/*fps++;  // regler la vitesse d'affichage
-		if(fps>6)
-			fps=0;*/
+		fps++;  // regler la vitesse d'affichage
+		if(fps>2)
+		fps=0;
+		System.out.println("numero fps chat"+fps);
+		fpsmouse++;  // regler la vitesse d'affichage
+		if(fpsmouse>6)
+		fpsmouse=0;
 		//System.out.println(" dans reseau chat test la valeur de a est de "+ this.a+ "et pour "+this.b);
 		
 		
@@ -181,19 +207,23 @@ public class reseauchat extends Game {
 			
 			case KeyEvent.VK_LEFT: //37
 				collision (a,b, a + 20, b, 789);//value(Y,X-1)
+				numerospritemouse=0;
 				break;
 		 
 			
 		case KeyEvent.VK_RIGHT://38
 			 collision (a,b + 20, a + 20, b + 20, 789);
+			 numerospritemouse=1;
 	         break;
 				
 		case KeyEvent.VK_UP://39
 		 collision (a,b, a + 20, b, 789);
+		 numerospritemouse=3;
 		 break;
 			
 		case KeyEvent.VK_DOWN://40
 		     collision (a,b,a +20, b, 790);//value(Y,X-1)
+		     numerospritemouse=2;
 			break;
 		
 		case  0: break;
@@ -205,7 +235,7 @@ public class reseauchat extends Game {
 			if ( collision (row,column, row + 20, column, direction)==true)//value(Y,X-1)
 			{   
 				column-=vitesse;
-			//numerosprite =0;
+			   numerosprite =1;
 				}
 			break;
 	 
@@ -213,26 +243,27 @@ public class reseauchat extends Game {
 	case KeyEvent.VK_RIGHT://38
 		if (  collision (row,column + 20, row + 20, column + 20, direction)==true)
 		{ column+=vitesse;
-			//numerosprite=1;
+			 numerosprite=2;
 			}
 			break;
 			
 	case KeyEvent.VK_UP://39
 		if( collision (row,column, row + 20, column, direction)==true)
 		{ row-=vitesse;
-			//numerosprite=3;
+			 numerosprite=3;
 			}
 			break;
 		
 	case KeyEvent.VK_DOWN://40
 		if ( collision (row,column, row +20, column, direction)==true)//value(Y,X-1)
 		{row+=vitesse;
-			//numerosprite =2;
+			 numerosprite =0;
 		}
 			break;
 	case  0: break;
 		
 		}
+	 System.out.println("numerosprite "+numerosprite);
 	 client.x=column;
      client.y=row;
      
@@ -271,9 +302,11 @@ public class reseauchat extends Game {
 		
 		recupframe().add(panel);
 		recupframe().revalidate();
+		//System.out.println("numero de sprite et fps "+numerosprite+" "+fps);
 		
 		g.drawImage(map, 0,0,null);
-		g.drawImage(Mouse.getSubimage(fps*40 ,(numerosprite*60), 40, 40), b,a, null);// pour afficher le sprite de la souris 
+		g.drawImage(chatimage.getSubimage(fps*40 ,(numerosprite*40), 40, 40),column,row,null);
+		g.drawImage(Mouse.getSubimage(fpsmouse*40 ,(numerospritemouse*60), 40, 40), b,a, null);// pour afficher le sprite de la souris 
 		
 		int i,j;//x,y de la map, on affiche les fromages
 		g.setColor(Color.YELLOW);
@@ -285,15 +318,16 @@ public class reseauchat extends Game {
 							if (value(i,j)=='F')
 							{
 								empty++;
-							   g.fillOval(j*20+10, i*20+10, 20, 20); //provisoire
+							   
+								g.drawImage(fromage, j*20+10,i*20+10,null);
+								//g.fillOval(j*20+10, i*20+10, 20, 20); //provisoire
 							}
 						}
 				}
 		
 		g.setColor(Color.RED);
 		
-		
-	   g.fillRect(column, row, 40, 40);
+	  // g.fillRect(column, row, 40, 40);
 	   g.setColor(Color.GREEN);
 	   if (communication)
 	   { g.fillOval(450, 450, 80, 80);}
@@ -469,7 +503,7 @@ public boolean collision (int row1, int column1, int row2, int column2, int dire
 		System.out.println(" ligne 2 =" + row2);
 		*/
 		
-		if (value (row1/20, column1/20)=='F'||value(row2/20,column2/20)=='F')
+		if ((value (row1/20, column1/20)=='F'||value(row2/20,column2/20)=='F')&& direction==790)
 		{    
 			change (row1/20, column1/20,'0');
 			this.score+=100;
@@ -562,15 +596,15 @@ public void setb(int abis){
 	//System.out.println("la valeur de a est " +this.a);
 }
 
-public void setfps(int abis){
+/*public void setfps(int abis){
 	this.fps=abis;
 	//System.out.println("la valeur de a est " +this.a);
-}
+}*/
 
-public void setnumerosprite(int abis){
+/*public void setnumerosprite(int abis){
 	this.numerosprite=abis;
 	//System.out.println("la valeur de a est " +this.a);
-}
+}*/
 
 public void setdirectmousee(int abis){
 	this.directmouse=abis;
