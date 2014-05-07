@@ -11,10 +11,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import javax.swing.JComponent;
 
-/**
- *
- * @author paul
- */
+
 public class GameCanvas extends JComponent implements ComponentListener {
 
 	private Game game;

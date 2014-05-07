@@ -8,10 +8,7 @@
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author paul
- */
+
 public class GameLoop extends Thread {
 
 	private final Game game;
@@ -40,7 +37,7 @@ public class GameLoop extends Thread {
 
 	@Override
 	public void run() {
-		game.init();
+		
 
 		while (!game.isOver() && !stopped) {
 

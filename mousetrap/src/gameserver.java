@@ -15,7 +15,6 @@ public class gameserver extends Thread {
 	int recuprow, recupcol;
 	int x,y;
 	private boolean alive;
-	ArrayList <String> tabres = new ArrayList <String>(0);
 	veilleur look;
 	
 
@@ -47,33 +46,27 @@ public class gameserver extends Thread {
 	public void run ()
 	{ System.out.println("serveur mis en route");
 	
-		while (alive){
-			byte[] data = new byte [1024];
-			DatagramPacket packet = new DatagramPacket (data, data.length);
+		while (alive){//Tant que le serveur est en vie 
+			byte[] data = new byte [1024];//Création d'un tableau de bytes
+			DatagramPacket packet = new DatagramPacket (data, data.length);//initialisation d'un packet servant à recevoir les données envoyé par le client
 			try {
-				 socket.receive(packet);
+				 socket.receive(packet);//reception du socket et mise en place dans le packet
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-			String message =new String(packet.getData());
-			/*System.out.println("CLIENT["+packet.getAddress()+" : "+packet.getPort()+"]>" +message);
-			System.out.println("CLIENT" +message);*/
-				//System.out.println("je retourne pong");
-		    sendData (creationpacket().getBytes(), packet.getAddress(), packet.getPort());
-			decode(message);
-			//System.out.println("gameserve r\\\\__/////j'ai eu " + recuprow + " "+recupcol);
+			String message =new String(packet.getData());// Traduction de notre packet en String
+		    sendData (creationpacket().getBytes(), packet.getAddress(), packet.getPort());//Envoie du socket de notre classe actuel à l'adresse correspondante IP et au port utilisé du packet reçue  
+			decode(message);// Décryptage de notre String message qui représente les données nécessaire au déplacement du chat enemi.
 			mouse22.seta(recuprow);
 			try {
 				Thread.sleep (10);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	
 		}
-		socket.close();
+		socket.close();//fermeture du serveur
 		System.out.println("Leserveur est bien fermé");
 	}
 	public void sendData (byte[]  data, InetAddress ipadress, int portbis) {
@@ -81,13 +74,12 @@ public class gameserver extends Thread {
 		try {
 			this.socket.send(packet);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
  
 	public synchronized void decode (String data)
-	{  // System.out.println("!!!!!!!!j'ai eu " +data);
+	{ 
 		
 	
 	    recuprow=100* Character.getNumericValue(data.charAt(0))+10* Character.getNumericValue(data.charAt(1))+Character.getNumericValue(data.charAt(2));
@@ -99,17 +91,10 @@ public class gameserver extends Thread {
 		{mouse22.seta(recuprow);
 	    mouse22.setb(recupcol);
 	    }
-		
-	 
-		//System.out.println("/////j'ai eu " + recuprow + " "+recupcol);
-		//System.out.println("j'ai eu " + mouse.resx+ " "+mouse.resy);
-		
-	   
 	}
 	
 	public synchronized String creationpacket (){
 		String str="";
-		//System.out.println("la souris est à " +y + " "+x);
 		String temp;
 		 if (y/100==0||x/100==0){
 			 
@@ -137,7 +122,6 @@ public class gameserver extends Thread {
 			 		str=str+Integer.toString(y)+Integer.toString(x);	
 		 }
 		 str=str+Integer.toString(mouse22.direction);
-		 //System.out.println(" je renvoies " +str);
 		return str;
 	}
 	

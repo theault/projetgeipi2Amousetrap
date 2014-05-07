@@ -40,7 +40,6 @@ public class reseaumouse extends Game {
 	int fps;
 	int column, row; 
 	int nbrows, nbrcolumn;
-	int haut,bas,droite,gauche;
 	int direction;
     int numerosprite;
     int score;
@@ -150,7 +149,6 @@ public class reseaumouse extends Game {
 							{   
 								String line=S.nextLine();
 								lignes.add(line);
-								server.tabres.add(line);
 								if (line.contains("5")){
 								 row =A*20;
 								 column = line.indexOf("5")*20;
@@ -186,7 +184,7 @@ public class reseaumouse extends Game {
 			direction = key;
 		if (mng.dead)
 			direction=0;
-		else if (key==10||key==13)
+		else if (key==KeyEvent.VK_ENTER)
 			{
 			   recupframe().dispose();
 			   server.setalive(false);

@@ -39,7 +39,6 @@ public class cat extends Thread  {
 				 i++;
 			 else 
 				 i--;
-				System.out.println("coucoucocuicociciociiciccccedcd");
 				
 		for (int j =1; j<5;j++){
 			while (different (pcat,tab[j])){

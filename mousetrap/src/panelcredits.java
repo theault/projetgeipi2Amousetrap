@@ -20,6 +20,7 @@ public class panelcredits  extends JPanel{
 	JButton retour= new JButton ("retour") ;
 	JLabel auteur1= new JLabel ("Titouan VERDU");
 	JLabel auteur2 = new JLabel ("Théault GARRIDO");
+	JLabel auteur3 = new JLabel ("Réalisation des Sprites de la souris par:BELIAL");
 	
 	
 	
@@ -34,7 +35,7 @@ public class panelcredits  extends JPanel{
 	    this.add(generique, BorderLayout.CENTER);
 	    this.add(bouton, BorderLayout.SOUTH);
 	    generique.setBackground (Color.BLACK);
-	    GridLayout grille2= new GridLayout(2,1);
+	    GridLayout grille2= new GridLayout(3,1);
 	    generique.setLayout(grille2);
 	    
 	    bouton.setBackground (Color.BLACK);
@@ -47,6 +48,11 @@ public class panelcredits  extends JPanel{
 	    auteur2.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
 		auteur2.setForeground(Color.YELLOW);
 		auteur2.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		generique.add(auteur3);
+	    auteur3.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
+		auteur3.setForeground(Color.YELLOW);
+		auteur3.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		bouton.add(retour);
         retour.setBackground(Color.WHITE);

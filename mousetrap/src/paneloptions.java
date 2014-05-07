@@ -64,7 +64,7 @@ public class paneloptions extends JPanel{
 			String regle5 = "Lorsque tu joues en multijoueurs, tu peux incarner soit les chats, soit la souris. Deux types de personnages donc deux facons de jouer ;)";
 			String regle6= " CHAT :";
 			String regle7= "- Ton but est simple, attrape la souris avant qu'elle ne mange tous les fromages";
-			String regle8 = " MOUSE";
+			String regle8 = " SOURIS";
 			String regle9=  "- Ton objectif est de manger tous les fromages, sans te faire attraper ";
 			String regle10= "- Tu peux appuyer sur la touche Entrée à tous moments pour quitter la partie";
 			doc.insertString(doc.getLength(), regle1+"\n", style2);

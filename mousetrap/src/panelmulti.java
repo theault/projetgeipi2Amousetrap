@@ -21,9 +21,9 @@ import javax.swing.JTextField;
 
 
 public class panelmulti extends JPanel{
-JButton hote = new JButton ("Devenir hôte");
+JButton hote = new JButton ("Devenir hôte(MOUSE)");
 JButton retour = new JButton ("retour");
-JButton join = new JButton ("Rejoindre !!");
+JButton join = new JButton ("Rejoindre(CAT)!!");
 displaymanager manager;
 JLabel nom = new JLabel ("Adresse IP de l'hôte : ");
 JTextField ip = new JTextField ("expl : 194.153.205.26 ");
@@ -72,7 +72,7 @@ public panelmulti (displaymanager managerbis)
 	class retour implements ActionListener {
 		public void actionPerformed(ActionEvent e)
 		{
-			manager.choixmenu(1);
+			manager.choixmenu(3);
 		}
 
 	}

@@ -16,10 +16,7 @@ import java.awt.event.MouseWheelListener;
 
 import javax.swing.JFrame;
 
-/**
- *
- * @author paul
- */
+
 public abstract class Game implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener {
 
 	protected boolean over;

@@ -9,7 +9,7 @@ public class dynamicmanager {
 	
 	public dynamicmanager (){
 		init ();
-         sem = new Semaphore(1);
+         sem = new Semaphore(jeton);
          dead=false;
 	}
 

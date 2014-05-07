@@ -33,13 +33,15 @@ public class jeu extends Game {
 	int fps;
 	int column, row; 
 	int nbrows, nbrcolumn;
-	int haut,bas,droite,gauche;
 	int direction;
     int numerosprite;
     int score;
 	ArrayList <String> lignes = new ArrayList <String>();
 	cat chat;
 	cat chat2;
+	cat chat3;
+	cat chat4;
+	cat chat5;
 	point avant;
 	dynamicmanager mng;
 	JPanel panel;
@@ -101,9 +103,14 @@ public class jeu extends Game {
 			   	   				     
 	chat = new cat (20,480,540,480,540,80,20,80,mng);
 	chat2 = new cat (20,20,540,20,540,540,20,540,mng);
+	chat3=new cat (80,140,480,140,480,420,80,420,mng);
+	chat4=new cat (360,360,360,200,200,200,200,360,mng);
+	chat5= new cat(140,420,140,140,420,140,420,420,mng);
 	chat.start();
 	chat2.start();
-	
+	chat3.start();
+	chat4.start();
+	chat5.start();
 	}
 	
 	
@@ -131,11 +138,10 @@ public class jeu extends Game {
 												e.printStackTrace();
 										  }
 		
-		//test file
+		
 		nbrows = lignes.size(); 
 		nbrcolumn = lignes.get(0).length();
 		System.out.println("le fichier texte contient : " + nbrows + "lignes "+  nbrcolumn+ "colonnes");
-		//System.out.println("test recup valeur " + Valmap(0,1));
 	}
 	
 	
@@ -146,7 +152,7 @@ public class jeu extends Game {
 			direction = key;
 		if (mng.dead)
 			direction=0;
-	    if (direction==KeyEvent.VK_ENTER)
+	    if (key==KeyEvent.VK_ENTER)
 			{
 				recupframe().dispose();
 			}
@@ -166,6 +172,9 @@ public class jeu extends Game {
 		if (mng.dead){
 			chat.stop();
 			chat2.stop();
+			chat3.stop();
+			chat4.stop();
+			chat5.stop();
 		}
 		fps++;  // regler la vitesse d'affichage
 		if(fps>6)
@@ -207,7 +216,7 @@ public class jeu extends Game {
 	}
 
 	
-	private void change (int row1, int column1, char s) // methode pour remplacer un caractere dans le tablea!!!
+	private void change (int row1, int column1, char s) // methode pour remplacer un caractere dans le tableau!!!
 	{
 		String nv = lignes.get(row1);
 		StringBuffer buffer = new StringBuffer(nv);
@@ -241,7 +250,6 @@ public class jeu extends Game {
 		g.drawImage(Mouse.getSubimage(fps*40 ,(numerosprite*60), 40, 40), column,row, null);// pour afficher le sprite de la souris 
 		
 		int i,j;//x,y de la map, on affiche les fromages
-		g.setColor(Color.YELLOW);
 		
 		for (i=0; i<30; i++)//parcourt lignes
 				{
@@ -251,17 +259,18 @@ public class jeu extends Game {
 							{
 								empty++;
 								g.drawImage(fromage, j*20+10,i*20+10,null);
-							  // g.fillOval(j*20+10, i*20, 20, 20); //provisoire
 							}
 						}
 				}
 		
-		g.setColor(Color.RED);
+
 		
 		g.drawImage(chatimage.getSubimage(chat.getFps()*40 ,(chat.getNumerosprite()*40), 40, 40), chat.pcat.x,chat.pcat.y,null);
 		g.drawImage(chatimage.getSubimage(chat2.getFps()*40 ,(chat2.getNumerosprite()*40), 40, 40), chat2.pcat.x, chat2.pcat.y,null);
-	  /* g.fillRect(chat.pcat.x, chat.pcat.y, 40, 40);
-		g.fillRect(chat2.pcat.x, chat2.pcat.y, 40, 40);*/
+		g.drawImage(chatimage.getSubimage(chat3.getFps()*40 ,(chat3.getNumerosprite()*40), 40, 40), chat3.pcat.x, chat3.pcat.y,null);
+		g.drawImage(chatimage.getSubimage(chat4.getFps()*40 ,(chat4.getNumerosprite()*40), 40, 40), chat4.pcat.x, chat4.pcat.y,null);
+		g.drawImage(chatimage.getSubimage(chat5.getFps()*40 ,(chat5.getNumerosprite()*40), 40, 40), chat5.pcat.x, chat5.pcat.y,null);
+	
 		
 		if (empty==0)
 		{

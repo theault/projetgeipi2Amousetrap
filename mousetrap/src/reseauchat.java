@@ -171,7 +171,7 @@ public class reseauchat extends Game {
 			direction = key;
 		if (mng.dead)
 			direction=0;
-		else if (key==10||key==13)
+		else if (key==KeyEvent.VK_ENTER)
 		{
 		   recupframe().dispose();
 		   client.setalive(false);
@@ -329,8 +329,7 @@ public class reseauchat extends Game {
 		
 	  // g.fillRect(column, row, 40, 40);
 	   g.setColor(Color.GREEN);
-	   if (communication)
-	   { g.fillOval(450, 450, 80, 80);}
+
 	   
 		if (empty==0)
 			{
